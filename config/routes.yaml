@@ -1,3 +1,10 @@
-controllers:
-    resource: ../src/Controller/
-    type: attribute
+app_web:
+    resource: ../src/Ship/Route/web.yaml
+    prefix:
+        en: /
+        ru: /ru
+    trailing_slash_on_root: false
+
+#app_api:
+#    resource: ../src/Ship/Route/api.yaml
+#    prefix: /api

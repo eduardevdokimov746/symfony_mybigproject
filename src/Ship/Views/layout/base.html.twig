@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="{{ app.request.locale }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>MyBigProject</title>
+
+    {% block style %}
+        <link rel="stylesheet" href="{{ asset('src/css/fontawesome.min.css') }}">
+    {% endblock %}
+</head>
+
+<body>
+    <header>
+        <a href="#">
+            <img src="icon/gamebomb.png" id="logo"></a>
+        <form action="#">
+            <input type="text" name="request" id="search" placeholder="Найти что-нибудь..."/>
+            <input type="submit" name="search" value="Найти" id="button_search">
+        </form>
+        <div id="tab_reg">
+            {% if (true) %}
+                <a href="view/register.php" class="reg">Регистрация</a>
+                <a href="view/vhod.php" class="reg">Вход</a>
+            {% else %}
+                <a href="http://localhost/myBigProject/view/personal_page_user.php?id=<?=$_SESSION[" user_id"];?>" class="reg"><?=$_COOKIE["login"]?></a>
+                <a href="controlers/controler_close_user.php" class="reg">Выйти</a>
+            {% endif %}
+        </div>
+        <div id="table_div">
+            <a href="" class="table">Все</a>
+            <a href="" class="table">Спорт</a>
+            <a href="" class="table">Животные</a>
+            <a href="" class="table">Политика</a>
+            <a href="" class="table">Технологии</a>
+        </div>
+    </header>
+
+    <div id="container">
+        {% block content %}{% endblock %}
+    </div>
+
+
+    {% block script %}
+        <script src="{{ asset('src/js/fontawesome.min.js') }}"></script>
+    {% endblock%}
+</body>
+</html>
