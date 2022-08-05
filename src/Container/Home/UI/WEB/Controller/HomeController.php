@@ -16,6 +16,6 @@ class HomeController extends Controller
 {
     public function __invoke(Request $request): Response
     {
-        return new Response('welcome to the home page');
+        return $this->render('@home/home.html.twig');
     }
 }

@@ -1,0 +1,133 @@
+.best-games-list {
+    display: flex;
+    justify-content: space-between;
+}
+
+.best-games-item {
+    background-color: #191919;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1%;
+    width: 10%;
+}
+
+.best-item-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 5%;
+}
+
+.best-item-img-block > img {
+    width: 100%;
+}
+
+.best-item-rate {
+    padding-bottom: 5%;
+}
+
+.best-item-rate-value {
+    padding: 5%;
+    background-color: yellow;
+    width: 40%;
+    border-radius: 6px;
+    margin: 0 auto;
+    text-align: center;
+    font-weight: 600;
+}
+
+.best-item-info-links {
+    display: flex;
+    flex-direction: column;
+}
+
+.best-item-info-link {
+    text-align: center;
+    font-size: 0.8em;
+    background-color: #303030;
+    border-radius: 10px;
+    padding: 1% 0;
+    margin: 2%;
+}
+
+.news-list {
+    padding: 1%;
+}
+
+.news-item {
+    display: flex;
+    padding: 2% 0;
+    border-bottom: 1px solid #464646;
+}
+
+.news-item:first-child {
+    padding: 0 0 2% 0;
+}
+
+.news-item:last-child {
+    padding: 2% 0 0 0;
+    border-bottom: none;
+}
+
+.news-img {
+    width: 100%;
+}
+
+.news-img > img {
+    width: 100%;
+    height: 100%;
+}
+
+.news-content {
+    margin-left: 2%;
+}
+
+.news-content-date, .news-content-article {
+    color: #aaa;
+}
+
+.news-content-date {
+    font-size: 0.8em;
+    margin-bottom: 2%;
+}
+
+.news-content-title {
+    font-weight: 600;
+    font-size: 1.2em;
+    line-height: 0.3em;
+    margin-bottom: 2%;
+}
+
+.news-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.news-content-article {
+    font-size: 0.9em;
+    line-height: 1.5em;
+}
+
+.news-content-statistic {
+    display: flex;
+    font-size: 0.7em;
+}
+
+.news-content-statistic {
+    margin-right: 10px;
+}
+
+.news-content-statistic-item {
+    color: #FF8800;
+}
+
+.news-content-statistic-item:hover {
+    color: #FFBB00;
+}
+
+.news-content-statistic-item:last-child {
+    margin-left: 2%;
+}

@@ -1,5 +1,7 @@
 twig:
-    default_path: '%kernel.project_dir%/templates'
+    paths:
+        '%kernel.project_dir%/src/Ship/View': ship
+        '%kernel.project_dir%/src/Container/Home/UI/WEB/View': home
 
 when@test:
     twig:
