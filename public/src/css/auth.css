@@ -1,0 +1,43 @@
+.auth-form {
+    padding: 2%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.auth-form td{
+    padding: 1%;
+    text-align: end;
+}
+
+.auth-form td:first-child{
+    padding-right: 10px;
+}
+
+.auth-form-field {
+    display: flex;
+    margin-top: 2%;
+    justify-content: center;
+}
+
+.auth-form-label {
+    color: #aaa;
+    font-size: 1.3em;
+}
+
+.auth-form-input {
+    padding: 2%;
+    font-size: 1em;
+    color: white;
+    background-color: rgb(37, 37, 37);
+    border: 1px solid gray;
+    border-radius: 5px;
+}
+
+.ch-label{
+    color: #aaa;
+}
+
+.field-margin-top{
+    margin-top: 3%;
+}

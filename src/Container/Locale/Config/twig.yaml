@@ -1,0 +1,3 @@
+twig:
+    paths:
+        '%kernel.project_dir%/src/Container/Locale/UI/WEB/View': locale

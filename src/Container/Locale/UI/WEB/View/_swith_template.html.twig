@@ -1,0 +1,8 @@
+{% trans_default_domain 'locale' %}
+
+<div id="locale-content">
+    <a href="{{ url('locale.switch') }}" id="locale-switch" title="{{ 'title'|trans }}">
+        <p class="locale-item {{ app.request.locale is same as 'ru' ? 'locale-item-active' }}">RU</p>
+        <p class="locale-item {{ app.request.locale is same as 'en' ? 'locale-item-active' }}">EN</p>
+    </a>
+</div>

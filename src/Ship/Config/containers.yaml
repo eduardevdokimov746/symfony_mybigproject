@@ -1,0 +1,5 @@
+imports:
+    - { resource: ../../../src/Container/Locale/Config/ }
+    - { resource: ../../../src/Container/News/Config/ }
+    - { resource: ../../../src/Container/Home/Config/ }
+    - { resource: ../../../src/Container/Auth/Config/ }

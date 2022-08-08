@@ -1,0 +1,8 @@
+auth:
+    login: Вход
+    registration: Регистрация
+
+search:
+    placeholder: Найти что-нибудь...
+
+logo_title: Домой

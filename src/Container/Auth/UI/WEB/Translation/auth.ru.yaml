@@ -1,0 +1,18 @@
+form_title:
+    login: Войти
+    registration: Регистрация
+
+field:
+    login.label: Логин
+    password.label: Пароль
+    email.label: Почта
+    remember_me.label: Запомнить меня
+
+submit:
+    login: Войти
+    registration: Зарегистрироваться
+
+link:
+    forgot_password: Забыли пароль?
+    login: Войти
+    registration: Зарегистрироваться

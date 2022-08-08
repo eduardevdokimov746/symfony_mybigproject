@@ -1,0 +1,18 @@
+form_title:
+    login: Login
+    registration: Registration
+
+field:
+    login.label: Login
+    password.label: Password
+    email.label: Email
+    remember_me.label: Remember me
+
+submit:
+    login: Login
+    registration: Registration
+
+link:
+    forgot_password: Forgot your password?
+    login: Login
+    registration: Registration

@@ -1,0 +1,52 @@
+{% extends '@ship/layout/base.html.twig' %}
+
+{% trans_default_domain 'auth' %}
+
+{% set container_attr = 'style="width: 30%"' %}
+
+{% block style %}
+    {{ parent() }}
+
+    <link rel="stylesheet" href="{{ asset('src/css/auth.css') }}">
+{%endblock%}
+
+{% block page_title %}
+    <p class="t-center">{{ 'form_title.login'|trans }}</p>
+{% endblock %}
+
+{% block content %}
+    <div class="auth-form">
+        <table>
+            <tbody>
+                <tr>
+                    <td><label for="login" class="auth-form-label">{{ 'field.login.label'|trans }}</label></td>
+                    <td><input type="text" id="login" class="auth-form-input" name="login" autofocus></td>
+                </tr>
+                <tr>
+                    <td><label for="password" class="auth-form-label">{{ 'field.password.label'|trans }}</label></td>
+                    <td><input type="password" id="password" class="auth-form-input" name="password"></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="auth-form-field">
+            <input type="checkbox" id="remember-me" name="remember_me">
+            &nbsp;
+            <label for="remember-me" class="ch-label">{{ 'field.remember_me.label'|trans }}</label>
+        </div>
+
+        <div class="auth-form-field">
+            <button class="btn">{{ 'submit.login'|trans }}</button>
+        </div>
+
+         <div class="auth-form-field">
+            <div>
+                <a href="#">{{ 'link.forgot_password'|trans }}</a>
+            </div>
+            <span style="color: #aaa">&VerticalSeparator;</span>
+            <div>
+                <a href="{{ url('auth.registration') }}">{{ 'link.login'|trans }}</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

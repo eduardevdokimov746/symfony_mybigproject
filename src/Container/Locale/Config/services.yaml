@@ -1,0 +1,29 @@
+parameters:
+    set_locale_from_accept_language: true
+
+    locale_cookie_name: locale
+    locale_cookie_expire: +1 day
+
+services:
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true
+
+    App\Container\Locale\:
+        resource: '%kernel.project_dir%/src/Container/Locale'
+
+    App\Container\Locale\Listener\LocaleListener:
+        arguments:
+            $localeCookieName: '%locale_cookie_name%'
+            $defaultLocale: '%kernel.default_locale%'
+            $useAcceptLanguageHeader: '%set_locale_from_accept_language%'
+            $enabledLocales: '%kernel.enabled_locales%'
+
+    App\Container\Locale\Action\SwitchAction:
+        arguments:
+            $cookieName: '%locale_cookie_name%'
+            $cookieExpire: '%locale_cookie_expire%'
+
+    App\Container\Locale\Task\SwitchTask:
+        arguments:
+            $enabledLocales: '%kernel.enabled_locales%'

@@ -1,0 +1,5 @@
+group:
+    resource: ../Controller
+    type: annotation
+    prefix: /news
+    name_prefix: news.

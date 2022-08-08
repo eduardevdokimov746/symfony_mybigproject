@@ -1,8 +1,8 @@
 app_web:
     resource: ../src/Ship/Route/web.yaml
     prefix:
-        en: /
-        ru: /ru
+        ru: /
+        en: /en
     trailing_slash_on_root: false
 
 #app_api:

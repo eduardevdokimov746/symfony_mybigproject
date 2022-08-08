@@ -1,9 +1,11 @@
-<!doctype html>
+{% trans_default_domain 'base' %}
+
+<!DOCTYPE html>
 <html lang="{{ app.request.locale }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
-    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>MyBigProject</title>
 
@@ -18,7 +20,7 @@
         <div id="header-content">
             <div id="logo-block">
                 <div id="logo-content">
-                    <a href="#">
+                    <a href="{{ url('home.main') }}" title="{{ 'logo_title'|trans }}">
                         <img src="{{ asset('src/image/logo.png') }}" id="logo">
                     </a>
                 </div>
@@ -27,7 +29,7 @@
             <div id="search-nav-block">
                 <div id="search-content">
                     <form action="#" id="search-form">
-                        <input type="text" name="request" id="search-input" placeholder="Найти что-нибудь..."/>
+                        <input type="text" name="request" id="search-input" placeholder="{{ 'search.placeholder'|trans }}"/>
                     </form>
                 </div>
 
@@ -47,29 +49,27 @@
                     <div id="auth-content">
                         <div id="reg-user-links">
                             {% if (true) %}
-                                <a href="#" class="reg-link">Регистрация</a>
+                                <a href="{{ url('auth.registration') }}" class="reg-link">{{ 'auth.registration'|trans }}</a>
                                 &frasl;
-                                <a href="#" class="reg-link">Вход</a>
+                                <a href="{{ url('auth.login') }}" class="reg-link">{{ 'auth.login'|trans }}</a>
                             {% else %}
                                 <a href="#" class="reg-link">test</a>
                                 <a href="#" class="reg-link">Выйти</a>
                             {% endif %}
                         </div>
                     </div>
-                    <div id="locale-content">
-                        <div id="locale-switch">
-                            <p class="locale-item locale-item-active">RU</p>
-                            <p class="locale-item">EN</p>
-                        </div>
+
+                    <div id="locale-switch-block">
+                        {{ include('@locale/_swith_template.html.twig') }}
                     </div>
                 </div>
             </div>
         </div>
     </header>
 
-    <div id="container">
+    <div id="container" {{ container_attr|default|raw }}>
         <div id="container-title">
-            <p>Новые игры, свежие игровые новости, обзоры, даты релизов и лучшие трейлеры!</p>
+            {% block page_title %}{% endblock %}
         </div>
         {% block content %}{% endblock %}
     </div>

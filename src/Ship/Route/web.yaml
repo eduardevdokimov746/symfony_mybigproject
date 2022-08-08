@@ -2,6 +2,18 @@ home:
     resource: ../../Container/Home/UI/WEB/Route
     type: directory
 
+news:
+    resource: ../../Container/News/UI/WEB/Route
+    type: directory
+
+auth:
+    resource: ../../Container/Auth/UI/WEB/Route
+    type: directory
+
+locale:
+    resource: ../../Container/Locale/UI/WEB/Route
+    type: directory
+
 #user:
 #    resource: ../../Container/User/UI/WEB/Route
 #    type: directory

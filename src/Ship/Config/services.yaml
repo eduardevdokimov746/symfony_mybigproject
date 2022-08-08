@@ -1,0 +1,14 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    App\Ship\:
+        resource: '%kernel.project_dir%/src/Ship'
+
+    App\Ship\Listener\RequestContextListener:
+        arguments:
+            $host: '%env(APP_HOST)%'
+            $httpPort: '%env(int:APP_HTTP_PORT)%'
+            $httpsPort: '%env(int:APP_HTTPS_PORT)%'
+            $scheme: '%env(APP_SCHEME)%'

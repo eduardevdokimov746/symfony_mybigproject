@@ -1,0 +1,154 @@
+{% extends '@ship/layout/base.html.twig' %}
+
+{% block style %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('src/css/news_page.css') }}">
+{% endblock %}
+
+{% block page_title %}
+    <p>Новости</p>
+    <small id="container-subtitle">Новости развлекательной игровой тематики и индустрии кино. Игры, фильмы и интересные
+        события</small>
+{% endblock %}
+
+{% block content %}
+    <div class="content-inner-group">
+        <div class="content-inner-block content-inner-block-main" style="background-color: #252525">
+            <div class="content-inner-body">
+                <div class="news-block">
+                    <div class="news-title">
+                        <h1>«Ведьмак 3» Геральт с новой внешностью шокировал игроков</h1>
+                    </div>
+                    <div class="news-head-info">
+                        <div class="news-author">
+                            <p>Павел Рогов</p>
+                        </div>
+                        <div class="news-publish">
+                            <p>5 августа 2022 в 17:08</p>
+                        </div>
+                        <div class="news-views-count">
+                            <p>
+                                <i class="fa-solid fa-eye"></i>
+                                <span>22</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="main-img-block">
+                        <img src="{{ asset('src/image/2.jpg') }}">
+                    </div>
+                    <div class="news-body-block">
+                        Тело новости
+                    </div>
+                </div>
+
+                <div class="comment-block">
+                    <div class="comment-title-block">
+                        <p>Комментарии (10)</p>
+                    </div>
+                    <div class="comment-list">
+                        <div class="comment-item">
+                            <div class="comment-item-user">
+                                <div class="comment-item-user-avatar">
+                                    <img src="{{ asset('src/image/3.jpg') }}">
+                                </div>
+                            </div>
+                            <div class="comment-item-body">
+                                <div class="comment-item-body-info">
+                                    <div class="comment-item-body-author">
+                                        <p>PerfectQ</p>
+                                    </div>
+                                    <div class="comment-item-body-date">
+                                        <p>08.07.2022 10:58</p>
+                                    </div>
+                                </div>
+                                <div class="comment-item-body-content">
+                                    <p>
+                                        Купил её еще давно на распродаже, игра очень зашла, но потом попробовал хорайзон
+                                        4 и в крю я больше не собирался заходить, ибо там и графика хуже чем в
+                                        хорайзоне, и физика тоже, но теперь стоит попробовать её вновь.
+                                    </p>
+                                </div>
+                                <div class="comment-item-body-buttons">
+                                    <div class="comment-item-body-button">
+                                        <button class="btn btn-sm">Ответить</button>
+                                    </div>
+                                    <div class="comment-item-body-button">
+                                        <button class="btn btn-sm">Нравиться!</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="comment-item">
+                            <div class="comment-item-user">
+                                <div class="comment-item-user-avatar">
+                                    <img src="{{ asset('src/image/3.jpg') }}">
+                                </div>
+                            </div>
+                            <div class="comment-item-body">
+                                <div class="comment-item-body-info">
+                                    <div class="comment-item-body-author">
+                                        <p>PerfectQ</p>
+                                    </div>
+                                    <div class="comment-item-body-date">
+                                        <p>08.07.2022 10:58</p>
+                                    </div>
+                                </div>
+                                <div class="comment-item-body-content">
+                                    <p>
+                                        Купил её еще давно на распродаже, игра очень зашла, но потом попробовал хорайзон
+                                        4 и в крю я больше не собирался заходить, ибо там и графика хуже чем в
+                                        хорайзоне, и физика тоже, но теперь стоит попробовать её вновь.
+                                    </p>
+                                </div>
+                                <div class="comment-item-body-buttons">
+                                    <div class="comment-item-body-button">
+                                        <button class="btn btn-sm">Ответить</button>
+                                    </div>
+                                    <div class="comment-item-body-button">
+                                        <button class="btn btn-sm">Нравиться!</button>
+                                    </div>
+                                </div>
+
+                                <div class="new-comment-response-block">
+                                    <div class="new-comment-title">
+                                        <p>Добить ответ</p>
+                                    </div>
+                                    <div class="new-comment-field">
+                                        <label for="comment-input">Текст:</label>
+                                        <textarea id="comment-input"></textarea>
+                                    </div>
+                                    <div class="new-comment-submit-block">
+                                        <button class="btn">Добавить ответ</button>
+                                        <button class="btn">Отмена</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="new-comment-block">
+                        <div class="new-comment-title">
+                            <p>Добить комментарий</p>
+                        </div>
+                        <div class="new-comment-field">
+                            <label for="comment-input">Текст:</label>
+                            <textarea id="comment-input"></textarea>
+                        </div>
+                        <div class="new-comment-submit-block">
+                            <button class="btn">Добавить комментарий</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-inner-block content-inner-block-additional">
+            <div class="content-inner-header">
+                <div class="content-inner-title">
+                    <p>Топ 30 игр по числу играющих на ПК</p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

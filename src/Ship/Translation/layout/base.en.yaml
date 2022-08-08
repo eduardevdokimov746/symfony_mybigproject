@@ -1,0 +1,8 @@
+auth:
+    login: Login
+    registration: Registration
+
+search:
+    placeholder: Find something...
+
+logo_title: Home

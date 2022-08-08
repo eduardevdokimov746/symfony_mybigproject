@@ -1,0 +1,132 @@
+.news-block, .comment-block {
+    padding: 1%;
+}
+
+.news-title {
+    color: #ffbb00;
+    font-size: 0.9em;
+}
+
+.news-head-info {
+    display: flex;
+    padding: 2% 0;
+    align-items: center;
+}
+
+.news-author {
+    font-size: 1.05em;
+    color: white;
+}
+
+.news-publish {
+    margin-left: 2%;
+    color: #aaa;
+    font-size: 0.8em;
+}
+
+.news-views-count {
+    margin-left: 2%;
+    font-size: 0.8em;
+    color: #FF8800;
+}
+
+.comment-title-block {
+    font-size: 1.3em;
+    color: #666666;
+    border-bottom: 1px solid #666666;
+    font-weight: 600;
+    padding-bottom: 2px;
+}
+
+.comment-item {
+    display: flex;
+    align-items: start;
+    padding: 2% 0;
+}
+
+.comment-item-user {
+    padding: 1%;
+    background-color: #0c0c0c;
+    border-radius: 6px;
+}
+
+.comment-item-body {
+    margin-left: 3%;
+}
+
+.comment-item-body-info {
+    display: flex;
+    padding-bottom: 1%;
+    align-items: center;
+}
+
+.comment-item-body-author {
+    color: white;
+    font-weight: 600;
+}
+
+.comment-item-body-date {
+    font-size: 0.8em;
+    margin-left: 1%;
+    color: #555;
+}
+
+.comment-item-body-content {
+    color: #aaa;
+}
+
+.comment-item-body-buttons {
+    display: flex;
+    margin-top: 1%;
+}
+
+.comment-item-body-button:last-child {
+    margin-left: 5%;
+}
+
+.new-comment-block {
+    background-color: #303030;
+    border-radius: 10px;
+    padding: 1%;
+}
+
+.new-comment-title {
+    padding: 1% 0 1%;
+    border-bottom: 1px solid #666666;
+    color: #666666;
+    font-size: 1.1em;
+    font-weight: 600;
+}
+
+.new-comment-field {
+    display: flex;
+    flex-direction: column;
+    margin-top: 2%;
+}
+
+.new-comment-field > label {
+    color: #aaa;
+}
+
+.new-comment-field > textarea {
+    background-color: rgb(37, 37, 37);
+    border-color: gray;
+    border-radius: 5px;
+    resize: vertical;
+    color: white;
+    height: 100px;
+    padding: 1%;
+}
+
+.new-comment-submit-block {
+    margin-top: 2%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.new-comment-response-block {
+    background-color: #303030;
+    border-radius: 10px;
+    padding: 1%;
+    margin-top: 1%;
+}
