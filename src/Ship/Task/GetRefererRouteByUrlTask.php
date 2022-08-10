@@ -20,6 +20,11 @@ class GetRefererRouteByUrlTask extends Task
     {
     }
 
+    /**
+     * @param string $refererUrl For example from $_SERVER['HTTP_REFERER']
+     *
+     * @return array|null Null is returned if the route is not found
+     */
     public function run(string $refererUrl): ?array
     {
         $parseUrl = parse_url($refererUrl);
@@ -33,6 +38,14 @@ class GetRefererRouteByUrlTask extends Task
         }
     }
 
+    /**
+     * @param string $refererUrl For example from $_SERVER['HTTP_REFERER']
+     * @param string $key
+     *
+     * @throws RuntimeException If the value $key is not valid. {@see GetRefererRouteByUrlTask::getAvailableKeys() Avaliable keys}
+     *
+     * @return string|null Null is returned if the route is not found
+     */
     public function getOnly(string $refererUrl, string $key): ?string
     {
         if (!in_array($key, $this->getAvailableKeys(), true))

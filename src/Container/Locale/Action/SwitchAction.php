@@ -24,7 +24,12 @@ class SwitchAction extends Action
     {
     }
 
-    public function run(?string $refererUrl)
+    /**
+     * @param string|null $refererUrl
+     * @return Response Usually, action classes should not return a Response object, but should return the one
+     *                  given for the Presentation layer.
+     */
+    public function run(?string $refererUrl): Response
     {
         $newLocale = $this->switchTask->run();
 

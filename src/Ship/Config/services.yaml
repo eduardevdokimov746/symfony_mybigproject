@@ -12,3 +12,13 @@ services:
             $httpPort: '%env(int:APP_HTTP_PORT)%'
             $httpsPort: '%env(int:APP_HTTPS_PORT)%'
             $scheme: '%env(APP_SCHEME)%'
+
+    App\Ship\ExceptionHandler\ExceptionMappingResolver:
+        arguments: ['%exceptions%']
+
+    App\Ship\Listener\ExceptionListener:
+        arguments:
+            $env: '%kernel.environment%'
+            $twigErrorRenderer: '@error_renderer.html'
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception, priority: 10 }

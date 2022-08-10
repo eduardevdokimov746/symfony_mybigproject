@@ -4,7 +4,9 @@ app_web:
         ru: /
         en: /en
     trailing_slash_on_root: false
+    format: html
 
 #app_api:
 #    resource: ../src/Ship/Route/api.yaml
 #    prefix: /api
+#    format: json
