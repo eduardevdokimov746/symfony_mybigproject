@@ -5,3 +5,4 @@ services:
 
     App\Container\News\:
         resource: '%kernel.project_dir%/src/Container/News'
+        exclude: '%kernel.project_dir%/src/Container/News/Exception'

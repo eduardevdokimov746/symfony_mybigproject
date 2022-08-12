@@ -1,0 +1,15 @@
+❗❗❗***Критическая ошибка***
+{{ log.message }}
+--------------------------
+Дата: {{ log.datetime|date('Y-m-d H:i:s') }}
+Канал: {{ log.channel }}
+--------------------------
+Класс: {{ log.context.class }}
+Метод: {{ log.context.function }}
+Файл: {{ log.context.file }}
+Строка: {{ log.context.line }}
+--------------------------
+URL: {{ log.extra.url }}
+METHOD: {{ log.extra.http_method }}
+IP: {{ log.extra.ip }}
+{#**Пользователь:** #}

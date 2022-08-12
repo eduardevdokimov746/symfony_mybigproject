@@ -2,60 +2,128 @@ monolog:
     channels:
         - deprecation # Deprecations are logged in the dedicated "deprecation" channel when it exists
 
-#when@dev:
-#    monolog:
-    handlers:
-        main:
-            type: stream
-            path: "%kernel.logs_dir%%/111.log"
-            level: debug
-#            channels: ["!event"]
-        # uncomment to ge1t logging in your browser
-        # you may have to allow bigger header sizes in your Web server configuration
-        #firephp:
-        #    type: firephp
-        #    level: info
-        #chromephp:
-        #    type: chromephp
-        #    level: info
-        console:
-            type: console
-            process_psr_3_messages: false
-            channels: ["!event", "!doctrine", "!console"]
-
-when@test:
+when@dev:
     monolog:
         handlers:
             main:
-                type: fingers_crossed
-                action_level: error
-                handler: nested
-                excluded_http_codes: [404, 405]
-                channels: ["!event"]
-            nested:
-                type: stream
-                path: "%kernel.logs_dir%/%kernel.environment%.log"
+                type: rotating_file
+                path: '%kernel.logs_dir%/%kernel.environment%/{date}/main.log'
+                level: info
+                channels: [ doctrine, request, mailer, router, event, security ]
+                formatter: file_formatter
+
+            main_only_debug_filter:
+                type: filter
+                accepted_levels: [ debug ]
+                handler: main_debug
+                channels: [ doctrine, request, mailer, router, event, security ]
+                formatter: file_formatter
+
+            main_debug:
+                type: rotating_file
+                path: '%kernel.logs_dir%/%kernel.environment%/{date}/main_debug.log'
+                formatter: file_formatter
+
+            app:
+                type: rotating_file
+                path: '%kernel.logs_dir%/%kernel.environment%/{date}/app.log'
+                level: info
+                channels: [ app ]
+                formatter: file_formatter
+
+            app_only_debug_filter:
+                type: filter
+                accepted_levels: [ debug ]
+                handler: app_debug
+                channels: [ app ]
+
+            app_debug:
+                type: rotating_file
+                path: '%kernel.logs_dir%/%kernel.environment%/{date}/app_debug.log'
+                formatter: file_formatter
+
+            debug_profiler:
+                type: rotating_file
+                path: '%kernel.logs_dir%/%kernel.environment%/{date}/debug.log'
                 level: debug
+                channels: [ debug, profiler ]
+                formatter: file_formatter
+
+            other:
+                type: rotating_file
+                path: '%kernel.logs_dir%/%kernel.environment%/{date}/other.log'
+                level: debug
+                channels: [ '!app', '!doctrine', '!request', '!mailer', '!router', '!event', '!debug', '!profiler', '!security' ]
+                formatter: file_formatter
 
 when@prod:
     monolog:
         handlers:
             main:
-                type: fingers_crossed
-                action_level: error
-                handler: nested
-                excluded_http_codes: [404, 405]
-                buffer_size: 50 # How many messages should be saved? Prevent memory leaks
-            nested:
-                type: stream
-                path: php://stderr
+                type: rotating_file
+                path: '%kernel.logs_dir%/%kernel.environment%/{date}/main.log'
+                level: info
+                channels: [ doctrine, request, mailer, router, event, security ]
+                formatter: file_formatter
+
+            main_only_debug_filter:
+                type: filter
+                accepted_levels: [ debug ]
+                handler: main_debug
+                channels: [ doctrine, request, mailer, router, event, security ]
+                formatter: file_formatter
+
+            main_debug:
+                type: rotating_file
+                path: '%kernel.logs_dir%/%kernel.environment%/{date}/main_debug.log'
+                formatter: file_formatter
+
+            app:
+                type: rotating_file
+                path: '%kernel.logs_dir%/%kernel.environment%/{date}/app.log'
+                level: info
+                channels: [ app ]
+                formatter: file_formatter
+
+            app_only_debug_filter:
+                type: filter
+                accepted_levels: [ debug ]
+                handler: app_debug
+                channels: [ app ]
+
+            app_debug:
+                type: rotating_file
+                path: '%kernel.logs_dir%/%kernel.environment%/{date}/app_debug.log'
+                formatter: file_formatter
+
+            debug_profiler:
+                type: rotating_file
+                path: '%kernel.logs_dir%/%kernel.environment%/{date}/debug.log'
                 level: debug
-                formatter: monolog.formatter.json
-            console:
-                type: console
-                process_psr_3_messages: false
-                channels: ["!event", "!doctrine"]
-            deprecation:
-                type: stream
-                channels: [deprecation]
-                path: php://stderr
+                channels: [ debug, profiler ]
+                formatter: file_formatter
+
+            other:
+                type: rotating_file
+                path: '%kernel.logs_dir%/%kernel.environment%/{date}/other.log'
+                level: debug
+                channels: [ '!app', '!doctrine', '!request', '!mailer', '!router', '!event', '!debug', '!profiler', '!security' ]
+                formatter: file_formatter
+
+            buffer_until_critical:
+                type: fingers_crossed
+                handler: deduplication_before_send
+                action_level: critical
+
+            deduplication_before_send:
+                type: deduplication
+                handler: send_to_telegram
+                deduplication_level: critical
+
+            send_to_telegram:
+                type: telegram
+                token: '%env(LOG_TELEGRAM_TOKEN)%'
+                parse_mode: Markdown
+                level: critical
+                channel: '%env(LOG_TELEGRAM_CHANEL)%'
+                formatter: App\Ship\TelegramFormatter

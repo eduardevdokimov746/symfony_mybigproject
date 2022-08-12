@@ -1,0 +1,4 @@
+services:
+    App\Container\News\Exception\NewsNotFoundException:
+        tags:
+            - { name: app.exception, code: 404, hidden: false }

@@ -4,7 +4,6 @@ framework:
     enabled_locales:
         - ru
         - en
-        - fr
 
     set_locale_from_accept_language: '%set_locale_from_accept_language%'
 

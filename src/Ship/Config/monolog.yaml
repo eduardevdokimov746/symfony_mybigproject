@@ -1,0 +1,17 @@
+services:
+
+    Monolog\Processor\WebProcessor:
+        arguments:
+            $serverData: ~
+            $extraFields: [ url, http_method, ip ]
+        tags: [ monolog.processor ]
+
+    Symfony\Bridge\Monolog\Processor\TokenProcessor:
+        arguments: [ '@security.token_storage' ]
+        tags: [ monolog.processor ]
+
+    file_formatter:
+        class: Monolog\Formatter\LineFormatter
+        arguments:
+            $format: ~
+            $dateFormat: Y-m-d H:m:s

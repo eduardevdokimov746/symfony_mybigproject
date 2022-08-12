@@ -1,4 +1,7 @@
-parameters:
-    exceptions:
-        App\Container\News\Exception\NewsNotFoundException: { code: 404 }
-        Symfony\Component\HttpKernel\Exception\HttpException: { code: 404, hidden: false }
+services:
+    RuntimeException:
+        synthetic: true
+        tags: [{ name: app.exception, code: 500, loggable: true }]
+
+    Symfony\Component\HttpKernel\Exception\HttpException:
+        tags: [{ name: app.exception, code: 404, hidden: false }]
