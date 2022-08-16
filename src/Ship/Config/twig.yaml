@@ -1,3 +1,5 @@
 twig:
     paths:
         '%kernel.project_dir%/src/Ship/View': ship
+    globals:
+        csrf_token_id: '%form.type_extension.csrf.field_name%'

@@ -5,6 +5,7 @@ services:
 
     App\Ship\:
         resource: '%kernel.project_dir%/src/Ship'
+        exclude: '%kernel.project_dir%/src/Ship/Parent'
 
     App\Ship\Listener\RequestContextListener:
         arguments:
@@ -19,3 +20,6 @@ services:
             $twigErrorRenderer: '@error_renderer.html'
         tags:
             - { name: kernel.event_listener, event: kernel.exception, priority: 10 }
+
+    App\Ship\Parent\Validator\:
+        resource: '%kernel.project_dir%/src/Ship/Parent/Validator'

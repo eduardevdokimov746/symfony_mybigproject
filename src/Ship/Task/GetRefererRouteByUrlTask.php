@@ -9,7 +9,7 @@ use Symfony\Component\Routing\RouterInterface;
 
 class GetRefererRouteByUrlTask extends Task
 {
-    public const ROURE = '_route';
+    public const ROURE      = '_route';
     public const CONTROLLER = '_controller';
 
     private string $exceptionMessage = 'Invalid key parameter given. Expected "%s", "%s", given "%s"';
@@ -18,6 +18,30 @@ class GetRefererRouteByUrlTask extends Task
         private RouterInterface $router
     )
     {
+    }
+
+    /**
+     * @param string $refererUrl For example from $_SERVER['HTTP_REFERER']
+     * @param string $key
+     *
+     * @return string|null Null is returned if the route is not found
+     * @throws RuntimeException If the value $key is not valid. {@see GetRefererRouteByUrlTask::getAvailableKeys() Avaliable keys}
+     *
+     */
+    public function getOnly(string $refererUrl, string $key): ?string
+    {
+        if (!in_array($key, $this->getAvailableKeys(), true))
+            throw new RuntimeException(sprintf($this->exceptionMessage, ...[...$this->getAvailableKeys(), $key]));
+
+        if ($refererRoute = $this->run($refererUrl))
+            return $refererRoute['route'][$key];
+
+        return null;
+    }
+
+    public function getAvailableKeys(): array
+    {
+        return [self::ROURE, self::CONTROLLER];
     }
 
     /**
@@ -32,33 +56,34 @@ class GetRefererRouteByUrlTask extends Task
         if (!empty($parseUrl['query'])) parse_str($parseUrl['query'], $queryString);
 
         try {
-            return $this->router->match($parseUrl['path']);
+            $mapRoute = $this->mapRoute($this->router->match($parseUrl['path']));
+
+            $mapRoute['parameters'] = array_merge($this->mapQueryString($refererUrl), $mapRoute['parameters']);
+
+            return $mapRoute;
         } catch (ResourceNotFoundException) {
             return null;
         }
     }
 
-    /**
-     * @param string $refererUrl For example from $_SERVER['HTTP_REFERER']
-     * @param string $key
-     *
-     * @throws RuntimeException If the value $key is not valid. {@see GetRefererRouteByUrlTask::getAvailableKeys() Avaliable keys}
-     *
-     * @return string|null Null is returned if the route is not found
-     */
-    public function getOnly(string $refererUrl, string $key): ?string
+    private function mapRoute(array $match): array
     {
-        if (!in_array($key, $this->getAvailableKeys(), true))
-            throw new RuntimeException(sprintf($this->exceptionMessage, ...[...$this->getAvailableKeys(), $key]));
+        $route = array_filter($match, fn($key) => preg_match('#^_.*#', $key) === 1, ARRAY_FILTER_USE_KEY);
 
-        if ($refererRoute = $this->run($refererUrl))
-            return $refererRoute[$key];
+        $parameters = array_diff_key($match, $route);
 
-        return null;
+        return [
+            'route'      => $route,
+            'parameters' => $parameters
+        ];
     }
 
-    public function getAvailableKeys(): array
+    private function mapQueryString(string $refererUrl): array
     {
-        return [self::ROURE, self::CONTROLLER];
+        $queryString = [];
+
+        parse_str(parse_url($refererUrl)['query'] ?? '', $queryString);
+
+        return $queryString;
     }
 }

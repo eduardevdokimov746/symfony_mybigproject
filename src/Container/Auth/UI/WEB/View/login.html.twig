@@ -8,7 +8,7 @@
     {{ parent() }}
 
     <link rel="stylesheet" href="{{ asset('src/css/auth.css') }}">
-{%endblock%}
+{% endblock %}
 
 {% block page_title %}
     <p class="t-center">{{ 'form_title.login'|trans }}</p>
@@ -16,30 +16,47 @@
 
 {% block content %}
     <div class="auth-form">
-        <table>
-            <tbody>
+        <form method="POST">
+            <input type="hidden" value="{{ csrf_token(csrf_token_id) }}" name="csrf_token_id">
+            <table>
+                <tbody>
                 <tr>
                     <td><label for="login" class="auth-form-label">{{ 'field.login.label'|trans }}</label></td>
-                    <td><input type="text" id="login" class="auth-form-input" name="login" autofocus></td>
+                    <td><input type="text" id="login" class="auth-form-input" name="login" value="{{ app|flashField('login') }}" autofocus></td>
                 </tr>
+                {% if app|flashError('login', true) %}
+                    <tr>
+                        <td colspan="2" style="text-align: start">
+                            {{ app|flashError('login') }}
+                        </td>
+                    </tr>
+                {% endif %}
                 <tr>
                     <td><label for="password" class="auth-form-label">{{ 'field.password.label'|trans }}</label></td>
                     <td><input type="password" id="password" class="auth-form-input" name="password"></td>
                 </tr>
-            </tbody>
-        </table>
+                {% if app|flashError('password', true) %}
+                    <tr>
+                        <td colspan="2" style="text-align: start">
+                            {{ app|flashError('password') }}
+                        </td>
+                    </tr>
+                {% endif %}
+                </tbody>
+            </table>
+
+            <div class="auth-form-field">
+                <input type="checkbox" id="remember-me" name="remember_me">
+                &nbsp;
+                <label for="remember-me" class="ch-label">{{ 'field.remember_me.label'|trans }}</label>
+            </div>
+
+            <div class="auth-form-field">
+                <button name="submit" class="btn">{{ 'submit.login'|trans }}</button>
+            </div>
+        </form>
 
         <div class="auth-form-field">
-            <input type="checkbox" id="remember-me" name="remember_me">
-            &nbsp;
-            <label for="remember-me" class="ch-label">{{ 'field.remember_me.label'|trans }}</label>
-        </div>
-
-        <div class="auth-form-field">
-            <button class="btn">{{ 'submit.login'|trans }}</button>
-        </div>
-
-         <div class="auth-form-field">
             <div>
                 <a href="#">{{ 'link.forgot_password'|trans }}</a>
             </div>

@@ -1,0 +1,6 @@
+security:
+    providers:
+        db:
+            entity:
+                class: App\Container\User\Entity\User
+                property: login

@@ -1,8 +1,8 @@
 # see https://symfony.com/doc/current/reference/configuration/framework.html
 framework:
     secret: '%env(APP_SECRET)%'
-    #csrf_protection: true
-    http_method_override: false
+    csrf_protection: true
+    http_method_override: true
 
     error_controller: App\Ship\Controller\ErrorController
 

@@ -1,0 +1,8 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    App\Container\User\:
+        resource: '%kernel.project_dir%/src/Container/User'
+        exclude: '%kernel.project_dir%/src/Container/User/Data/Migration'

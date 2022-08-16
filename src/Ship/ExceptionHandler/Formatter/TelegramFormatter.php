@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Ship;
+namespace App\Ship\ExceptionHandler\Formatter;
 
 use Monolog\Formatter\FormatterInterface;
 use Monolog\LogRecord;

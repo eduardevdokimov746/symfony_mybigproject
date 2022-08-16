@@ -1,0 +1,3 @@
+doctrine_migrations:
+    migrations_paths:
+        App\Container\User\Data\Migration: '%kernel.project_dir%/src/Container/User/Data/Migration'

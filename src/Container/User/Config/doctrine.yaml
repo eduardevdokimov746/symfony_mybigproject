@@ -1,0 +1,9 @@
+doctrine:
+    orm:
+        mappings:
+            User:
+                type: attribute
+                dir: '%kernel.project_dir%/src/Container/User/Entity'
+                is_bundle: false
+                prefix: App\Container\User\Entity
+                alias: UserContainer

@@ -34,24 +34,15 @@ class SwitchAction extends Action
         $newLocale = $this->switchTask->run();
 
         if (!is_null($refererUrl))
-            $refererRoute = $this->routeByUrlTask->getOnly($refererUrl, $this->routeByUrlTask::ROURE);
+            $refererRoute = $this->routeByUrlTask->run($refererUrl);
 
         $redirectUrl = $this->urlGenerator->generate(
-            $refererRoute ?? self::FALLBACK_ROUTE,
-            $this->mapQueryString($refererUrl),
+            !is_null($refererRoute) ? $refererRoute['route']['_route'] : self::FALLBACK_ROUTE,
+            !is_null($refererRoute) ? $refererRoute['parameters'] : [],
             UrlGeneratorInterface::ABSOLUTE_URL
         );
 
         return $this->makeResponseWithLocaleCookie($redirectUrl, $newLocale);
-    }
-
-    private function mapQueryString(string $refererUrl): array
-    {
-        $queryString = [];
-
-        parse_str(parse_url($refererUrl)['query'] ?? '', $queryString);
-
-        return $queryString;
     }
 
     private function makeResponseWithLocaleCookie(string $redirectUrl, string $newLocale): Response

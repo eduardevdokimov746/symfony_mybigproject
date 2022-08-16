@@ -63,14 +63,14 @@ when@prod:
                 type: rotating_file
                 path: '%kernel.logs_dir%/%kernel.environment%/{date}/main.log'
                 level: info
-                channels: [ doctrine, request, mailer, router, event, security ]
+                channels: [ doctrine, request, mailer, router, security ]
                 formatter: file_formatter
 
             main_only_debug_filter:
                 type: filter
                 accepted_levels: [ debug ]
                 handler: main_debug
-                channels: [ doctrine, request, mailer, router, event, security ]
+                channels: [ doctrine, request, mailer, router, security ]
                 formatter: file_formatter
 
             main_debug:
@@ -96,18 +96,11 @@ when@prod:
                 path: '%kernel.logs_dir%/%kernel.environment%/{date}/app_debug.log'
                 formatter: file_formatter
 
-            debug_profiler:
-                type: rotating_file
-                path: '%kernel.logs_dir%/%kernel.environment%/{date}/debug.log'
-                level: debug
-                channels: [ debug, profiler ]
-                formatter: file_formatter
-
             other:
                 type: rotating_file
                 path: '%kernel.logs_dir%/%kernel.environment%/{date}/other.log'
                 level: debug
-                channels: [ '!app', '!doctrine', '!request', '!mailer', '!router', '!event', '!debug', '!profiler', '!security' ]
+                channels: [ '!app', '!doctrine', '!request', '!mailer', '!router', '!security' ]
                 formatter: file_formatter
 
             buffer_until_critical:
@@ -126,4 +119,4 @@ when@prod:
                 parse_mode: Markdown
                 level: critical
                 channel: '%env(LOG_TELEGRAM_CHANEL)%'
-                formatter: App\Ship\TelegramFormatter
+                formatter: App\Ship\ExceptionHandler\Formatter\TelegramFormatter
