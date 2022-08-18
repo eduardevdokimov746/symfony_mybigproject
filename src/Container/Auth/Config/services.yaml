@@ -1,3 +1,6 @@
+parameters:
+    auth_csrf_token_id: authenticate
+
 services:
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
@@ -5,3 +8,7 @@ services:
 
     App\Container\Auth\:
         resource: '%kernel.project_dir%/src/Container/Auth'
+
+    App\Container\Auth\Listener\SendVerificationEmailListener:
+        tags:
+            - { name: kernel.event_listener, event: user.registered }

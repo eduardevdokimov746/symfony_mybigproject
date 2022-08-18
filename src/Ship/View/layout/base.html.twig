@@ -48,13 +48,13 @@
                 <div id="auth-locale-flex">
                     <div id="auth-content">
                         <div id="reg-user-links">
-                            {% if (true) %}
+                            {% if app.user is null %}
                                 <a href="{{ url('auth.registration') }}" class="reg-link">{{ 'auth.registration'|trans }}</a>
                                 &frasl;
                                 <a href="{{ url('auth.login') }}" class="reg-link">{{ 'auth.login'|trans }}</a>
                             {% else %}
-                                <a href="#" class="reg-link">test</a>
-                                <a href="#" class="reg-link">Выйти</a>
+                                <a href="#" class="reg-link" title="{{ 'profile.title'|trans }}">{{ app.user.userIdentifier }}</a>
+                                <a href="{{ url('auth.logout') }}" class="reg-link">{{ 'logout'|trans }}</a>
                             {% endif %}
                         </div>
                     </div>

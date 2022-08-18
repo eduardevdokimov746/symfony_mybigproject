@@ -4,3 +4,4 @@ imports:
     - { resource: ../../../src/Container/Home/Config/ }
     - { resource: ../../../src/Container/Auth/Config/ }
     - { resource: ../../../src/Container/User/Config/ }
+    - { resource: ../../../src/Container/Profile/Config/ }

@@ -1,0 +1,5 @@
+group:
+    resource: ../Controller
+    type: annotation
+    prefix: /profile
+    name_prefix: profile.

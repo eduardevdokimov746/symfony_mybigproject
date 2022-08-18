@@ -1,0 +1,3 @@
+parameters:
+    csrf_parameter: '%form.type_extension.csrf.field_name%'
+    csrf_token_id: form

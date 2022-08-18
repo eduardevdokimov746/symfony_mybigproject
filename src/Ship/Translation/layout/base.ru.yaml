@@ -6,3 +6,8 @@ search:
     placeholder: Найти что-нибудь...
 
 logo_title: Домой
+
+profile:
+    title: Профиль
+
+logout: Выйти

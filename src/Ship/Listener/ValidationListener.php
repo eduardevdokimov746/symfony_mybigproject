@@ -83,10 +83,14 @@ class ValidationListener implements EventSubscriberInterface
 
     private function saveErrorsAndFieldInFlashBag(array $errors, array $fields, FlashBagInterface $flashBag): void
     {
-        foreach ($errors as $param => $message)
+        foreach ($errors as $param => $message) {
+            $flashBag->get($this->getErrorNameTask->forError($param));
             $flashBag->add($this->getErrorNameTask->forError($param), $message);
+        }
 
-        foreach ($fields as $name => $value)
+        foreach ($fields as $name => $value) {
+            $flashBag->get($this->getErrorNameTask->forField($name));
             $flashBag->add($this->getErrorNameTask->forField($name), $value);
+        }
     }
 }

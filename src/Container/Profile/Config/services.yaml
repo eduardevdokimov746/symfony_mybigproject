@@ -1,0 +1,8 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    App\Container\Profile\:
+        resource: '%kernel.project_dir%/src/Container/Profile'
+        exclude: '%kernel.project_dir%/src/Container/Profile/Data/Migration'

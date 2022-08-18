@@ -14,8 +14,10 @@ class CsrfTokenListener implements EventSubscriberInterface
 {
     public function __construct(
         private CsrfTokenManagerInterface $csrfTokenManager,
-        #[Autowire('%form.type_extension.csrf.field_name%')]
-        private string                    $csrfFieldName
+        #[Autowire('%csrf_parameter%')]
+        private string                    $csrfParameter,
+        #[Autowire('%csrf_token_id%')]
+        private string                    $csrfId
     )
     {
     }
@@ -31,7 +33,7 @@ class CsrfTokenListener implements EventSubscriberInterface
 
         if (
             in_array($request->getMethod(), ValidationListener::CHECK_METHODS) &&
-            !$this->csrfTokenManager->isTokenValid(new CsrfToken($this->csrfFieldName, $request->request->get($this->csrfFieldName)))
+            !$this->csrfTokenManager->isTokenValid(new CsrfToken($this->csrfId, $request->request->get($this->csrfParameter)))
         )
             throw new InvalidCsrfTokenException('Csrf token is not valid');
     }

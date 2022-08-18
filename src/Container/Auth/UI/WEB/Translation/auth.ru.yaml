@@ -16,3 +16,5 @@ link:
     forgot_password: Забыли пароль?
     login: Войти
     registration: Зарегистрироваться
+
+Invalid credentials.: Проверьте правильность введенных данных

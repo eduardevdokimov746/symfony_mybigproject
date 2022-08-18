@@ -16,32 +16,27 @@
 
 {% block content %}
     <div class="auth-form">
+
+        {% if error is not null %}
+            <p class="form-error">{{ error.messageKey|trans }}</p>
+        {% endif %}
+
         <form method="POST">
-            <input type="hidden" value="{{ csrf_token(csrf_token_id) }}" name="csrf_token_id">
+
+            <input type="hidden" value="{{ csrf_token(auth_csrf_token_id) }}" name="{{ csrf_parameter }}">
+
             <table>
                 <tbody>
                 <tr>
                     <td><label for="login" class="auth-form-label">{{ 'field.login.label'|trans }}</label></td>
-                    <td><input type="text" id="login" class="auth-form-input" name="login" value="{{ app|flashField('login') }}" autofocus></td>
+                    <td><input type="text" id="login" class="auth-form-input" name="login" value="{{ last_username }}" autofocus></td>
                 </tr>
-                {% if app|flashError('login', true) %}
-                    <tr>
-                        <td colspan="2" style="text-align: start">
-                            {{ app|flashError('login') }}
-                        </td>
-                    </tr>
-                {% endif %}
+
                 <tr>
                     <td><label for="password" class="auth-form-label">{{ 'field.password.label'|trans }}</label></td>
                     <td><input type="password" id="password" class="auth-form-input" name="password"></td>
                 </tr>
-                {% if app|flashError('password', true) %}
-                    <tr>
-                        <td colspan="2" style="text-align: start">
-                            {{ app|flashError('password') }}
-                        </td>
-                    </tr>
-                {% endif %}
+
                 </tbody>
             </table>
 

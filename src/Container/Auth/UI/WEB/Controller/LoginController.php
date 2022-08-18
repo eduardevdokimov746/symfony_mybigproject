@@ -2,11 +2,11 @@
 
 namespace App\Container\Auth\UI\WEB\Controller;
 
-use App\Container\Auth\Validator\LoginValidator;
 use App\Ship\Parent\Controller;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 #[Route(
     path: '/login',
@@ -16,13 +16,15 @@ use Symfony\Component\Routing\Annotation\Route;
 class LoginController extends Controller
 {
     public function __invoke(
-        Request        $request,
-        LoginValidator $validator,
+        AuthenticationUtils $authenticationUtils,
+        #[Autowire('%auth_csrf_token_id%')]
+        string              $authCsrfTokenId,
     ): Response
     {
-        if ($validator->isValid())
-            dd($validator->getValidated());
-
-        return $this->render('@auth/login.html.twig');
+        return $this->render('@auth/login.html.twig', [
+            'auth_csrf_token_id' => $authCsrfTokenId,
+            'error'              => $authenticationUtils->getLastAuthenticationError(),
+            'last_username'      => $authenticationUtils->getLastUsername()
+        ]);
     }
 }

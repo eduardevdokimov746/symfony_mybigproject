@@ -1,0 +1,9 @@
+doctrine:
+    orm:
+        mappings:
+            Profile:
+                type: attribute
+                dir: '%kernel.project_dir%/src/Container/Profile/Entity'
+                is_bundle: false
+                prefix: App\Container\Profile\Entity
+                alias: ProfileContainer

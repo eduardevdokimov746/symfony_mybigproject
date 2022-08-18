@@ -6,3 +6,8 @@ search:
     placeholder: Find something...
 
 logo_title: Home
+
+profile:
+    title: Profile
+
+logout: Logout
