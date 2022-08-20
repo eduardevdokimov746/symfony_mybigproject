@@ -1,0 +1,6 @@
+subject: Email verification
+body:
+    title: Email address confirmation
+    content: An email confirmation request has been made for your email %email%.
+             In order to confirm the email address, go to %link% or click on the button "%button%".
+    button: confirm email

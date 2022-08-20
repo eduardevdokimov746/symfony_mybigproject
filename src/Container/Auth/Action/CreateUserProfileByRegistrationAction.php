@@ -12,6 +12,8 @@ use App\Container\User\Task\CreateUserTask;
 use App\Ship\Parent\Action;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
+use Psr\Log\LoggerInterface;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Throwable;
 
@@ -22,7 +24,10 @@ class CreateUserProfileByRegistrationAction extends Action
         private CreateProfileTask        $createProfileTask,
         private CreateEmailVerification  $createEmailVerification,
         private EntityManagerInterface   $entityManager,
-        private EventDispatcherInterface $eventDispatcher
+        private EventDispatcherInterface $eventDispatcher,
+        private LoggerInterface          $logger,
+        #[Autowire('%email_verification_expired%')]
+        private string                   $emailVerificationExpired
     )
     {
     }
@@ -43,7 +48,7 @@ class CreateUserProfileByRegistrationAction extends Action
             $this->createEmailVerification->run(
                 $user,
                 $this->generateVerificationCode(),
-                new DateTimeImmutable('+1 mount')
+                new DateTimeImmutable($this->emailVerificationExpired)
             );
 
             $this->entityManager->commit();
@@ -51,6 +56,11 @@ class CreateUserProfileByRegistrationAction extends Action
             $this->entityManager->rollback();
             throw new SaveByRegistrationException();
         }
+
+        $this->logger->info('New user registered', [
+            'id'             => $user->getId(),
+            'userIdentifier' => $user->getUserIdentifier()
+        ]);
 
         $this->eventDispatcher->dispatch(new UserRegisteredEvent($user), UserRegisteredEvent::NAME);
 

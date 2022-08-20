@@ -32,9 +32,15 @@ class EmailVerification
     public function __construct(User $user, string $verificationCode, DateTimeImmutable $expiredAt)
     {
         $this->user = $user;
-        $this->user->setEmailVerification($this);
 
         $this->verificationCode = $verificationCode;
         $this->expiredAt = $expiredAt;
+
+        $this->user->addEmailVerification($this);
+    }
+
+    public function isVerified(): bool
+    {
+        return $this->verifiedAt !== null;
     }
 }

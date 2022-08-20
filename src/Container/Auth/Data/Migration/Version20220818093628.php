@@ -16,7 +16,7 @@ final class Version20220818093628 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
-        $this->addSql('CREATE TABLE doc_email_verifications (id SERIAL NOT NULL, user_id INT NOT NULL, verification_code VARCHAR(255) NOT NULL, expired_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, verified_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE doc_email_verifications (id SERIAL NOT NULL, user_id INT NOT NULL, verification_code VARCHAR(255) NOT NULL, expired_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, verified_at TIMESTAMP(0) WITHOUT TIME ZONE, PRIMARY KEY(id))');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_FEB79562E821C39F ON doc_email_verifications (verification_code)');
         $this->addSql('CREATE INDEX IDX_FEB79562A76ED395 ON doc_email_verifications (user_id)');
         $this->addSql('COMMENT ON COLUMN doc_email_verifications.expired_at IS \'(DC2Type:datetime_immutable)\'');

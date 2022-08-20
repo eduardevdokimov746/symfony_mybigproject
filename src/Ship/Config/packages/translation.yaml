@@ -8,5 +8,8 @@ framework:
     set_locale_from_accept_language: '%set_locale_from_accept_language%'
 
     translator:
+        paths:
+            - '%kernel.project_dir%/src/Ship/Translation'
+
         fallbacks:
             - ru

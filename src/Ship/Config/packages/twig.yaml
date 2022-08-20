@@ -5,3 +5,8 @@ twig:
     globals:
         csrf_parameter: '%csrf_parameter%'
         csrf_token_id: '%csrf_token_id%'
+        app_name: '%app_name%'
+
+when@test:
+    twig:
+        strict_variables: true

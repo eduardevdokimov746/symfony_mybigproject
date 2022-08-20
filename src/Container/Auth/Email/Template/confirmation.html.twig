@@ -1,0 +1,119 @@
+{% trans_default_domain 'email' %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+
+        #mail{
+            max-width: 600px;
+            font-family: sans-serif;
+            margin: 0 auto;
+            border: 1px solid silver;
+            border-radius: 5px;
+            background-color: #303030;
+            color: white;
+        }
+
+        #header{
+            background: #9a150c;
+            border-radius: 5px 5px 0 0;
+        }
+
+        #head-content{
+            padding: 0 20px;
+        }
+
+        #head-content > h1{
+            padding-top: 15px;
+            padding-bottom: 9px;
+        }
+
+        #header-logo{
+            max-width: 250px;
+            text-decoration: none;
+            color: white;
+        }
+
+        #header-logo > img{
+            height: 55px;
+            vertical-align: bottom;
+        }
+
+        #header-logo > span{
+            text-decoration: none;
+        }
+
+        #body{
+            padding: 20px;
+        }
+
+        #body h3{
+            margin: 10px 0;
+            font-size: 20px;
+        }
+
+        #body > p{
+            line-height: 22px;
+            font-size: 16px;
+        }
+
+        #body > a{
+            display: block;
+            width: 200px;
+            background: #9a150c;
+            padding: 20px;
+            font-size: 1.3em;
+            text-decoration: none;
+            text-align: center;
+            margin: 0 auto;
+            border-radius: 5px;
+            margin-top: 40px;
+            color: white;
+        }
+
+        #body > p > a{
+            color: #FFBB00;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<div id='mail'>
+    <div id='header'>
+        <div id="head-content">
+            <h1>
+                <table>
+                    <tr>
+                        <td>
+                            <a href="{{ url('home.main') }}" id="header-logo">
+                                <img src="{{ asset('src/image/logo.png') }}" alt="logo">
+                            </a>
+                        </td>
+                        <td>
+                            <a href="{{ url('home.main') }}" id="header-logo">
+                                <span>{{ app_name }}</span>
+                            </a>
+                        </td>
+                    </tr>
+                </table>
+            </h1>
+        </div>
+    </div>
+    <div id='body'>
+        <h3>{{ 'body.title'|trans }}</h3>
+        <p>
+            {% set email = '<b>%s</b>'|format(recipient) %}
+            {% set linkFormat = '<a href="%s">%s</a>' %}
+            {{ 'body.content'|trans({'%email%': email, '%link%': linkFormat|format(url('home.main'), 'body.button'|trans)|raw, '%button%': 'body.button'|trans|lower})|raw }}
+        </p>
+        {{ linkFormat|format(url('home.main'), 'body.button'|trans|capitalize)|raw }}
+    </div>
+</div>
+</body>
+</html>

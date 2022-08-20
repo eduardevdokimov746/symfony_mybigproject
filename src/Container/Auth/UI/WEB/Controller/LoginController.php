@@ -18,7 +18,7 @@ class LoginController extends Controller
     public function __invoke(
         AuthenticationUtils $authenticationUtils,
         #[Autowire('%auth_csrf_token_id%')]
-        string              $authCsrfTokenId,
+        string              $authCsrfTokenId
     ): Response
     {
         return $this->render('@auth/login.html.twig', [

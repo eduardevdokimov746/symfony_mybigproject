@@ -36,7 +36,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Profile $profile;
 
     #[ORM\OneToMany(targetEntity: EmailVerification::class, mappedBy: 'user')]
-    private PersistentCollection|ArrayCollection $emailVerification;
+    private PersistentCollection|ArrayCollection $emailVerifications;
 
     public function __construct(
         string $login,
@@ -49,7 +49,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->email = $email;
         $this->password = $passwordHash($this, $plainPassword);
 
-        $this->emailVerification = new ArrayCollection();
+        $this->emailVerifications = new ArrayCollection();
+    }
+
+    public function getId(): int
+    {
+        return $this->id;
     }
 
     public function setProfile(Profile $profile): self
@@ -64,9 +69,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->profile;
     }
 
+    public function addEmailVerification(EmailVerification $emailVerification): self
+    {
+        $this->emailVerifications->add($emailVerification);
+
+        return $this;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
     public function getEmailVerification(): EmailVerification
     {
-        return $this->emailVerification;
+        $emailVerifications = $this->emailVerifications->toArray();
+
+        return array_pop($emailVerifications);
+    }
+
+    public function isEmailVerified(): bool
+    {
+        return $this->emailVerification->exists(fn(EmailVerification $emailVerification) => $emailVerification->isVerified());
     }
 
     public function setEmailVerification(EmailVerification $emailVerification): self
