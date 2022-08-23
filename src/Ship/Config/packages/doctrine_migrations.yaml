@@ -1,2 +1,5 @@
 doctrine_migrations:
     enable_profiler: '%kernel.debug%'
+
+    services:
+        Doctrine\Migrations\Version\Comparator: App\Ship\Service\Doctrine\CustomComparator

@@ -8,7 +8,7 @@
     {{ parent() }}
 
     <link rel="stylesheet" href="{{ asset('src/css/auth.css') }}">
-{%endblock%}
+{% endblock %}
 
 {% block page_title %}
     <p class="t-center">{{ 'form_title.registration'|trans }}</p>
@@ -22,8 +22,13 @@
             <table>
                 <tbody>
                 <tr>
-                    <td><label for="login" class="auth-form-label">{{ 'field.login.label'|trans }}</label></td>
-                    <td><input type="text" id="login" class="auth-form-input" name="login" value="{{ app|flashField('login') }}" autofocus></td>
+                    <td>
+                        <label for="login" class="auth-form-label form-label">{{ 'field.login.label'|trans }}</label>
+                    </td>
+                    <td>
+                        <input type="text" id="login" class="auth-form-input form-input" name="login"
+                               value="{{ app|flashField('login') }}" autofocus>
+                    </td>
                 </tr>
                 {% if app|flashError('login', true) %}
                     <tr>
@@ -33,8 +38,13 @@
                     </tr>
                 {% endif %}
                 <tr>
-                    <td><label for="email" class="auth-form-label">{{ 'field.email.label'|trans }}</label></td>
-                    <td><input type="email" id="email" class="auth-form-input" name="email" value="{{ app|flashField('email') }}"></td>
+                    <td>
+                        <label for="email" class="auth-form-label form-label">{{ 'field.email.label'|trans }}</label>
+                    </td>
+                    <td>
+                        <input type="email" id="email" class="auth-form-input form-input" name="email"
+                               value="{{ app|flashField('email') }}">
+                    </td>
                 </tr>
                 {% if app|flashError('email', true) %}
                     <tr>
@@ -44,8 +54,13 @@
                     </tr>
                 {% endif %}
                 <tr>
-                    <td><label for="password" class="auth-form-label">{{ 'field.password.label'|trans }}</label></td>
-                    <td><input type="password" id="password" class="auth-form-input" name="plainPassword"></td>
+                    <td>
+                        <label for="password"
+                               class="auth-form-label form-label">{{ 'field.password.label'|trans }}</label>
+                    </td>
+                    <td>
+                        <input type="password" id="password" class="auth-form-input form-input" name="plainPassword">
+                    </td>
                 </tr>
                 {% if app|flashError('plainPassword', true) %}
                     <tr>

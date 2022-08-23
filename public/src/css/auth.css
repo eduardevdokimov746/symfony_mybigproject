@@ -25,32 +25,10 @@
     justify-content: center;
 }
 
-.auth-form-label {
-    color: #aaa;
-    font-size: 1.3em;
-}
-
 .auth-form-input {
-    padding: 2%;
-    font-size: 1em;
-    color: white;
-    background-color: rgb(37, 37, 37);
-    border: 1px solid gray;
-    border-radius: 5px;
+    width: auto;
 }
 
 .ch-label {
     color: #aaa;
-}
-
-.field-margin-top {
-    margin-top: 3%;
-}
-
-.form-error {
-    margin: 1% 0;
-    color: red;
-    font-size: 0.9em;
-    text-align: center;
-    width: 100%;
 }

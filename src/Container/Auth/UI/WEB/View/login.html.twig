@@ -28,13 +28,16 @@
             <table>
                 <tbody>
                 <tr>
-                    <td><label for="login" class="auth-form-label">{{ 'field.login.label'|trans }}</label></td>
-                    <td><input type="text" id="login" class="auth-form-input" name="login" value="{{ last_username }}" autofocus></td>
+                    <td><label for="login" class="auth-form-label form-label">{{ 'field.login.label'|trans }}</label>
+                    </td>
+                    <td><input type="text" id="login" class="auth-form-input form-input" name="login"
+                               value="{{ last_username }}" autofocus></td>
                 </tr>
 
                 <tr>
-                    <td><label for="password" class="auth-form-label">{{ 'field.password.label'|trans }}</label></td>
-                    <td><input type="password" id="password" class="auth-form-input" name="password"></td>
+                    <td><label for="password"
+                               class="auth-form-label form-label">{{ 'field.password.label'|trans }}</label></td>
+                    <td><input type="password" id="password" class="auth-form-input form-input" name="password"></td>
                 </tr>
 
                 </tbody>
@@ -57,7 +60,7 @@
             </div>
             <span style="color: #aaa">&VerticalSeparator;</span>
             <div>
-                <a href="{{ url('auth.registration') }}">{{ 'link.login'|trans }}</a>
+                <a href="{{ url('auth.registration') }}">{{ 'link.registration'|trans }}</a>
             </div>
         </div>
     </div>

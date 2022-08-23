@@ -1,15 +1,21 @@
 ❗❗❗***Критическая ошибка***
-{{ log.message }}
+{{ log.message|replace({'_': '\\_'}) }}
 --------------------------
-Дата: {{ log.datetime|date('Y-m-d H:i:s') }}
-Канал: {{ log.channel }}
+***Дата:*** {{ log.datetime|date('Y-m-d H:i:s') }}
+***Канал:*** {{ log.channel|replace({'_': '\\_'}) }}
 --------------------------
-Класс: {{ log.context.class }}
-Метод: {{ log.context.function }}
-Файл: {{ log.context.file }}
-Строка: {{ log.context.line }}
+***Класс:*** {{ log.context.class|replace({'_': '\\_'}) }}
+***Метод:*** {{ log.context.function|replace({'_': '\\_'}) }}
+***Файл:*** {{ log.context.file|replace({'_': '\\_'}) }}
+***Строка:*** {{ log.context.line }}
 --------------------------
-URL: {{ log.extra.url }}
-METHOD: {{ log.extra.http_method }}
-IP: {{ log.extra.ip }}
-{#**Пользователь:** #}
+***URL:*** {{ log.extra.url|replace({'_': '\\_'}) }}
+***METHOD:*** {{ log.extra.http_method|replace({'_': '\\_'}) }}
+***IP:*** {{ log.extra.ip }}
+--------------------------
+{% if log.extra.token is not null %}
+***ПОЛЬЗОВАТЕЛЬ:*** {{ log.extra.token.user_identifier|replace({'_': '\\_'}) }}
+***РОЛИ:*** {{ log.extra.token.roles|map(role => role|replace({'_': '\\_'}))|join(', ') }}
+{% else %}
+***ПОЛЬЗОВАТЕЛЬ:*** null
+{% endif %}

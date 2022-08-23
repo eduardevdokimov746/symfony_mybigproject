@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Container\Auth\Entity;
+namespace App\Container\Auth\Entity\Doc;
 
 use App\Container\Auth\Data\Repository\EmailVerificationRepository;
 use App\Container\User\Entity\Doc\User;

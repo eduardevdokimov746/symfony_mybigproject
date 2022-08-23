@@ -1,0 +1,30 @@
+main_block_title: Profile
+
+navbar_title: Navigation
+
+navbar:
+    how_they_see_me: How they see me
+    edit_profile: Edit profile
+    edit_password: Change password
+    offer_news: Offer news
+    processed_news: Suggested news
+
+form:
+    login: Login
+    email: Email
+    avatar: Avatar
+    firstName: Name
+    lastName: Surname
+    patronymic: Patronymic
+    about: About
+    old_password: Old password
+    new_password: New password
+    new_password_confirmation: New password again
+    title: Title
+    content: Content
+    img: Image
+    full_name: Full name
+
+btn:
+    save: Save
+    offer: To offer

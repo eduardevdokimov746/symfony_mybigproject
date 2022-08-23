@@ -1,0 +1,107 @@
+{% extends '@ship/layout/base.html.twig' %}
+
+{% trans_default_domain 'profile' %}
+
+{% block style %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('src/css/profile_page.css') }}">
+{% endblock %}
+
+{% block page_title %}
+    <p>{{ 'main_block_title'|trans }}</p>
+{% endblock %}
+
+{% block content %}
+    <div class="content-inner-group">
+        <div class="content-inner-block content-inner-block-main">
+            <div class="content-inner-header">
+                <div class="content-inner-title">
+                    <p>{{ 'navbar.edit_profile'|trans }}</p>
+                </div>
+            </div>
+
+            <div class="content-inner-body">
+                <div>
+                    <div class="form-field">
+                        <div class="form-label">
+                            <label for="login">{{ 'form.login'|trans }}</label>
+                        </div>
+                        <div>
+                            <input id="login" class="form-input" type="text" readonly value="ens">
+                        </div>
+                    </div>
+
+                    <div class="form-field field-margin-top">
+                        <div class="form-label">
+                            <label for="email">{{ 'form.email'|trans }}</label>
+                        </div>
+                        <div>
+                            <input id="email" class="form-input" type="text" readonly value="ens@mail.com">
+                        </div>
+                    </div>
+
+                    <div class="form-field field-margin-top">
+                        <div class="form-label">
+                            <label for="avatar">{{ 'form.avatar'|trans }}</label>
+                        </div>
+                        <img src="{{ asset('src/image/3.png') }}">
+                        <div>
+                            <input id="avatar" name="avatar" type="file">
+                        </div>
+                    </div>
+
+                    <div class="form-field field-margin-top">
+                        <div class="form-label">
+                            <label for="firstName">{{ 'form.firstName'|trans }}</label>
+                        </div>
+                        <div>
+                            <input id="firstName" name="firstName" class="form-input" type="text">
+                        </div>
+                    </div>
+
+                    <div class="form-field field-margin-top">
+                        <div class="form-label">
+                            <label for="lastName">{{ 'form.lastName'|trans }}</label>
+                        </div>
+                        <div>
+                            <input id="lastName" name="lastName" class="form-input" type="text">
+                        </div>
+                    </div>
+
+                    <div class="form-field field-margin-top">
+                        <div class="form-label">
+                            <label for="patronymic">{{ 'form.patronymic'|trans }}</label>
+                        </div>
+                        <div>
+                            <input id="patronymic" name="patronymic" class="form-input" type="text">
+                        </div>
+                    </div>
+
+                    <div class="form-field field-margin-top">
+                        <div class="form-label">
+                            <label for="about">{{ 'form.about'|trans }}</label>
+                        </div>
+                        <div>
+                            <textarea id="about" name="about" class="form-input" rows="10"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="field-margin-top t-end">
+                        <button class="btn">{{ 'btn.save'|trans }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-inner-block content-inner-block-additional">
+            <div class="content-inner-header">
+                <div class="content-inner-title">
+                    <p>{{ 'navbar_title'|trans }}</p>
+                </div>
+            </div>
+            <div class="content-inner-body">
+                {{ include('@profile/_navbar.html.twig') }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

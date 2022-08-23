@@ -34,6 +34,10 @@ a:hover {
     text-align: center;
 }
 
+.t-end {
+    text-align: end;
+}
+
 #header-content {
     display: flex;
     flex-direction: row;
@@ -67,7 +71,7 @@ a:hover {
 #search-content {
     display: flex;
     justify-content: center;
-    margin-top: 2%;
+    margin-top: 18px;
 }
 
 #search-input {
@@ -90,7 +94,7 @@ a:hover {
 #nav-content {
     display: flex;
     justify-content: center;
-    margin-top: 2%;
+    margin-top: 14px;
 }
 
 #navbar {
@@ -145,7 +149,7 @@ a:hover {
     color: #f2ba00;
 }
 
-#locale-switch-block{
+#locale-switch-block {
     display: flex;
     justify-content: end;
     margin-top: 2.5%;
@@ -157,7 +161,7 @@ a:hover {
     display: flex;
 }
 
-#locale-switch:hover{
+#locale-switch:hover {
     text-decoration: none;
 }
 
@@ -212,7 +216,7 @@ a:hover {
 }
 
 .content-inner-body {
-    padding: 1%;
+    padding: 0.5rem;
 }
 
 .content-inner-group {
@@ -249,4 +253,36 @@ a:hover {
 
 .btn-sm {
     padding: 2px 10px;
+}
+
+.form-field {
+    margin: 0 0.7rem 0 0;
+}
+
+.form-label {
+    color: #aaa;
+    font-size: 1.3em;
+}
+
+.form-input {
+    padding: 0.3rem;
+    font-size: 1em;
+    color: white;
+    background-color: rgb(37, 37, 37);
+    border: 1px solid gray;
+    border-radius: 5px;
+    width: 100%;
+    resize: vertical;
+}
+
+.form-error {
+    margin: 1% 0;
+    color: red;
+    font-size: 0.9em;
+    text-align: center;
+    width: 100%;
+}
+
+.field-margin-top {
+    margin-top: 3%;
 }

@@ -9,14 +9,14 @@ when@dev:
                 type: rotating_file
                 path: '%kernel.logs_dir%/%kernel.environment%/{date}/main.log'
                 level: info
-                channels: [ doctrine, request, mailer, router, event, security ]
+                channels: [ doctrine, request, mailer, router, security ]
                 formatter: file_formatter
 
             main_only_debug_filter:
                 type: filter
                 accepted_levels: [ debug ]
                 handler: main_debug
-                channels: [ doctrine, request, mailer, router, event, security ]
+                channels: [ doctrine, request, mailer, router, security ]
                 formatter: file_formatter
 
             main_debug:

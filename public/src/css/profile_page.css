@@ -1,0 +1,30 @@
+.add-navbar-item {
+    padding: 0.5rem 0;
+}
+
+.add-navbar-item:first-child {
+    padding: 0 0 0.5rem 0;
+}
+
+.add-navbar-item:last-child {
+    padding: 0.5rem 0 0 0;
+}
+
+.add-navbar-profile-link {
+    display: block;
+}
+
+.profile-avatar-login-block {
+    display: flex;
+    align-items: center;
+}
+
+.profile-login-block {
+    margin-left: 0.3rem;
+    font-size: 1.3em;
+    color: #aaa;
+}
+
+.profile-info-content {
+    color: #aaa;
+}

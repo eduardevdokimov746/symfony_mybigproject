@@ -4,73 +4,34 @@ namespace App\Ship\Listener;
 
 use App\Ship\ExceptionHandler\ExceptionMapping;
 use App\Ship\ExceptionHandler\ExceptionMappingResolver;
-use App\Ship\ExceptionHandler\ExceptionRendererFactory;
 use Monolog\Level;
 use Psr\Log\LoggerInterface;
-use Symfony\Component\ErrorHandler\ErrorRenderer\ErrorRendererInterface;
-use Symfony\Component\ErrorHandler\Exception\FlattenException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
-use Symfony\Component\Routing\RequestContext;
-use Throwable;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class ExceptionListener
 {
-    private ?string $format;
-
     public function __construct(
         private ExceptionMappingResolver $mappingResolver,
-        private LoggerInterface          $logger,
-        private string                   $env,
-        private ExceptionRendererFactory $exceptionRendererFactory,
-        private ErrorRendererInterface   $twigErrorRenderer,
-        private RequestContext           $requestContext
+        private LoggerInterface          $logger
     )
     {
-        $this->format = $requestContext->getParameter('format') ?? ExceptionRendererFactory::HTML_FORMAT;
     }
 
     public function __invoke(ExceptionEvent $event): void
     {
-        if (strpos($this->requestContext->getPathInfo(), '_error')) return;
+        $throwable = $event->getThrowable();
 
-        $exceptionMapping = $this->resolveThrowable($event->getThrowable());
+        $exceptionMapping = $this->mappingResolver->resolve($throwable);
 
-        if ($this->isShowDebugErrorPage()) {
-            $flattenException = $this->twigErrorRenderer->render($exceptionMapping->getThrowable());
-
-            $flattenException->setStatusCode($exceptionMapping->getCode());
-        } else
-            $flattenException = $this->createCustomResponse($exceptionMapping);
-
-        if ($this->isShouldLog($exceptionMapping))
-            $this->log($exceptionMapping);
-
-        $event->setResponse(new Response(
-            $flattenException->getAsString(),
-            $flattenException->getStatusCode(),
-            $flattenException->getHeaders()
+        $event->setThrowable(new HttpException(
+            $exceptionMapping->getCode(),
+            $exceptionMapping->getMessage(),
         ));
-    }
 
-    private function resolveThrowable(Throwable $throwable): ExceptionMapping
-    {
-        return $this->mappingResolver->resolve($throwable);
-    }
-
-    private function isShowDebugErrorPage(): bool
-    {
-        return $this->env !== 'prod' && $this->format === 'html';
-    }
-
-    private function createCustomResponse(ExceptionMapping $exceptionMapping): FlattenException
-    {
-        return $this->exceptionRendererFactory->build($this->format)->render($exceptionMapping);
-    }
-
-    private function isShouldLog(ExceptionMapping $exceptionMapping): bool
-    {
-        return $exceptionMapping->getCode() >= Response::HTTP_INTERNAL_SERVER_ERROR || $exceptionMapping->isLoggable();
+        if ($exceptionMapping->getCode() >= Response::HTTP_INTERNAL_SERVER_ERROR || $exceptionMapping->isLoggable())
+            $this->log($exceptionMapping);
     }
 
     private function log(ExceptionMapping $exceptionMapping): void

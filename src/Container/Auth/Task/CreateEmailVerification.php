@@ -2,7 +2,7 @@
 
 namespace App\Container\Auth\Task;
 
-use App\Container\Auth\Entity\EmailVerification;
+use App\Container\Auth\Entity\Doc\EmailVerification;
 use App\Container\User\Entity\Doc\User;
 use App\Ship\Parent\Task;
 use DateTimeImmutable;

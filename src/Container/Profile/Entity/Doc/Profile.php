@@ -31,6 +31,9 @@ class Profile
     #[ORM\Column(name: 'about', type: 'text', nullable: true)]
     private ?string $about;
 
+    #[ORM\Column(name: 'avatar', type: 'string', nullable: true)]
+    private ?string $avatar;
+
     public function __construct(User $user)
     {
         $this->user = $user;

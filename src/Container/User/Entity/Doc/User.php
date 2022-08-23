@@ -2,7 +2,7 @@
 
 namespace App\Container\User\Entity\Doc;
 
-use App\Container\Auth\Entity\EmailVerification;
+use App\Container\Auth\Entity\Doc\EmailVerification;
 use App\Container\Profile\Entity\Doc\Profile;
 use App\Container\User\Data\Repository\Doc\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -39,9 +39,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private PersistentCollection|ArrayCollection $emailVerifications;
 
     public function __construct(
-        string $login,
-        string $email,
-        string $plainPassword,
+        string   $login,
+        string   $email,
+        string   $plainPassword,
         callable $passwordHash
     )
     {
@@ -57,16 +57,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->id;
     }
 
+    public function getProfile(): Profile
+    {
+        return $this->profile;
+    }
+
     public function setProfile(Profile $profile): self
     {
         $this->profile = $profile;
 
         return $this;
-    }
-
-    public function getProfile(): Profile
-    {
-        return $this->profile;
     }
 
     public function addEmailVerification(EmailVerification $emailVerification): self
@@ -76,16 +76,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
     public function setEmail(string $email): self
     {
         $this->email = $email;
 
         return $this;
-    }
-
-    public function getEmail(): string
-    {
-        return $this->email;
     }
 
     public function getEmailVerification(): EmailVerification

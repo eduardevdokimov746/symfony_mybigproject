@@ -18,9 +18,6 @@ services:
             $scheme: '%env(APP_SCHEME)%'
 
     App\Ship\Listener\ExceptionListener:
-        arguments:
-            $env: '%kernel.environment%'
-            $twigErrorRenderer: '@error_renderer.html'
         tags:
             - { name: kernel.event_listener, event: kernel.exception, priority: 10 }
 

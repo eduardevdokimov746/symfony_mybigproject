@@ -2,7 +2,7 @@
 
 namespace App\Container\Auth\Data\Repository;
 
-use App\Container\Auth\Entity\EmailVerification;
+use App\Container\Auth\Entity\Doc\EmailVerification;
 use App\Ship\Parent\Repository;
 use Doctrine\Persistence\ManagerRegistry;
 

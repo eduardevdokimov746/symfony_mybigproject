@@ -1,0 +1,30 @@
+main_block_title: Профиль
+
+navbar_title: Навигация
+
+navbar:
+    how_they_see_me: Как меня видят
+    edit_profile: Редактировать профиль
+    edit_password: Редактировать пароль
+    offer_news: Предложить новость
+    processed_news: Предложенные новости
+
+form:
+    login: Логин
+    email: Эл.почта
+    avatar: Аватар
+    firstName: Имя
+    lastName: Фамилия
+    patronymic: Отчество
+    about: О себе
+    old_password: Старый пароль
+    new_password: Новый пароль
+    new_password_confirmation: Новый пароль еще раз
+    title: Заголовок
+    content: Контент
+    img: Изображение
+    full_name: ФИО
+
+btn:
+    save: Сохранить
+    offer: Предложить
