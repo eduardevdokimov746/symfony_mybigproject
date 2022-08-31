@@ -2,6 +2,8 @@ when@dev:
     framework:
         mailer:
             dsn: null://null
+            envelope:
+                sender: '%env(MAILER_SENDER)%'
 
 when@prod:
     framework:
