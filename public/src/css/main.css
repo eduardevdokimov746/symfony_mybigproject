@@ -30,6 +30,10 @@ a:hover {
     text-decoration: underline;
 }
 
+.t-success {
+    color: #00cb00;
+}
+
 .t-center {
     text-align: center;
 }
@@ -275,11 +279,18 @@ a:hover {
     resize: vertical;
 }
 
+.form-input-readonly {
+    border: none;
+}
+
+.form-input-readonly:focus-visible {
+    outline: none;
+}
+
 .form-error {
     margin: 1% 0;
     color: red;
     font-size: 0.9em;
-    text-align: center;
     width: 100%;
 }
 

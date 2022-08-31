@@ -28,3 +28,8 @@ form:
 btn:
     save: Save
     offer: To offer
+
+success:
+    edit_profile: Profile changed successfully
+    edit_password: Password changed successfully
+    offer_news: News successfully submitted

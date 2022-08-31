@@ -4,8 +4,8 @@
 
 {% block style %}
     {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('src/css/profile_page.css') }}">
-    <link rel="stylesheet" href="{{ asset('src/css/home_page.css') }}">
+    <link rel="stylesheet" href="{{ absolute_url(asset('profile_page.css', 'css')) }}">
+    <link rel="stylesheet" href="{{ absolute_url(asset('home_page.css', 'css')) }}">
 {% endblock %}
 
 {% block page_title %}
@@ -25,7 +25,7 @@
                 <div class="news-list">
                     <div class="news-item">
                         <div class="news-img">
-                            <img src="{{ asset('src/image/2.jpg') }}">
+                            <img src="{{ absolute_url(asset('2.jpg', 'img')) }}">
                         </div>
                         <div class="news-content">
                             <div>
@@ -61,7 +61,7 @@
                     </div>
                     <div class="news-item">
                         <div class="news-img">
-                            <img src="{{ asset('src/image/2.jpg') }}">
+                            <img src="{{ absolute_url(asset('2.jpg', 'img')) }}">
                         </div>
                         <div class="news-content">
                             <div>

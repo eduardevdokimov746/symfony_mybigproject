@@ -8,6 +8,7 @@ use App\Ship\Parent\Validator\FormTypeValidator;
 use App\Ship\Task\GetFlashBagNameTask;
 use LogicException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\HttpKernel\Event\ControllerArgumentsEvent;
@@ -78,7 +79,7 @@ class ValidationListener implements EventSubscriberInterface
         if ($validator instanceof FormTypeValidator)
             return $request->request->all()[$validator->getForm()->getName()];
 
-        return $request->request->all();
+        return array_merge($request->request->all(), $request->files->all());
     }
 
     private function saveErrorsAndFieldInFlashBag(array $errors, array $fields, FlashBagInterface $flashBag): void
@@ -89,6 +90,8 @@ class ValidationListener implements EventSubscriberInterface
         }
 
         foreach ($fields as $name => $value) {
+            if ($value instanceof UploadedFile) continue;
+
             $flashBag->get($this->getErrorNameTask->forField($name));
             $flashBag->add($this->getErrorNameTask->forField($name), $value);
         }

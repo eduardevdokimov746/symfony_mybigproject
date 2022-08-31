@@ -7,7 +7,7 @@
 {% block style %}
     {{ parent() }}
 
-    <link rel="stylesheet" href="{{ asset('src/css/auth.css') }}">
+    <link rel="stylesheet" href="{{ absolute_url(asset('auth.css', 'css')) }}">
 {% endblock %}
 
 {% block page_title %}
@@ -33,7 +33,7 @@
                 {% if app|flashError('login', true) %}
                     <tr>
                         <td colspan="2">
-                            <p class="form-error">{{ app|flashError('login') }}</p>
+                            <p class="form-error t-center">{{ app|flashError('login') }}</p>
                         </td>
                     </tr>
                 {% endif %}
@@ -49,7 +49,7 @@
                 {% if app|flashError('email', true) %}
                     <tr>
                         <td colspan="2">
-                            <p class="form-error">{{ app|flashError('email') }}</p>
+                            <p class="form-error t-center">{{ app|flashError('email') }}</p>
                         </td>
                     </tr>
                 {% endif %}
@@ -65,7 +65,7 @@
                 {% if app|flashError('plainPassword', true) %}
                     <tr>
                         <td colspan="2">
-                            <p class="form-error">{{ app|flashError('plainPassword') }}</p>
+                            <p class="form-error t-center">{{ app|flashError('plainPassword') }}</p>
                         </td>
                     </tr>
                 {% endif %}

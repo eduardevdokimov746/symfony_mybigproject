@@ -10,8 +10,8 @@
     <title>{{ app_name }}</title>
 
     {% block style %}
-        <link rel="stylesheet" href="{{ asset('src/css/fontawesome.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('src/css/main.css') }}">
+        <link rel="stylesheet" href="{{ absolute_url(asset('fontawesome.min.css', 'css')) }}">
+        <link rel="stylesheet" href="{{ absolute_url(asset('main.css', 'css')) }}">
     {% endblock %}
 </head>
 
@@ -21,7 +21,7 @@
             <div id="logo-block">
                 <div id="logo-content">
                     <a href="{{ url('home.main') }}" title="{{ 'logo_title'|trans }}">
-                        <img src="{{ asset('src/image/logo.png') }}" id="logo">
+                        <img src="{{ absolute_url(asset('logo.png', 'img')) }}" id="logo">
                     </a>
                 </div>
             </div>
@@ -53,7 +53,7 @@
                                 &frasl;
                                 <a href="{{ url('auth.login') }}" class="reg-link">{{ 'auth.login'|trans }}</a>
                             {% else %}
-                                <a href="#" class="reg-link" title="{{ 'profile.title'|trans }}">{{ app.user.userIdentifier }}</a>
+                                <a href="{{ url('profile.index') }}" class="reg-link" title="{{ 'profile.title'|trans }}">{{ app.user.userIdentifier }}</a>
                                 <a href="{{ url('auth.logout') }}" class="reg-link">{{ 'logout'|trans }}</a>
                             {% endif %}
                         </div>
@@ -76,7 +76,7 @@
 
 
     {% block script %}
-        <script src="{{ asset('src/js/fontawesome.min.js') }}"></script>
+        <script src="{{ absolute_url(asset('fontawesome.min.js', 'js')) }}"></script>
     {% endblock%}
 </body>
 </html>

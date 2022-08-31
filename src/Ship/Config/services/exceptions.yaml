@@ -3,5 +3,9 @@ services:
         synthetic: true
         tags: [{ name: app.exception, code: 500, loggable: true }]
 
+    DomainException:
+        synthetic: true
+        tags: [ { name: app.exception, code: 500, loggable: true } ]
+
     Symfony\Component\HttpKernel\Exception\HttpException:
         tags: [{ name: app.exception, code: 404, hidden: false }]

@@ -2,7 +2,7 @@
 
 {% block style %}
     {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('src/css/news_page.css') }}">
+    <link rel="stylesheet" href="{{ absolute_url(asset('news_page.css', 'css')) }}">
 {% endblock %}
 
 {% block page_title %}
@@ -34,7 +34,7 @@
                         </div>
                     </div>
                     <div class="main-img-block">
-                        <img src="{{ asset('src/image/2.jpg') }}">
+                        <img src="{{ absolute_url(asset('2.jpg', 'img')) }}">
                     </div>
                     <div class="news-body-block">
                         Тело новости
@@ -49,7 +49,7 @@
                         <div class="comment-item">
                             <div class="comment-item-user">
                                 <div class="comment-item-user-avatar">
-                                    <img src="{{ asset('src/image/3.png') }}">
+                                    <img src="{{ absolute_url(asset('3.png', 'img')) }}">
                                 </div>
                             </div>
                             <div class="comment-item-body">
@@ -81,7 +81,7 @@
                         <div class="comment-item">
                             <div class="comment-item-user">
                                 <div class="comment-item-user-avatar">
-                                    <img src="{{ asset('src/image/3.png') }}">
+                                    <img src="{{ absolute_url(asset('3.png', 'img')) }}">
                                 </div>
                             </div>
                             <div class="comment-item-body">

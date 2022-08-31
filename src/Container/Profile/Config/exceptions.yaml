@@ -1,0 +1,4 @@
+services:
+    App\Container\Profile\Exception\ProfileNotFoundException:
+        tags:
+            - { name: app.exception, code: 404, hidden: false }

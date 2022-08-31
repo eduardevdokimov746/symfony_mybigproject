@@ -4,7 +4,7 @@
 
 {% block style %}
     {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('src/css/profile_page.css') }}">
+    <link rel="stylesheet" href="{{ absolute_url(asset('profile_page.css', 'css')) }}">
 {% endblock %}
 
 {% block page_title %}
@@ -44,7 +44,7 @@
                         <div class="form-label">
                             <label for="news-img">{{ 'form.img'|trans }}</label>
                         </div>
-                        <img src="{{ asset('src/image/2.jpg') }}">
+                        <img src="{{ absolute_url(asset('src/image/2.jpg')) }}">
                         <div>
                             <input id="news-img" name="news-img" type="file">
                         </div>

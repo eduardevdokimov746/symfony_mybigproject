@@ -10,9 +10,9 @@ abstract class Validator implements ValidatorInterface
 
     protected bool $valid = false;
 
-    protected bool $start = false;
-
     protected array $data = [];
+
+    protected bool $start = false;
 
     public function getValidated(): array
     {
@@ -29,5 +29,13 @@ abstract class Validator implements ValidatorInterface
     public function isValid(): bool
     {
         return $this->valid;
+    }
+
+    protected function reset(): void
+    {
+        $this->data = [];
+        $this->start = true;
+        $this->errors = [];
+        $this->valid = false;
     }
 }

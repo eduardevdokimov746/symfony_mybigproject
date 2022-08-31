@@ -31,6 +31,9 @@ class RegistrationController extends Controller
 
     public function __invoke(Request $request, RegistrationValidator $validator): Response
     {
+        if ($this->isGranted('IS_AUTHENTICATED'))
+            return $this->redirectToRoute('home.main');
+
         if ($validator->isValid()) {
             $user = $this->createUserProfileByRegistrationAction->run(
                 CreateUserProfileByRegistrationDTO::fromValidator($validator)

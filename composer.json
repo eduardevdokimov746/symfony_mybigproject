@@ -35,7 +35,8 @@
         "symfony/yaml": "^6.1",
         "symfony/dotenv": "^6.1",
         "doctrine/doctrine-fixtures-bundle": "^3.4",
-        "symfony/doctrine-bridge": "^6.1"
+        "symfony/doctrine-bridge": "^6.1",
+        "ext-gd": "*"
     },
     "config": {
         "allow-plugins": {

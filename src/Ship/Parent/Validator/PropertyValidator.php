@@ -31,27 +31,41 @@ abstract class PropertyValidator extends Validator
      */
     private function mapValidationProperties(): array
     {
-        return (new ReflectionClass($this))->getProperties(ReflectionProperty::IS_PRIVATE);
+        $allProperties = (new ReflectionClass($this))->getProperties(ReflectionProperty::IS_PRIVATE);
+
+        return array_filter($allProperties, fn(ReflectionProperty $property) => !empty($property->getAttributes()));
     }
 
     public function validate(array $data): array
     {
-        $this->start = true;
-        $this->data = $data;
-        $this->errors = [];
-        $this->valid = false;
+        $this->reset();
 
-        foreach ($this->mapValidationProperties() as $property)
-            if (!empty($property->getAttributes()))
-                $property->setValue($this, $data[$property->getName()]);
+        $this->setData($data);
 
         /** @var ConstraintViolation $error */
         foreach ($this->validator->validate($this) as $error)
-            if (!isset($this->errors[$error->getPropertyPath()]))
-                $this->errors[$error->getPropertyPath()] = $error->getMessage();
+            $this->addError($error->getPropertyPath(), $error->getMessage());
 
         if (empty($this->errors)) $this->valid = true;
 
         return $this->errors;
+    }
+
+    private function setData(array $data): void
+    {
+        foreach ($this->mapValidationProperties() as $property) {
+            $propertyName = $property->getName();
+
+            if (isset($data[$propertyName])) {
+                $this->data[$propertyName] = $data[$propertyName];
+                $property->setValue($this, $this->data[$propertyName]);
+            }
+        }
+    }
+
+    private function addError(string $property, string $error): void
+    {
+        if (!isset($this->errors[$property]))
+            $this->errors[$property] = $error;
     }
 }

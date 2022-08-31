@@ -21,6 +21,9 @@ class LoginController extends Controller
         string              $authCsrfTokenId
     ): Response
     {
+        if ($this->isGranted('IS_AUTHENTICATED'))
+            return $this->redirectToRoute('home.main');
+
         return $this->render('@auth/login.html.twig', [
             'auth_csrf_token_id' => $authCsrfTokenId,
             'error'              => $authenticationUtils->getLastAuthenticationError(),

@@ -4,7 +4,7 @@
 
 {% block style %}
     {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('src/css/profile_page.css') }}">
+    <link rel="stylesheet" href="{{ absolute_url(asset('profile_page.css', 'css')) }}">
 {% endblock %}
 
 {% block page_title %}
@@ -18,78 +18,109 @@
                 <div class="content-inner-title">
                     <p>{{ 'navbar.edit_profile'|trans }}</p>
                 </div>
+                <div>
+                    <p class="t-success">{{ app.flashes('success') ? 'success.edit_profile'|trans }}</p>
+                </div>
             </div>
 
             <div class="content-inner-body">
-                <div>
-                    <div class="form-field">
-                        <div class="form-label">
-                            <label for="login">{{ 'form.login'|trans }}</label>
-                        </div>
-                        <div>
-                            <input id="login" class="form-input" type="text" readonly value="ens">
-                        </div>
-                    </div>
+                <form method="POST" enctype="multipart/form-data">
+                    <input type="hidden" name="_method" value="PATCH">
+                    <input type="hidden" name="{{ csrf_parameter }}" value="{{ csrf_token(csrf_token_id) }}">
 
-                    <div class="form-field field-margin-top">
-                        <div class="form-label">
-                            <label for="email">{{ 'form.email'|trans }}</label>
+                    <div>
+                        <div class="form-field">
+                            <div class="form-label">
+                                <label for="login">{{ 'form.login'|trans }}</label>
+                            </div>
+                            <div>
+                                <input id="login" class="form-input form-input-readonly" type="text" readonly value="{{ app.user.userIdentifier }}">
+                            </div>
                         </div>
-                        <div>
-                            <input id="email" class="form-input" type="text" readonly value="ens@mail.com">
-                        </div>
-                    </div>
 
-                    <div class="form-field field-margin-top">
-                        <div class="form-label">
-                            <label for="avatar">{{ 'form.avatar'|trans }}</label>
+                        <div class="form-field field-margin-top">
+                            <div class="form-label">
+                                <label for="email">{{ 'form.email'|trans }}</label>
+                            </div>
+                            <div>
+                                <input id="email" class="form-input form-input-readonly" type="text" readonly value="{{ app.user.email }}">
+                            </div>
                         </div>
-                        <img src="{{ asset('src/image/3.png') }}">
-                        <div>
-                            <input id="avatar" name="avatar" type="file">
-                        </div>
-                    </div>
 
-                    <div class="form-field field-margin-top">
-                        <div class="form-label">
-                            <label for="firstName">{{ 'form.firstName'|trans }}</label>
+                        <div class="form-field field-margin-top">
+                            <div class="form-label">
+                                <label for="avatar">{{ 'form.avatar'|trans }}</label>
+                            </div>
+                            <img src="{{ absolute_url(asset(app.user.profile.avatar, 'avatar')) }}">
+                            <div>
+                                <input id="avatar" name="avatar" type="file">
+                            </div>
+                            <div class="field-margin-top">
+                                <p>
+                                    <label><input type="checkbox" name="deleteAvatar">&nbsp;<span>Удалить аватар</span></label>
+                                </p>
+                            </div>
+                            {% if app|flashError('avatar', true) %}
+                                <p class="form-error">{{ app|flashError('avatar') }}</p>
+                            {% endif %}
                         </div>
-                        <div>
-                            <input id="firstName" name="firstName" class="form-input" type="text">
-                        </div>
-                    </div>
 
-                    <div class="form-field field-margin-top">
-                        <div class="form-label">
-                            <label for="lastName">{{ 'form.lastName'|trans }}</label>
+                        <div class="form-field field-margin-top">
+                            <div class="form-label">
+                                <label for="firstName">{{ 'form.firstName'|trans }}</label>
+                            </div>
+                            <div>
+                                <input id="firstName" name="firstName" class="form-input" type="text"
+                                       value="{{ app|flashField('firstName', true) ? app|flashField('firstName') : app.user.profile.firstName }}">
+                            </div>
+                            {% if app|flashError('firstName', true) %}
+                                <p class="form-error">{{ app|flashError('firstName') }}</p>
+                            {% endif %}
                         </div>
-                        <div>
-                            <input id="lastName" name="lastName" class="form-input" type="text">
-                        </div>
-                    </div>
 
-                    <div class="form-field field-margin-top">
-                        <div class="form-label">
-                            <label for="patronymic">{{ 'form.patronymic'|trans }}</label>
+                        <div class="form-field field-margin-top">
+                            <div class="form-label">
+                                <label for="lastName">{{ 'form.lastName'|trans }}</label>
+                            </div>
+                            <div>
+                                <input id="lastName" name="lastName" class="form-input" type="text"
+                                       value="{{ app|flashField('lastName', true) ? app|flashField('lastName') : app.user.profile.lastName }}">
+                            </div>
+                            {% if app|flashError('lastName', true) %}
+                                <p class="form-error">{{ app|flashError('lastName') }}</p>
+                            {% endif %}
                         </div>
-                        <div>
-                            <input id="patronymic" name="patronymic" class="form-input" type="text">
-                        </div>
-                    </div>
 
-                    <div class="form-field field-margin-top">
-                        <div class="form-label">
-                            <label for="about">{{ 'form.about'|trans }}</label>
+                        <div class="form-field field-margin-top">
+                            <div class="form-label">
+                                <label for="patronymic">{{ 'form.patronymic'|trans }}</label>
+                            </div>
+                            <div>
+                                <input id="patronymic" name="patronymic" class="form-input" type="text"
+                                       value="{{ app|flashField('patronymic', true) ? app|flashField('patronymic') : app.user.profile.patronymic }}">
+                            </div>
+                            {% if app|flashError('patronymic', true) %}
+                                <p class="form-error">{{ app|flashError('patronymic') }}</p>
+                            {% endif %}
                         </div>
-                        <div>
-                            <textarea id="about" name="about" class="form-input" rows="10"></textarea>
-                        </div>
-                    </div>
 
-                    <div class="field-margin-top t-end">
-                        <button class="btn">{{ 'btn.save'|trans }}</button>
+                        <div class="form-field field-margin-top">
+                            <div class="form-label">
+                                <label for="about">{{ 'form.about'|trans }}</label>
+                            </div>
+                            <div>
+                                <textarea id="about" name="about" class="form-input" rows="10">{{ app|flashField('about', true) ? app|flashField('about')|trim : app.user.profile.about|trim }}</textarea>
+                            </div>
+                            {% if app|flashError('about', true) %}
+                                <p class="form-error">{{ app|flashError('about') }}</p>
+                            {% endif %}
+                        </div>
+
+                        <div class="field-margin-top t-end">
+                            <button class="btn">{{ 'btn.save'|trans }}</button>
+                        </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
 

@@ -1,0 +1,7 @@
+framework:
+    assets:
+        packages:
+            img: { base_path: /src/image }
+            avatar: { base_path: /src/image/avatar }
+            css: { base_path: /src/css }
+            js: { base_path: /src/js }

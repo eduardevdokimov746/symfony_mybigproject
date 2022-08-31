@@ -10,6 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Table(name: 'doc_profiles')]
 class Profile
 {
+    public const DEFAULT_AVATAR = 'no_user.png';
+
     #[ORM\Id]
     #[ORM\GeneratedValue('IDENTITY')]
     #[ORM\Column(name: 'id', type: 'integer')]
@@ -95,6 +97,23 @@ class Profile
     public function setAbout(?string $about): self
     {
         $this->about = $about;
+
+        return $this;
+    }
+
+    public function getFullName(): string
+    {
+        return $this->lastName . ' ' . $this->firstName . ' ' . $this->patronymic;
+    }
+
+    public function getAvatar(): ?string
+    {
+        return $this->avatar ?: self::DEFAULT_AVATAR;
+    }
+
+    public function setAvatar(?string $avatar): self
+    {
+        $this->avatar = $avatar;
 
         return $this;
     }

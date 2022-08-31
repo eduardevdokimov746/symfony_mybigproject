@@ -18,8 +18,10 @@ services:
             $scheme: '%env(APP_SCHEME)%'
 
     App\Ship\Listener\ExceptionListener:
+        arguments:
+            $debug: '%kernel.debug%'
         tags:
-            - { name: kernel.event_listener, event: kernel.exception, priority: 10 }
+            - { name: kernel.event_listener, event: kernel.exception, priority: -1 }
 
     App\Ship\Parent\Validator\:
         resource: '%kernel.project_dir%/src/Ship/Parent/Validator'

@@ -14,7 +14,8 @@ class ExceptionListener
 {
     public function __construct(
         private ExceptionMappingResolver $mappingResolver,
-        private LoggerInterface          $logger
+        private LoggerInterface          $logger,
+        private bool                     $debug
     )
     {
     }
@@ -25,13 +26,15 @@ class ExceptionListener
 
         $exceptionMapping = $this->mappingResolver->resolve($throwable);
 
-        $event->setThrowable(new HttpException(
-            $exceptionMapping->getCode(),
-            $exceptionMapping->getMessage(),
-        ));
-
         if ($exceptionMapping->getCode() >= Response::HTTP_INTERNAL_SERVER_ERROR || $exceptionMapping->isLoggable())
             $this->log($exceptionMapping);
+
+        if (!$this->debug)
+            $event->setThrowable(new HttpException(
+                $exceptionMapping->getCode(),
+                $exceptionMapping->getMessage(),
+                $throwable
+            ));
     }
 
     private function log(ExceptionMapping $exceptionMapping): void
@@ -43,8 +46,8 @@ class ExceptionListener
         $context = [
             'file'     => $exceptionMapping->getThrowable()->getFile(),
             'line'     => $exceptionMapping->getThrowable()->getLine(),
-            'class'    => $fileException['class'],
-            'function' => $fileException['function']
+            'class'    => $fileException['class'] ?? '',
+            'function' => $fileException['function'] ?? ''
         ];
 
         switch (true) {

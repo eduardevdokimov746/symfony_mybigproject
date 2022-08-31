@@ -4,7 +4,7 @@
 
 {% block style %}
     {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('src/css/profile_page.css') }}">
+    <link rel="stylesheet" href="{{ absolute_url(asset('profile_page.css', 'css')) }}">
 {% endblock %}
 
 {% block page_title %}
@@ -23,28 +23,28 @@
             <div class="content-inner-body">
                 <div class="profile-avatar-login-block">
                     <div class="profile-avatar-block">
-                        <img src="{{ asset('src/image/3.png') }}">
+                        <img src="{{ absolute_url(asset(app.user.profile.avatar, 'avatar')) }}">
                     </div>
                     <div class="profile-login-block">
-                        <p>ens</p>
+                        <p>{{ app.user.userIdentifier }}</p>
                     </div>
                 </div>
                 <div class="profile-info-block field-margin-top">
                     <p class="profile-info-content">
                         <b class="profile-info-title">{{ 'form.email'|trans }}:</b>
-                        <span>ens@mail.com</span>
+                        <span>{{ app.user.email }}</span>
                     </p>
                 </div>
                 <div class="profile-info-block field-margin-top">
                     <p class="profile-info-content">
                         <b class="profile-info-title">{{ 'form.full_name'|trans }}:</b>
-                        <span>Евдокимов Эдуард Игоревич</span>
+                        <span>{{ app.user.profile.fullName|title ?: '&mdash;'|raw }}</span>
                     </p>
                 </div>
                 <div class="profile-info-block field-margin-top">
                     <p class="profile-info-content">
                         <b class="profile-info-title">{{ 'form.about'|trans }}:</b>
-                        <span>фыво фдыловдфыо дофылд овлфыо ло фоыв олфыо лодвфо оыф лофло влфо лвофл овлдфоылв олдфыов оффыовло фоы доф лдовл фодл овфд</span>
+                        <span>{{ app.user.profile.about ?: '&mdash;'|raw }}</span>
                     </p>
                 </div>
             </div>

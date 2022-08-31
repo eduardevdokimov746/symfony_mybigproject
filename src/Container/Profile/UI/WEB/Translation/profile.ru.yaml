@@ -28,3 +28,8 @@ form:
 btn:
     save: Сохранить
     offer: Предложить
+
+success:
+    edit_profile: Профиль успешно изменен
+    edit_password: Пароль успешно изменен
+    offer_news: Новость успешно предложена

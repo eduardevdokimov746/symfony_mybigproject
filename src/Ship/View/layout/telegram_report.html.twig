@@ -14,8 +14,8 @@
 ***IP:*** {{ log.extra.ip }}
 --------------------------
 {% if log.extra.token is not null %}
-***ПОЛЬЗОВАТЕЛЬ:*** {{ log.extra.token.user_identifier|replace({'_': '\\_'}) }}
-***РОЛИ:*** {{ log.extra.token.roles|map(role => role|replace({'_': '\\_'}))|join(', ') }}
+***Пользователь:*** {{ log.extra.token.user_identifier|replace({'_': '\\_'}) }}
+***Роли:*** {{ log.extra.token.roles|map(role => role|replace({'_': '\\_'}))|join(', ') }}
 {% else %}
-***ПОЛЬЗОВАТЕЛЬ:*** null
+***Пользователь:*** null
 {% endif %}

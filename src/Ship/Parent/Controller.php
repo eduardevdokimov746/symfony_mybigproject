@@ -3,6 +3,7 @@
 namespace App\Ship\Parent;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
  * Controllers are responsible for validating the request, serving the request data and building a response.
@@ -16,4 +17,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
  */
 abstract class Controller extends AbstractController
 {
+    protected function redirectBack(): RedirectResponse
+    {
+        $route = $this->container->get('request_stack')->getCurrentRequest()->attributes->get('_route');
+
+        return $this->redirectToRoute($route);
+    }
 }

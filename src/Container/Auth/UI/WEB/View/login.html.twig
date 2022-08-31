@@ -7,7 +7,7 @@
 {% block style %}
     {{ parent() }}
 
-    <link rel="stylesheet" href="{{ asset('src/css/auth.css') }}">
+    <link rel="stylesheet" href="{{ absolute_url(asset('auth.css', 'css')) }}">
 {% endblock %}
 
 {% block page_title %}
