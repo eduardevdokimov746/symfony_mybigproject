@@ -2,7 +2,7 @@
 
 namespace App\Container\User\Entity\Doc;
 
-use App\Container\Auth\Entity\Doc\EmailVerification;
+use App\Container\AuthSection\Auth\Entity\Doc\EmailVerification;
 use App\Container\Profile\Entity\Doc\Profile;
 use App\Container\User\Data\Repository\Doc\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -65,6 +65,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setProfile(Profile $profile): self
     {
         $this->profile = $profile;
+
+        return $this;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
 
         return $this;
     }

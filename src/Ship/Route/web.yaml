@@ -7,7 +7,11 @@ news:
     type: directory
 
 auth:
-    resource: ../../Container/Auth/UI/WEB/Route
+    resource: ../../Container/AuthSection/Auth/UI/WEB/Route
+    type: directory
+
+reset_password:
+    resource: ../../Container/AuthSection/ResetPassword/UI/WEB/Route
     type: directory
 
 locale:

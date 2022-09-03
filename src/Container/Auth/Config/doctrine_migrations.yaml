@@ -1,3 +1,0 @@
-doctrine_migrations:
-    migrations_paths:
-        App\Container\Auth\Data\Migration: '%kernel.project_dir%/src/Container/Auth/Data/Migration'

@@ -1,0 +1,39 @@
+{% extends '@auth/_base.html.twig' %}
+
+{% trans_default_domain 'reset_password' %}
+
+{% block form_title %}{{ 'form_title.request'|trans }}{% endblock %}
+
+{% block content %}
+    <div class="auth-form">
+
+        <form method="POST">
+
+            <input type="hidden" value="{{ csrf_token(csrf_token_id) }}" name="{{ csrf_parameter }}">
+
+            <table>
+                <tbody>
+                <tr>
+                    <td><label for="email" class="auth-form-label form-label">{{ 'field.email.label'|trans(domain = 'auth') }}</label>
+                    </td>
+                    <td><input type="text" id="email" class="auth-form-input form-input" name="email" autofocus></td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div class="auth-form-field">
+                <button name="submit" class="btn">{{ 'submit.request'|trans }}</button>
+            </div>
+        </form>
+
+        <div class="auth-form-field">
+            <div>
+                <a href="{{ url('auth.login') }}">{{ 'link.login'|trans(domain = 'auth') }}</a>
+            </div>
+            <span style="color: #aaa">&VerticalSeparator;</span>
+            <div>
+                <a href="{{ url('auth.registration') }}">{{ 'link.registration'|trans(domain = 'auth') }}</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

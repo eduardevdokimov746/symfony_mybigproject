@@ -1,0 +1,13 @@
+{% extends '@ship/layout/base.html.twig' %}
+
+{% set container_attr = 'style="width: 30%"' %}
+
+{% block style %}
+    {{ parent() }}
+
+    <link rel="stylesheet" href="{{ absolute_url(asset('auth.css', 'css')) }}">
+{% endblock %}
+
+{% block page_title %}
+    <p class="t-center">{% block form_title %}{% endblock %}</p>
+{% endblock %}

@@ -1,4 +1,0 @@
-twig:
-    paths:
-        '%kernel.project_dir%/src/Container/Auth/UI/WEB/View': auth
-        '%kernel.project_dir%/src/Container/Auth/Email/Template': email

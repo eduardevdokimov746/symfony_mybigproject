@@ -1,0 +1,6 @@
+group:
+    resource: ../Controller
+    type: annotation
+    name_prefix: reset_password.
+    prefix: /reset-password
+    trailing_slash_on_root: false

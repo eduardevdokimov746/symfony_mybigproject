@@ -1,0 +1,15 @@
+{% extends '@auth/_base.html.twig' %}
+
+{% trans_default_domain 'reset_password' %}
+
+{% block form_title %}{{ 'form_title.check_email'|trans }}{% endblock %}
+
+{% block content %}
+    <div class="auth-form">
+
+        <p class="check-email-info">{{ 'check_email_info.main'|trans }}</p>
+
+        <p class="check-email-info">{{ 'check_email_info.resend'|trans|raw }}</p>
+
+    </div>
+{% endblock %}

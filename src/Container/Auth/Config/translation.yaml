@@ -1,5 +1,0 @@
-framework:
-    translator:
-        paths:
-            - '%kernel.project_dir%/src/Container/Auth/UI/WEB/Translation'
-            - '%kernel.project_dir%/src/Container/Auth/Translation'

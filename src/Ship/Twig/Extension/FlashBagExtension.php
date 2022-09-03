@@ -37,7 +37,7 @@ class FlashBagExtension extends AbstractExtension
         else
             $errors = $appVariable->getFlashes($errorName);
 
-        if (empty($errors)) return '';
+        if (empty(array_filter($errors))) return '';
 
         return array_pop($errors);
     }

@@ -1,9 +1,0 @@
-doctrine:
-    orm:
-        mappings:
-            Auth:
-                type: attribute
-                dir: '%kernel.project_dir%/src/Container/Auth/Entity'
-                is_bundle: false
-                prefix: App\Container\Auth\Entity
-                alias: AuthContainer

@@ -36,7 +36,9 @@
         "symfony/dotenv": "^6.1",
         "doctrine/doctrine-fixtures-bundle": "^3.4",
         "symfony/doctrine-bridge": "^6.1",
-        "ext-gd": "*"
+        "ext-gd": "*",
+        "symfonycasts/verify-email-bundle": "^1.11",
+        "symfonycasts/reset-password-bundle": "^1.14"
     },
     "config": {
         "allow-plugins": {
