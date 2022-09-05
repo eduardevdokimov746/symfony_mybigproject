@@ -24,7 +24,7 @@ class RegistrationController extends Controller
         private CreateUserProfileByRegistrationAction $createUserProfileByRegistrationAction,
         #[Autowire(service: 'security.authenticator.form_login.main')]
         private FormLoginAuthenticator                $authenticator,
-        private UserAuthenticatorInterface            $userAuthenticator
+        private UserAuthenticatorInterface            $userAuthenticator,
     )
     {
     }
@@ -32,7 +32,7 @@ class RegistrationController extends Controller
     public function __invoke(Request $request, RegistrationValidator $validator): Response
     {
         if ($this->isGranted('IS_AUTHENTICATED'))
-            return $this->redirectToRoute('home.main');
+            return $this->redirectToRoute($this->getParameter('auth_default_path'));
 
         if ($validator->isValid()) {
             $user = $this->createUserProfileByRegistrationAction->run(

@@ -26,7 +26,7 @@
         "symfony/string": "^6.1",
         "symfony/translation": "^6.1",
         "symfony/twig-bundle": "^6.1",
-        "twig/extra-bundle": "^2.12|^3.0",
+        "twig/extra-bundle": "^3.4",
         "twig/twig": "^2.12|^3.0",
         "symfony/validator": "^6.1",
         "symfony/web-link": "^6.1",
@@ -38,7 +38,9 @@
         "symfony/doctrine-bridge": "^6.1",
         "ext-gd": "*",
         "symfonycasts/verify-email-bundle": "^1.11",
-        "symfonycasts/reset-password-bundle": "^1.14"
+        "symfonycasts/reset-password-bundle": "^1.14",
+        "twig/intl-extra": "^3.4",
+        "symfony/rate-limiter": "^6.1"
     },
     "config": {
         "allow-plugins": {

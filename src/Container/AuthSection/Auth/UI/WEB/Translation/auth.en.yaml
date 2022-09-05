@@ -1,6 +1,8 @@
 form_title:
     login: Login
     registration: Registration
+    email_verified: Email confirmation
+    email_sent: Confirmation email sent
 
 field:
     login.label: Login
@@ -16,5 +18,18 @@ link:
     forgot_password: Forgot your password?
     login: Login
     registration: Registration
+    request_new_link: Request a new link
+
+email_sent:
+    main: An email has just been sent containing a link that can be used to verify.
+         This link will expire %date%.
+    resend: "If you don't receive an email please check your spam folder or <a href='%link%'>try again</a>"
+
+email_verified:
+    success: Mail successfully confirmed
 
 Invalid credentials.: Check the correctness of the entered data
+
+The link to verify your email is invalid. Please request a new link.: The link to verify your email is invalid. Please request a new link.
+The link to verify your email has expired. Please request a new link.: The link to verify your email has expired. Please request a new link.
+The link to verify your email appears to be for a different account or email. Please request a new link.: The link to verify your email appears to be for a different account or email. Please request a new link.

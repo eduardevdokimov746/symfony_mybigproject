@@ -40,7 +40,15 @@
 
                         <div class="form-field field-margin-top">
                             <div class="form-label">
-                                <label for="email">{{ 'form.email'|trans }}</label>
+                                <label for="email">{{ 'form.email'|trans }}
+                                    {% if not app.user.emailVerified %}
+                                        <span class="email-not-verified-alert">
+                                            <i class="fa-solid fa-triangle-exclamation"
+                                               title="{{ 'email_confirmation.info'|trans }}"></i>
+                                            <a href="{{ url('auth.send_email_verification') }}">{{ 'email_confirmation.send_again'|trans }}</a>
+                                        </span>
+                                    {% endif %}
+                                </label>
                             </div>
                             <div>
                                 <input id="email" class="form-input form-input-readonly" type="text" readonly value="{{ app.user.email }}">
@@ -57,7 +65,7 @@
                             </div>
                             <div class="field-margin-top">
                                 <p>
-                                    <label><input type="checkbox" name="deleteAvatar">&nbsp;<span>Удалить аватар</span></label>
+                                    <label><input type="checkbox" name="deleteAvatar">&nbsp;<span>{{ 'form.delete_avatar'|trans }}</span></label>
                                 </p>
                             </div>
                             {% if app|flashError('avatar', true) %}

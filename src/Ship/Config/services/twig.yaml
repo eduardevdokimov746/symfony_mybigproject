@@ -1,0 +1,19 @@
+services:
+    _defaults:
+        autoconfigure: true
+        autowire: true
+
+    App\Ship\Twig\FormatDateTimeFactory:
+        arguments:
+            $enabledLocales: '%kernel.enabled_locales%'
+
+    IntlDateFormatter:
+        class: IntlDateFormatter
+        factory: '@App\Ship\Twig\FormatDateTimeFactory'
+
+    twig.extension.intl:
+        class: Twig\Extra\Intl\IntlExtension
+        tags:
+            - { name: twig.extension }
+        arguments:
+            $dateFormatterPrototype: '@IntlDateFormatter'

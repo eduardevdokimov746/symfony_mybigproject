@@ -9,6 +9,9 @@ twig:
         csrf_token_id: '%csrf_token_id%'
         app_name: '%app_name%'
 
+    date:
+        timezone: Europe/Moscow
+
 when@test:
     twig:
         strict_variables: true

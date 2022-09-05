@@ -28,3 +28,8 @@
 .profile-info-content {
     color: #aaa;
 }
+
+.email-not-verified-alert {
+    color: #ffe100;
+    font-size: 0.8em;
+}

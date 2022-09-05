@@ -1,0 +1,21 @@
+{% extends '@auth/_base.html.twig' %}
+
+{% trans_default_domain 'auth' %}
+
+{% block form_title %}{{ 'form_title.email_verified'|trans }}{% endblock %}
+
+{% block content %}
+    <div class="auth-form">
+
+        {% if app.session.flashBag.peek('error') is not empty %}
+            <p class="check-email-info">{{ app.flashes('error')|first|trans }}</p>
+
+            <div class="auth-form-field">
+                <a href="{{ url('auth.send_email_verification') }}">{{ 'link.request_new_link'|trans }}</a>
+            </div>
+        {% else %}
+            <p class="ch-label">{{ 'email_verified.success'|trans }}</p>
+        {% endif %}
+
+    </div>
+{% endblock %}

@@ -2,12 +2,9 @@
 
 namespace App\Container\User\Entity\Doc;
 
-use App\Container\AuthSection\Auth\Entity\Doc\EmailVerification;
 use App\Container\Profile\Entity\Doc\Profile;
 use App\Container\User\Data\Repository\Doc\UserRepository;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\PersistentCollection;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -32,11 +29,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(name: 'active', type: 'boolean', options: ['default' => true])]
     private bool $active = true;
 
+    #[ORM\Column(name: 'email_verified', type: 'boolean', options: ['default' => false])]
+    private bool $emailVerified = false;
+
     #[ORM\OneToOne(targetEntity: Profile::class, mappedBy: 'user')]
     private Profile $profile;
-
-    #[ORM\OneToMany(targetEntity: EmailVerification::class, mappedBy: 'user')]
-    private PersistentCollection|ArrayCollection $emailVerifications;
 
     public function __construct(
         string   $login,
@@ -48,8 +45,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->login = $login;
         $this->email = $email;
         $this->password = $passwordHash($this, $plainPassword);
-
-        $this->emailVerifications = new ArrayCollection();
     }
 
     public function getId(): int
@@ -69,20 +64,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function setPassword(string $password): self
-    {
-        $this->password = $password;
-
-        return $this;
-    }
-
-    public function addEmailVerification(EmailVerification $emailVerification): self
-    {
-        $this->emailVerifications->add($emailVerification);
-
-        return $this;
-    }
-
     public function getEmail(): string
     {
         return $this->email;
@@ -95,21 +76,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getEmailVerification(): EmailVerification
-    {
-        $emailVerifications = $this->emailVerifications->toArray();
-
-        return array_pop($emailVerifications);
-    }
-
     public function isEmailVerified(): bool
     {
-        return $this->emailVerification->exists(fn(EmailVerification $emailVerification) => $emailVerification->isVerified());
+        return $this->emailVerified;
     }
 
-    public function setEmailVerification(EmailVerification $emailVerification): self
+    public function setEmailVerified(bool $emailVerified): self
     {
-        $this->emailVerification = $emailVerification;
+        $this->emailVerified = $emailVerified;
 
         return $this;
     }
@@ -124,7 +98,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return ['ROLE_ADMIN'];
     }
 
-    public function eraseCredentials()
+    public function eraseCredentials(): void
     {
     }
 
@@ -136,5 +110,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getPassword(): ?string
     {
         return $this->password;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
+
+        return $this;
     }
 }

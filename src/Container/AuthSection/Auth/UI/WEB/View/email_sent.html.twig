@@ -1,0 +1,15 @@
+{% extends '@auth/_base.html.twig' %}
+
+{% trans_default_domain 'auth' %}
+
+{% block form_title %}{{ 'form_title.email_sent'|trans }}{% endblock %}
+
+{% block content %}
+    <div class="auth-form">
+        <p class="check-email-info">
+            {{ 'email_sent.main'|trans({'%date%': '<b>' ~ signature_components.expiresAt|format_datetime ~ '</b>' })|raw }}
+        </p>
+
+        <p class="check-email-info">{{ 'email_sent.resend'|trans({'%link%': url('auth.send_email_verification')})|raw }}</p>
+    </div>
+{% endblock %}

@@ -2,8 +2,10 @@
 
 namespace App\Ship\Parent;
 
+use App\Container\User\Entity\Doc\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Controllers are responsible for validating the request, serving the request data and building a response.
@@ -14,6 +16,8 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
  * Usually contains the *__invoke()* method, which accepts the request object and returns a response
  *
  * @link https://github.com/Mahmoudz/Porto#Controllers Detailed information
+ *
+ * @method User|UserInterface getUser
  */
 abstract class Controller extends AbstractController
 {

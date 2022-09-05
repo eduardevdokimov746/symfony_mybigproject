@@ -32,7 +32,7 @@
                 <div class="profile-info-block field-margin-top">
                     <p class="profile-info-content">
                         <b class="profile-info-title">{{ 'form.email'|trans }}:</b>
-                        <span>{{ app.user.email }}</span>
+                        <span>{{ app.user.emailVerified ? app.user.email : '&mdash;'|raw }}</span>
                     </p>
                 </div>
                 <div class="profile-info-block field-margin-top">

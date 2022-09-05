@@ -1,6 +1,8 @@
 form_title:
     login: Войти
     registration: Регистрация
+    email_verified: Подтверждение почты
+    email_sent: Электронное письмо для подтверждения отправлено
 
 field:
     login.label: Логин
@@ -16,5 +18,18 @@ link:
     forgot_password: Забыли пароль?
     login: Войти
     registration: Зарегистрироваться
+    request_new_link: Запросить новую ссылку
+
+email_sent:
+    main: Только что было отправлено электронное письмо, содержащее ссылку, которую можно использовать для подтверждения.
+        Срок действия этой ссылки истекает %date%.
+    resend: 'Если вы не получили письмо, проверьте папку со спамом или <a href="%link%">повторите попытку</a>'
+
+email_verified:
+    success: Почта успешно подтверждена
 
 Invalid credentials.: Проверьте правильность введенных данных
+
+The link to verify your email is invalid. Please request a new link.: Ссылка для подтверждения электронной почты недействительна. Пожалуйста, запросите новую ссылку.
+The link to verify your email has expired. Please request a new link.: Срок действия ссылки для подтверждения электронной почты истек. Пожалуйста, запросите новую ссылку.
+The link to verify your email appears to be for a different account or email. Please request a new link.: Ссылка для подтверждения электронной почты, по-видимому, относится к другой учетной записи или электронной почте. Пожалуйста, запросите новую ссылку.

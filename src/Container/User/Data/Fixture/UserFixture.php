@@ -2,32 +2,27 @@
 
 namespace App\Container\User\Data\Fixture;
 
-use App\Container\User\Entity\Doc\User;
+use App\Container\User\Task\CreateUserTask;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserFixture extends Fixture
 {
     public const REFERENCE = 'user';
 
     public function __construct(
-        private UserPasswordHasherInterface $passwordHasher
+        private CreateUserTask $createUserTask
     )
     {
     }
 
     public function load(ObjectManager $manager)
     {
-        $user = new User(
+        $user = $this->createUserTask->run(
             'ens',
             'ens@mail.com',
-            'ens',
-            fn(User $user, $plainPassword) => $this->passwordHasher->hashPassword($user, $plainPassword)
+            'ens'
         );
-
-        $manager->persist($user);
-        $manager->flush();
 
         $this->setReference(self::REFERENCE, $user);
     }

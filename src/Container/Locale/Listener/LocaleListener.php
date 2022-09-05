@@ -9,12 +9,12 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Component\Routing\RequestContext;
+use Symfony\Component\Translation\LocaleSwitcher;
 
 class LocaleListener implements EventSubscriberInterface
 {
     public function __construct(
-        private RequestContext        $requestContext,
+        private LocaleSwitcher        $localeSwitcher,
         private UrlGeneratorInterface $urlGenerator,
         private string                $defaultLocale,
         private string                $localeCookieName,
@@ -35,37 +35,29 @@ class LocaleListener implements EventSubscriberInterface
     {
         $request = $event->getRequest();
 
-        $localeFromAcceptLanguageHeader = $this->getFromAcceptLanguageHeader($request) ?: $this->defaultLocale;
+        if (null === ($locale = $request->cookies->get($this->localeCookieName)))
+            $locale = $this->getFromAcceptLanguageHeader($request) ?: $this->defaultLocale;
 
-        if ($localeFromCookie = $request->cookies->get($this->localeCookieName)) {
-            $request->setLocale($localeFromCookie);
-            return;
-        }
+        $this->localeSwitcher->setLocale($locale);
 
         try {
             if (
-                $request->attributes->get('_locale') !== $localeFromAcceptLanguageHeader &&
+                $request->attributes->get('_locale') !== $locale &&
                 $request->attributes->get('_route')
             )
-                $event->setResponse(new RedirectResponse($this->makeRedirectUrl($request, $localeFromAcceptLanguageHeader)));
-
+                $event->setResponse(new RedirectResponse($this->makeRedirectUrl($request)));
         } catch (Exception) {}
     }
 
     private function getFromAcceptLanguageHeader(Request $request): string|false
     {
-        if ($this->useAcceptLanguageHeader && $this->enabledLocales)
-            return $request->getPreferredLanguage($this->enabledLocales);
+        if (!$this->useAcceptLanguageHeader || empty($this->enabledLocales)) return false;
 
-        return false;
+        return $request->getPreferredLanguage($this->enabledLocales);
     }
 
-    private function makeRedirectUrl(Request $request, string $localeFromAcceptLanguageHeader): string
+    private function makeRedirectUrl(Request $request): string
     {
-        $this->requestContext->setParameter('_locale', $localeFromAcceptLanguageHeader);
-
-        $this->urlGenerator->setContext($this->requestContext);
-
         return $this->urlGenerator->generate($request->attributes->get('_route'));
     }
 }

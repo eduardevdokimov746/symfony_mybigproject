@@ -25,12 +25,12 @@ security:
                 enable_csrf: true
                 csrf_token_id: '%auth_csrf_token_id%'
                 csrf_parameter: '%form.type_extension.csrf.field_name%'
-                default_target_path: home.main
+                default_target_path: '%auth_default_path%'
                 use_referer: true
 
             logout:
                 path: auth.logout
-                target: home.main
+                target: '%auth_default_path%'
 
             remember_me:
                 remember_me_parameter: remember_me

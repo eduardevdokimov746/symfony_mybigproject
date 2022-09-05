@@ -24,6 +24,7 @@ form:
     content: Content
     img: Image
     full_name: Full name
+    delete_avatar: Delete avatar
 
 btn:
     save: Save
@@ -33,3 +34,8 @@ success:
     edit_profile: Profile changed successfully
     edit_password: Password changed successfully
     offer_news: News successfully submitted
+
+email_confirmation:
+    info: Mail not confirmed. Go to your email and find the confirmation email. If you can't find a letter
+         confirmation click on the link.
+    send_again: Send mail again
