@@ -184,6 +184,7 @@ a:hover {
 
 #container {
     width: 70%;
+    min-width: min-content;
     margin: 0 auto;
     margin-top: 2%;
     background: #191919;

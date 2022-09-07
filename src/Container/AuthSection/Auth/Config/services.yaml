@@ -1,6 +1,5 @@
 parameters:
     auth_csrf_token_id: authenticate
-    auth_default_path: home.main
 
 services:
     _defaults:

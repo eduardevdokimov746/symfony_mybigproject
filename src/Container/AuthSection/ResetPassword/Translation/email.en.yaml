@@ -1,0 +1,7 @@
+reset_password:
+    subject: Password reset
+    body:
+        title: Password reset confirmation
+        content: A password reset request has been made for your %userIdentifier% account. In order to confirm password
+            reset, go to %link% or click on the button "%button%".
+        button: Confirm password reset

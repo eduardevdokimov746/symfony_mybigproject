@@ -1,0 +1,5 @@
+framework:
+    translator:
+        paths:
+            - '%kernel.project_dir%/src/Container/AuthSection/ResetPassword/UI/WEB/Translation'
+            - '%kernel.project_dir%/src/Container/AuthSection/ResetPassword/Translation'

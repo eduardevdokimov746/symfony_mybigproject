@@ -6,6 +6,7 @@ use App\Container\User\Entity\Doc\User;
 use App\Ship\Parent\Action;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Asset\Packages;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -24,6 +25,7 @@ class SendEmailVerificationAction extends Action
         private MailerInterface            $mailer,
         private VerifyEmailHelperInterface $verifyEmailHelper,
         private Packages                   $asset,
+        private LoggerInterface            $authLogger,
         private LoggerInterface            $logger
     )
     {
@@ -33,14 +35,19 @@ class SendEmailVerificationAction extends Action
     {
         $signatureComponents = $this->createSignedUrl($user);
 
-        $this->mailer->send((new Email())
-            ->subject($this->getSubject())
-            ->to($user->getEmail())
-            ->embedFromPath($this->getLogoPath(), 'logo')
-            ->html($this->getHtmlBody($user->getEmail(), $signatureComponents->getSignedUrl()))
-        );
+        try {
+            $this->mailer->send((new Email())
+                ->subject($this->getSubject())
+                ->to($user->getEmail())
+                ->embedFromPath($this->getLogoPath(), 'logo')
+                ->html($this->getHtmlBody($user->getEmail(), $signatureComponents->getSignedUrl()))
+            );
+        } catch (TransportExceptionInterface $e) {
+            $this->authLogger->warning('Email send', ['debug' => $e->getDebug()]);
+            $this->logger->critical('Error sending verification mail');
+        }
 
-        $this->logger->debug('Email verification sent', ['signedUrl' => $signatureComponents->getSignedUrl()]);
+        $this->authLogger->debug('Email verification sent', ['signedUrl' => $signatureComponents->getSignedUrl()]);
 
         return $signatureComponents;
     }
@@ -70,8 +77,8 @@ class SendEmailVerificationAction extends Action
         return $this->twig->render(
             self::VERIFY_EMAIL_TEMPLATE,
             [
-                'recipient' => $recipient,
-                'signedUrl' => $signedUrl
+                'recipient'  => $recipient,
+                'signed_url' => $signedUrl
             ]
         );
     }

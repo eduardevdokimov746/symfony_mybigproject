@@ -12,7 +12,7 @@ class ClearTmpDirListener implements EventSubscriberInterface
         ResizeAvatarTask::TMP_PREFIX
     ];
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [KernelEvents::TERMINATE => 'onKernelTerminate'];
     }

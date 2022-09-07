@@ -5,6 +5,7 @@ namespace App\Container\AuthSection\Auth\UI\WEB\Controller;
 use App\Container\AuthSection\Auth\Action\CreateUserProfileByRegistrationAction;
 use App\Container\AuthSection\Auth\Data\DTO\CreateUserProfileByRegistrationDTO;
 use App\Container\AuthSection\Auth\Validator\RegistrationValidator;
+use App\Ship\Attribute\OnlyGuest;
 use App\Ship\Parent\Controller;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,6 +19,7 @@ use Symfony\Component\Security\Http\Authenticator\FormLoginAuthenticator;
     name: 'registration',
     methods: ['GET', 'POST']
 )]
+#[OnlyGuest]
 class RegistrationController extends Controller
 {
     public function __construct(
@@ -31,9 +33,6 @@ class RegistrationController extends Controller
 
     public function __invoke(Request $request, RegistrationValidator $validator): Response
     {
-        if ($this->isGranted('IS_AUTHENTICATED'))
-            return $this->redirectToRoute($this->getParameter('auth_default_path'));
-
         if ($validator->isValid()) {
             $user = $this->createUserProfileByRegistrationAction->run(
                 CreateUserProfileByRegistrationDTO::fromValidator($validator)

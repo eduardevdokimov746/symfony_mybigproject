@@ -106,13 +106,13 @@
         </div>
     </div>
     <div id='body'>
-        <h3>{{ 'body.title'|trans }}</h3>
+        <h3>{{ 'email_verification.body.title'|trans }}</h3>
         <p>
             {% set email = '<b>%s</b>'|format(recipient) %}
             {% set linkFormat = '<a href="%s">%s</a>' %}
-            {{ 'body.content'|trans({'%email%': email, '%link%': linkFormat|format(signedUrl, 'body.button'|trans)|raw, '%button%': 'body.button'|trans|lower})|raw }}
+            {{ 'email_verification.body.content'|trans({'%email%': email, '%link%': linkFormat|format(signed_url, 'email_verification.body.button'|trans)|raw, '%button%': 'email_verification.body.button'|trans|lower})|raw }}
         </p>
-        {{ linkFormat|format(signedUrl, 'body.button'|trans|capitalize)|raw }}
+        {{ linkFormat|format(signed_url, 'email_verification.body.button'|trans|capitalize)|raw }}
     </div>
 </div>
 </body>

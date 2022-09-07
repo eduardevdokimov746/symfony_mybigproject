@@ -1,0 +1,11 @@
+monolog:
+    channels:
+        - reset_password
+
+    handlers:
+        reset_password:
+            type: rotating_file
+            path: '%kernel.logs_dir%/%kernel.environment%/{date}/auth_reset_password.log'
+            level: debug
+            channels: [ reset_password ]
+            formatter: file_formatter

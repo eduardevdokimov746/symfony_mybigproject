@@ -7,9 +7,9 @@
 {% block content %}
     <div class="auth-form">
 
-        <p class="check-email-info">{{ 'check_email_info.main'|trans }}</p>
+        <p class="check-email-info">{{ 'check_email_info.main'|trans({'%date%': '<b>' ~ reset_token.expiresAt|format_datetime ~ '</b>'})|raw }}</p>
 
-        <p class="check-email-info">{{ 'check_email_info.resend'|trans|raw }}</p>
+        <p class="check-email-info">{{ 'check_email_info.resend'|trans({'%link%': url('reset_password.request')})|raw }}</p>
 
     </div>
 {% endblock %}

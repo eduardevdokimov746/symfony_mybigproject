@@ -44,7 +44,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->login = $login;
         $this->email = $email;
-        $this->password = $passwordHash($this, $plainPassword);
+
+        $this->setPassword($passwordHash, $plainPassword);
     }
 
     public function getId(): int
@@ -112,9 +113,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->password;
     }
 
-    public function setPassword(string $password): self
+    public function setPassword(callable $passwordHash, string $plainPassword): self
     {
-        $this->password = $password;
+        $this->password = $passwordHash($this, $plainPassword);
 
         return $this;
     }

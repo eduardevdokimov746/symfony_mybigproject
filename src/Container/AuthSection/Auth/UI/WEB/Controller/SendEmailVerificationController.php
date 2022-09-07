@@ -28,7 +28,7 @@ class SendEmailVerificationController extends Controller
     public function __invoke(Request $request): Response
     {
         if ($this->getUser()->isEmailVerified())
-            return $this->redirectToRoute($this->getParameter('auth_default_path'));
+            return $this->redirectToRoute($this->getParameter('app_default_route'));
 
         if ($this->sendEmailLimiter->create($request->getClientIp())->consume()->isAccepted())
             $signatureComponents = $this->sendEmailVerificationAction->run($this->getUser());

@@ -16,8 +16,16 @@
                 <tr>
                     <td><label for="email" class="auth-form-label form-label">{{ 'field.email.label'|trans(domain = 'auth') }}</label>
                     </td>
-                    <td><input type="text" id="email" class="auth-form-input form-input" name="email" autofocus></td>
+                    <td><input type="text" id="email" class="auth-form-input form-input" name="email"
+                               value="{{ app|flashField('email') }}" autofocus></td>
                 </tr>
+                {% if app|flashError('email', true) %}
+                    <tr>
+                        <td colspan="2">
+                            <p class="form-error t-center">{{ app|flashError('email') }}</p>
+                        </td>
+                    </tr>
+                {% endif %}
                 </tbody>
             </table>
 

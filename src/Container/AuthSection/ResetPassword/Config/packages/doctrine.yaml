@@ -1,0 +1,9 @@
+doctrine:
+    orm:
+        mappings:
+            Auth:
+                type: attribute
+                dir: '%kernel.project_dir%/src/Container/AuthSection/ResetPassword/Entity'
+                is_bundle: false
+                prefix: App\Container\AuthSection\ResetPassword\Entity
+                alias: AuthContainer

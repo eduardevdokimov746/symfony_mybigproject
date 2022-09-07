@@ -21,7 +21,7 @@ class CreateUserProfileByRegistrationAction extends Action
         private CreateProfileTask        $createProfileTask,
         private EntityManagerInterface   $entityManager,
         private EventDispatcherInterface $eventDispatcher,
-        private LoggerInterface          $logger,
+        private LoggerInterface          $authLogger,
     )
     {
     }
@@ -45,7 +45,7 @@ class CreateUserProfileByRegistrationAction extends Action
             throw new SaveByRegistrationException();
         }
 
-        $this->logger->info('New user registered', [
+        $this->authLogger->info('New user registered', [
             'id'             => $user->getId(),
             'userIdentifier' => $user->getUserIdentifier()
         ]);

@@ -1,0 +1,11 @@
+monolog:
+    channels:
+        - auth
+
+    handlers:
+        auth:
+            type: rotating_file
+            path: '%kernel.logs_dir%/%kernel.environment%/{date}/auth.log'
+            level: debug
+            channels: [ auth ]
+            formatter: file_formatter

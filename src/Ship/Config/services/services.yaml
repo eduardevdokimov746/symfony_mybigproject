@@ -1,5 +1,6 @@
 parameters:
     app_name: '%env(APP_NAME)%'
+    app_default_route: home.main
 
 services:
     _defaults:
@@ -22,6 +23,10 @@ services:
             $debug: '%kernel.debug%'
         tags:
             - { name: kernel.event_listener, event: kernel.exception, priority: -1 }
+
+    App\Ship\Listener\OnlyGuestListener:
+        arguments:
+            $fallbackRoute: '%app_default_route%'
 
     App\Ship\Parent\Validator\:
         resource: '%kernel.project_dir%/src/Ship/Parent/Validator'

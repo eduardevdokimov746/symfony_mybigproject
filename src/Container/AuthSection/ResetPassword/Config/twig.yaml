@@ -1,3 +1,0 @@
-twig:
-    paths:
-        '%kernel.project_dir%/src/Container/AuthSection/ResetPassword/UI/WEB/View': reset_password
