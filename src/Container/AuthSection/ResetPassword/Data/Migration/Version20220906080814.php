@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+declare(strict_types=1);
+
 namespace App\Container\AuthSection\ResetPassword\Data\Migration;
 
 use Doctrine\DBAL\Schema\Schema;

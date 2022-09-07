@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Ship\Service\Doctrine;
 
 use Doctrine\Migrations\Version\Comparator;
@@ -9,7 +11,7 @@ class CustomComparator implements Comparator
 {
     public function compare(Version $a, Version $b): int
     {
-        return strcmp($this->getVersion($a), $this->getVersion($b));
+        return strcmp($this->getVersion((string) $a), $this->getVersion((string) $b));
     }
 
     private function getVersion(string $version): string

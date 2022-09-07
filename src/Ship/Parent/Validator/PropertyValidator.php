@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Ship\Parent\Validator;
 
 use App\Ship\Exception\PropertyClassNotExists;

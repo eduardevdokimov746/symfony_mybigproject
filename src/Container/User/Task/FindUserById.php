@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Container\User\Task;
 
 use App\Container\User\Data\Repository\Doc\UserRepository;

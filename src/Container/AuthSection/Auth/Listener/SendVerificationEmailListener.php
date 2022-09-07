@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Container\AuthSection\Auth\Listener;
 
 use App\Container\AuthSection\Auth\Action\SendEmailVerificationAction;

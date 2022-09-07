@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Container\User\Data\Repository\Doc;
 
 use App\Container\User\Entity\Doc\User;

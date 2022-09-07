@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Container\Locale\UI\WEB\Controller;
 
 use App\Container\Locale\Action\SwitchAction;

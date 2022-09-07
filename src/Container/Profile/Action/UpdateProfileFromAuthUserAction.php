@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Container\Profile\Action;
 
 use App\Container\Profile\Data\DTO\UpdateProfileFromAuthUserDTO;

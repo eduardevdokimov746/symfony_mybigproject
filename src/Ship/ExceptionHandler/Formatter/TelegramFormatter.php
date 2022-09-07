@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Ship\ExceptionHandler\Formatter;
 
 use Monolog\Formatter\FormatterInterface;

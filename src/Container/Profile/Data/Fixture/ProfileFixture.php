@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Container\Profile\Data\Fixture;
 
 use App\Container\Profile\Entity\Doc\Profile;

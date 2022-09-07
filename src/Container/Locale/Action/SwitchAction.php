@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Container\Locale\Action;
 
 use App\Container\Locale\Task\SwitchTask;

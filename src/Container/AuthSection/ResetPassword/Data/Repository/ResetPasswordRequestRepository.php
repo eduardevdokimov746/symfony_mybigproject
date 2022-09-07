@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Container\AuthSection\ResetPassword\Data\Repository;
 
 use App\Container\AuthSection\ResetPassword\Entity\Doc\ResetPasswordRequest;

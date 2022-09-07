@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Container\User\Data\Fixture;
 
 use App\Container\User\Task\CreateUserTask;

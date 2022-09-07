@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+declare(strict_types=1);
+
 namespace App\Container\User\Data\Migration;
 
 use Doctrine\DBAL\Schema\Schema;

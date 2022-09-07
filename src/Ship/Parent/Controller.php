@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Ship\Parent;
 
 use App\Container\User\Entity\Doc\User;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Container\AuthSection\Auth\Event;
 
 use App\Container\User\Entity\Doc\User;
