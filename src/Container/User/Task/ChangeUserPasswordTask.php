@@ -16,12 +16,11 @@ class ChangeUserPasswordTask extends Task
     use UserPasswordHasherTrait;
 
     public function __construct(
-        private FindUserById                $findUserById,
+        private FindUserById $findUserById,
         private UserPasswordHasherInterface $passwordHasher,
-        private EntityManagerInterface      $entityManager,
-        private LoggerInterface             $logger
-    )
-    {
+        private EntityManagerInterface $entityManager,
+        private LoggerInterface $logger
+    ) {
     }
 
     public function run(int $id, string $plainPassword): User

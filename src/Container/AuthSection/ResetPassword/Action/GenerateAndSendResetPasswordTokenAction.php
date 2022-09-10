@@ -17,19 +17,22 @@ use SymfonyCasts\Bundle\ResetPassword\ResetPasswordHelperInterface;
 class GenerateAndSendResetPasswordTokenAction extends Action
 {
     public function __construct(
-        private FindUserByVerifiedEmailTask  $findUserByVerifiedEmail,
+        private FindUserByVerifiedEmailTask $findUserByVerifiedEmail,
         private ResetPasswordHelperInterface $resetPasswordHelper,
-        private SendEmailResetPasswordTask   $sendEmailResetPassword,
-        private LoggerInterface              $resetPasswordLogger
-    )
-    {
+        private SendEmailResetPasswordTask $sendEmailResetPassword,
+        private LoggerInterface $resetPasswordLogger
+    ) {
     }
 
     public function run(string $email): string|ResetPasswordToken
     {
-        if (is_string($user = $this->getUser($email))) return $user;
+        if (is_string($user = $this->getUser($email))) {
+            return $user;
+        }
 
-        if (is_string($resetToken = $this->generateResetPasswordToken($user))) return $resetToken;
+        if (is_string($resetToken = $this->generateResetPasswordToken($user))) {
+            return $resetToken;
+        }
 
         $this->sendEmailResetPassword->run($user->getEmail(), $user->getUserIdentifier(), $resetToken);
 
@@ -42,6 +45,7 @@ class GenerateAndSendResetPasswordTokenAction extends Action
             return $this->findUserByVerifiedEmail->run($email);
         } catch (UserNotFoundException $e) {
             $this->resetPasswordLogger->info($e->getMessage());
+
             return $e->getMessage();
         }
     }
@@ -52,6 +56,7 @@ class GenerateAndSendResetPasswordTokenAction extends Action
             return $this->resetPasswordHelper->generateResetToken($user);
         } catch (ResetPasswordExceptionInterface $e) {
             $this->resetPasswordLogger->info($e->getReason());
+
             return $e->getReason();
         }
     }

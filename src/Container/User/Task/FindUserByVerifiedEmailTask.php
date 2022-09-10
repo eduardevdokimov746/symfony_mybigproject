@@ -13,16 +13,16 @@ class FindUserByVerifiedEmailTask extends Task
 {
     public function __construct(
         private UserRepository $userRepository
-    )
-    {
+    ) {
     }
 
     public function run(string $email): User
     {
         $user = $this->userRepository->findOneBy(['email' => $email, 'emailVerified' => true]);
 
-        if (is_null($user))
+        if (is_null($user)) {
             throw new UserNotFoundException();
+        }
 
         return $user;
     }

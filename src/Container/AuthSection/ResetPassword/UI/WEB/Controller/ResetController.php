@@ -27,9 +27,8 @@ class ResetController extends Controller
 
     public function __construct(
         private RemoveResetTokenAndChangeUserPasswordAction $removeResetTokenAndChangeUserPasswordAction,
-        private ResetPasswordHelperInterface                $resetPasswordHelper
-    )
-    {
+        private ResetPasswordHelperInterface $resetPasswordHelper
+    ) {
     }
 
     public function __invoke(ResetValidator $validator, ?string $token = null): Response
@@ -40,8 +39,9 @@ class ResetController extends Controller
             return $this->redirectToRoute('reset_password.reset');
         }
 
-        if (null === ($token = $this->getTokenFromSession()))
+        if (null === ($token = $this->getTokenFromSession())) {
             return $this->redirectToRoute($this->getParameter('app_default_route'));
+        }
 
         if ($validator->isValid()) {
             $this->removeResetTokenAndChangeUserPasswordAction->run($token, $validator->getValidated()['plainPassword']);

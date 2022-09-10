@@ -16,12 +16,11 @@ use Symfony\Component\Security\Core\Security;
 class UpdateProfileFromAuthUserAction extends Action
 {
     public function __construct(
-        private Security                          $userAuthenticator,
+        private Security $userAuthenticator,
         private UpdateProfileFullNameAndAboutTask $updateProfileFullNameAndAboutTask,
-        private ChangeAvatarTask                  $changeAvatarTask,
-        private DeleteAvatarTask                  $deleteAvatarTask
-    )
-    {
+        private ChangeAvatarTask $changeAvatarTask,
+        private DeleteAvatarTask $deleteAvatarTask
+    ) {
     }
 
     public function run(UpdateProfileFromAuthUserDTO $updateProfileDTO): void

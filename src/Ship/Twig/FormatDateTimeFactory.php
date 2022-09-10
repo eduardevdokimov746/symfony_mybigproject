@@ -10,16 +10,15 @@ use Symfony\Component\Translation\LocaleSwitcher;
 
 class FormatDateTimeFactory
 {
-    private const RU_PATTERN = "d MMMM y в HH:mm";
+    private const RU_PATTERN = 'd MMMM y в HH:mm';
     private const EN_PATTERN = "MMMM d, y 'at' H:mm a";
 
     private string $message = "The current locale '%s' is not support. Available locales [%s].";
 
     public function __construct(
-        private array          $enabledLocales,
+        private array $enabledLocales,
         private LocaleSwitcher $localeSwitcher
-    )
-    {
+    ) {
     }
 
     public function __invoke(): IntlDateFormatter

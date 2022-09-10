@@ -14,8 +14,7 @@ class UserFixture extends Fixture
 
     public function __construct(
         private CreateUserTask $createUserTask
-    )
-    {
+    ) {
     }
 
     public function load(ObjectManager $manager)

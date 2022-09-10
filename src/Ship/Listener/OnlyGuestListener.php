@@ -22,9 +22,8 @@ class OnlyGuestListener implements EventSubscriberInterface
     public function __construct(
         private UrlGeneratorInterface $urlGenerator,
         private TokenStorageInterface $tokenStorage,
-        private string                $fallbackRoute
-    )
-    {
+        private string $fallbackRoute
+    ) {
     }
 
     public static function getSubscribedEvents(): array
@@ -35,7 +34,9 @@ class OnlyGuestListener implements EventSubscriberInterface
     public function onKernelController(ControllerEvent $event): void
     {
         if ($this->isUserLogged() && $event->isMainRequest()) {
-            if (null === ($attr = $this->findOnlyGuestAttribute($event->getController()))) return;
+            if (null === ($attr = $this->findOnlyGuestAttribute($event->getController()))) {
+                return;
+            }
 
             $event->setController($this->makeRedirectController($attr));
         }
@@ -50,10 +51,13 @@ class OnlyGuestListener implements EventSubscriberInterface
     {
         $reflection = is_array($controller) ? new ReflectionMethod(...$controller) : new ReflectionClass($controller);
 
-        if (empty($attrs = $reflection->getAttributes(OnlyGuest::class))) return null;
+        if (empty($attrs = $reflection->getAttributes(OnlyGuest::class))) {
+            return null;
+        }
 
-        if (count($attrs) > 1)
+        if (count($attrs) > 1) {
             throw new RuntimeException(sprintf('More than one %s attribute passed', OnlyGuest::class));
+        }
 
         return $attrs[0]->newInstance();
     }

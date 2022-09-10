@@ -29,6 +29,6 @@ class UserRepository extends Repository implements UserLoaderInterface
 
     public function existsBy(array $criteria): bool
     {
-        return $this->findOneBy($criteria) !== null;
+        return null !== $this->findOneBy($criteria);
     }
 }

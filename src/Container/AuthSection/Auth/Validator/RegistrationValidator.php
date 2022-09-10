@@ -26,15 +26,16 @@ class RegistrationValidator extends PropertyValidator
     public function __construct(
         ValidatorInterface $validator,
         private UserRepository $userRepository
-    )
-    {
+    ) {
         parent::__construct($validator);
     }
 
     #[Assert\IsFalse(message: 'login_already_exists')]
     private function hasLogin(): bool
     {
-        if (!isset($this->login)) return false;
+        if (!isset($this->login)) {
+            return false;
+        }
 
         return $this->userRepository->existsBy(['login' => $this->login]);
     }
@@ -42,7 +43,9 @@ class RegistrationValidator extends PropertyValidator
     #[Assert\IsFalse(message: 'email_already_exists')]
     private function hasEmail(): bool
     {
-        if (!isset($this->email)) return false;
+        if (!isset($this->email)) {
+            return false;
+        }
 
         return $this->userRepository->existsBy(['email' => $this->email]);
     }

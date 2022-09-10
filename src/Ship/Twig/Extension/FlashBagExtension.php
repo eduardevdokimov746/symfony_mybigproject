@@ -13,15 +13,14 @@ class FlashBagExtension extends AbstractExtension
 {
     public function __construct(
         private GetFlashBagNameTask $bagNameTask
-    )
-    {
+    ) {
     }
 
     public function getFilters(): array
     {
         return [
             new TwigFilter('flashError', [$this, 'getFlashBagError']),
-            new TwigFilter('flashField', [$this, 'getFlashBagField'])
+            new TwigFilter('flashField', [$this, 'getFlashBagField']),
         ];
     }
 
@@ -30,22 +29,25 @@ class FlashBagExtension extends AbstractExtension
         return $this->getFlashBag(GetFlashBagNameTask::ERROR, $appVariable, $key, $peek);
     }
 
+    public function getFlashBagField(AppVariable $appVariable, string $key, bool $peek = false): string
+    {
+        return $this->getFlashBag(GetFlashBagNameTask::FIELD, $appVariable, $key, $peek);
+    }
+
     private function getFlashBag(string $prefix, AppVariable $appVariable, string $key, bool $peek = false): string
     {
         $errorName = $this->bagNameTask->run($key, $prefix);
 
-        if ($peek)
+        if ($peek) {
             $errors = $appVariable->getSession()->getFlashBag()->peek($errorName);
-        else
+        } else {
             $errors = $appVariable->getFlashes($errorName);
+        }
 
-        if (empty(array_filter($errors))) return '';
+        if (empty(array_filter($errors))) {
+            return '';
+        }
 
         return array_pop($errors);
-    }
-
-    public function getFlashBagField(AppVariable $appVariable, string $key, bool $peek = false): string
-    {
-        return $this->getFlashBag(GetFlashBagNameTask::FIELD, $appVariable, $key, $peek);
     }
 }

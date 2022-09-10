@@ -11,8 +11,7 @@ class SendVerificationEmailListener
 {
     public function __construct(
         private SendEmailVerificationAction $sendEmailVerificationAction
-    )
-    {
+    ) {
     }
 
     public function onUserRegistered(UserRegisteredEvent $event): void

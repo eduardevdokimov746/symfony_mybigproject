@@ -11,15 +11,14 @@ class ExceptionNormalizer implements NormalizerInterface
 {
     /**
      * @param FlattenException $object
-     * @param string|null $format
-     * @param array $context
+     *
      * @return array
      */
     public function normalize(mixed $object, string $format = null, array $context = [])
     {
         return [
-            'code'    => $object->getStatusCode(),
-            'message' => $object->getMessage()
+            'code' => $object->getStatusCode(),
+            'message' => $object->getMessage(),
         ];
     }
 

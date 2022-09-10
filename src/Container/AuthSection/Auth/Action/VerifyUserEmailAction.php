@@ -14,18 +14,18 @@ class VerifyUserEmailAction extends Action
 {
     public function __construct(
         private VerifyEmailHelperInterface $verifyEmailHelper,
-        private MarkUserEmailVerifiedTask  $markUserEmailVerifiedTask,
-        private LoggerInterface            $authLogger
-    )
-    {
+        private MarkUserEmailVerifiedTask $markUserEmailVerifiedTask,
+        private LoggerInterface $authLogger
+    ) {
     }
 
     public function run(string $signedUrl, int $userId, string $userEmail): ?string
     {
         try {
-            $this->verifyEmailHelper->validateEmailConfirmation($signedUrl, $userId, $userEmail);
+            $this->verifyEmailHelper->validateEmailConfirmation($signedUrl, (string) $userId, $userEmail);
         } catch (VerifyEmailExceptionInterface $e) {
             $this->authLogger->warning($e->getReason());
+
             return $e->getReason();
         }
 

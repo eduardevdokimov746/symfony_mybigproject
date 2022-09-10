@@ -13,8 +13,7 @@ class CreateProfileTask extends Task
 {
     public function __construct(
         private EntityManagerInterface $entityManager
-    )
-    {
+    ) {
     }
 
     public function run(User $user, string $firstName = null, string $lastName = null, string $patronymic = null): Profile
@@ -23,7 +22,8 @@ class CreateProfileTask extends Task
         $profile
             ->setFirstName($firstName)
             ->setLastName($lastName)
-            ->setPatronymic($patronymic);
+            ->setPatronymic($patronymic)
+        ;
 
         $this->entityManager->persist($profile);
         $this->entityManager->flush();

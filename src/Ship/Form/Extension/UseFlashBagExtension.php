@@ -23,8 +23,7 @@ class UseFlashBagExtension extends AbstractTypeExtension
     public function __construct(
         private RequestStack $requestStack,
         private GetFlashBagNameTask $getErrorNameTask
-    )
-    {
+    ) {
     }
 
     public static function getExtendedTypes(): iterable
@@ -42,33 +41,38 @@ class UseFlashBagExtension extends AbstractTypeExtension
         $resolver
             ->define(self::OPTION_NAME)
             ->default(self::OPTION_DEFAULT_VALUE)
-            ->allowedTypes('bool');
+            ->allowedTypes('bool')
+        ;
 
         $resolver
             ->define('use_flash_field')
             ->default(true)
-            ->allowedTypes('bool');
+            ->allowedTypes('bool')
+        ;
     }
 
     public function preSetData(FormEvent $event): void
     {
-        if (!$event->getForm()->getConfig()->getOption(self::OPTION_NAME))
+        if (!$event->getForm()->getConfig()->getOption(self::OPTION_NAME)) {
             return;
+        }
 
         /** @var FormInterface $child */
         foreach ($event->getForm() as $child) {
             $errorName = $this->getErrorNameTask->forError($child->getName());
 
-            if ($this->requestStack->getSession()->getFlashBag()->has($errorName))
+            if ($this->requestStack->getSession()->getFlashBag()->has($errorName)) {
                 $child->addError(new FormError($this->requestStack->getSession()->getFlashBag()->get($errorName)[0]));
+            }
 
             $fieldName = $this->getErrorNameTask->forField($child->getName());
 
             if (
-                $child->getConfig()->getOption('use_flash_field') &&
-                $this->requestStack->getSession()->getFlashBag()->has($fieldName)
-            )
+                $child->getConfig()->getOption('use_flash_field')
+                && $this->requestStack->getSession()->getFlashBag()->has($fieldName)
+            ) {
                 $child->setData($this->requestStack->getSession()->getFlashBag()->get($fieldName)[0]);
+            }
         }
     }
 }

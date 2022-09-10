@@ -11,7 +11,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
 class ClearTmpDirListener implements EventSubscriberInterface
 {
     private const PREFIXES = [
-        ResizeAvatarTask::TMP_PREFIX
+        ResizeAvatarTask::TMP_PREFIX,
     ];
 
     public static function getSubscribedEvents(): array

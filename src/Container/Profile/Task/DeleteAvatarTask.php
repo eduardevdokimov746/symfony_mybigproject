@@ -14,19 +14,20 @@ use Symfony\Component\Filesystem\Filesystem;
 class DeleteAvatarTask extends Task
 {
     public function __construct(
-        private Filesystem             $filesystem,
+        private Filesystem $filesystem,
         private EntityManagerInterface $entityManager,
-        private FindProfileById        $findProfileById,
-        private Packages               $asset
-    )
-    {
+        private FindProfileById $findProfileById,
+        private Packages $asset
+    ) {
     }
 
     public function run(int $profileId): bool
     {
         $profile = $this->findProfileById->run($profileId);
 
-        if ($profile->getAvatar() === Profile::DEFAULT_AVATAR) return false;
+        if (Profile::DEFAULT_AVATAR === $profile->getAvatar()) {
+            return false;
+        }
 
         $this->entityManager->beginTransaction();
 

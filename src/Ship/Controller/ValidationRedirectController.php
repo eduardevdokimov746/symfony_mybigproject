@@ -14,10 +14,9 @@ class ValidationRedirectController extends Controller
 {
     public function __construct(
         private GetRefererRouteByUrlTask $refererRouteByUrlTask,
-        private UrlGeneratorInterface    $urlGenerator,
-        private RequestStack             $requestStack
-    )
-    {
+        private UrlGeneratorInterface $urlGenerator,
+        private RequestStack $requestStack
+    ) {
     }
 
     public function __invoke(): Response

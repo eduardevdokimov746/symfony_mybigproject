@@ -19,13 +19,12 @@ use Throwable;
 class CreateUserProfileByRegistrationAction extends Action
 {
     public function __construct(
-        private CreateUserTask           $createUserTask,
-        private CreateProfileTask        $createProfileTask,
-        private EntityManagerInterface   $entityManager,
+        private CreateUserTask $createUserTask,
+        private CreateProfileTask $createProfileTask,
+        private EntityManagerInterface $entityManager,
         private EventDispatcherInterface $eventDispatcher,
-        private LoggerInterface          $authLogger,
-    )
-    {
+        private LoggerInterface $authLogger,
+    ) {
     }
 
     public function run(CreateUserProfileByRegistrationDTO $userProfileByRegistrationDTO): User
@@ -44,12 +43,13 @@ class CreateUserProfileByRegistrationAction extends Action
             $this->entityManager->commit();
         } catch (Throwable) {
             $this->entityManager->rollback();
+
             throw new SaveByRegistrationException();
         }
 
         $this->authLogger->info('New user registered', [
-            'id'             => $user->getId(),
-            'userIdentifier' => $user->getUserIdentifier()
+            'id' => $user->getId(),
+            'userIdentifier' => $user->getUserIdentifier(),
         ]);
 
         $this->eventDispatcher->dispatch(new UserRegisteredEvent($user), UserRegisteredEvent::NAME);

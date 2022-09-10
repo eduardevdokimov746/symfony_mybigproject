@@ -20,7 +20,6 @@ class IndexController extends Controller
     public function __invoke(): Response
     {
         return $this->render('@profile/index.html.twig');
-
 //        return $this->render('@profile/processed_news.html.twig');
 //        return $this->render('@profile/offer_news.html.twig');
 //        return $this->render('@profile/edit_profile.html.twig');

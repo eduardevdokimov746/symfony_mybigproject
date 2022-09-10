@@ -12,8 +12,7 @@ class MarkUserEmailVerifiedTask extends Task
     public function __construct(
         private FindUserById $findUserById,
         private EntityManagerInterface $entityManager
-    )
-    {
+    ) {
     }
 
     public function run(int $userId): void

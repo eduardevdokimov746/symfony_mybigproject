@@ -105,7 +105,7 @@ class Profile
 
     public function getFullName(): string
     {
-        return $this->lastName . ' ' . $this->firstName . ' ' . $this->patronymic;
+        return $this->lastName.' '.$this->firstName.' '.$this->patronymic;
     }
 
     public function getAvatar(): ?string

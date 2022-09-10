@@ -21,7 +21,7 @@ namespace App\Ship\Parent;
  * It usually contains a *run()* method that accepts a request data object (for example, a DTO object) and returns data
  * for the view
  *
- * @link https://github.com/Mahmoudz/Porto#Actions Detailed information
+ * @see https://github.com/Mahmoudz/Porto#Actions Detailed information
  */
 abstract class Action
 {

@@ -16,12 +16,11 @@ class ChangeAvatarTask extends Task
 {
     public function __construct(
         private EntityManagerInterface $entityManager,
-        private DeleteAvatarTask       $deleteAvatarTask,
-        private Filesystem             $filesystem,
-        private FindProfileById        $findProfileById,
-        private Packages               $asset
-    )
-    {
+        private DeleteAvatarTask $deleteAvatarTask,
+        private Filesystem $filesystem,
+        private FindProfileById $findProfileById,
+        private Packages $asset
+    ) {
     }
 
     public function run(int $profileId, UploadedFile $file): string|false
@@ -33,8 +32,9 @@ class ChangeAvatarTask extends Task
         try {
             $this->deleteAvatarTask->run($profileId);
 
-            if (ResizeAvatarTask::shouldResize($file))
+            if (ResizeAvatarTask::shouldResize($file)) {
                 $file = ResizeAvatarTask::createFromUploadedFile($file)->run();
+            }
 
             $fileName = $this->storeFile($file);
 
@@ -43,6 +43,7 @@ class ChangeAvatarTask extends Task
             $this->entityManager->commit();
         } catch (RuntimeException) {
             $this->entityManager->rollback();
+
             return false;
         }
 
@@ -54,10 +55,11 @@ class ChangeAvatarTask extends Task
         $fileName = $this->makeFileName($file);
         $replacePath = ltrim($this->asset->getUrl($fileName, 'avatar'), '/');
 
-        if (is_uploaded_file($file->getPathname()))
+        if (is_uploaded_file($file->getPathname())) {
             move_uploaded_file($file->getPathname(), $replacePath);
-        else
+        } else {
             $this->filesystem->rename($file->getPathname(), $replacePath);
+        }
 
         return $fileName;
     }
@@ -66,6 +68,6 @@ class ChangeAvatarTask extends Task
     {
         $extension = $file instanceof UploadedFile ? $file->guessExtension() : $file->getExtension();
 
-        return uniqid() . (!$extension ?: ".$extension");
+        return uniqid().(!$extension ?: ".{$extension}");
     }
 }

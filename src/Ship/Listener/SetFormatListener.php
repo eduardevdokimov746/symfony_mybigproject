@@ -13,14 +13,13 @@ class SetFormatListener implements EventSubscriberInterface
 {
     public function __construct(
         private RequestContext $requestContext
-    )
-    {
+    ) {
     }
 
     public static function getSubscribedEvents(): array
     {
         return [
-            KernelEvents::REQUEST => 'onKernelRequest'
+            KernelEvents::REQUEST => 'onKernelRequest',
         ];
     }
 

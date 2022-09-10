@@ -14,15 +14,16 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 class ResizeAvatarTask extends Task
 {
     public const AVATAR_HEIGHT = 50;
-    public const AVATAR_WIDTH  = 50;
-    public const TMP_PREFIX    = 'resize_';
+    public const AVATAR_WIDTH = 50;
+    public const TMP_PREFIX = 'resize_';
 
     private function __construct(
         private SplFileInfo $origin,
-        private string      $extension
-    )
-    {
-        if ($this->origin->isDir()) throw new RuntimeException('The file cannot be a directory');
+        private string $extension
+    ) {
+        if ($this->origin->isDir()) {
+            throw new RuntimeException('The file cannot be a directory');
+        }
     }
 
     public static function shouldResize(SplFileInfo $file): bool
@@ -83,36 +84,35 @@ class ResizeAvatarTask extends Task
 
         $cropSize = min($originWidth, $originHeight);
 
-        if ($originHeight === $cropSize)
+        if ($originHeight === $cropSize) {
             $x = round(($originWidth - $cropSize) / 2);
-        else
+        } else {
             $y = round(($originHeight - $cropSize) / 2);
+        }
 
         return [
-            'x'      => $x ?? 0,
-            'y'      => $y ?? 0,
-            'width'  => $cropSize,
-            'height' => $cropSize
+            'x' => $x ?? 0,
+            'y' => $y ?? 0,
+            'width' => $cropSize,
+            'height' => $cropSize,
         ];
     }
 
     private function createTemporaryFile(): string
     {
-        $tmpFileName = tempnam(sys_get_temp_dir(), self::TMP_PREFIX) . '.' . ltrim($this->extension, '.');
-
-        return $tmpFileName;
+        return tempnam(sys_get_temp_dir(), self::TMP_PREFIX).'.'.ltrim($this->extension, '.');
     }
 
     private function write(string $tmpFile, GdImage $resize): void
     {
         switch ($this->extension) {
-            case ('png'):
+            case 'png':
                 imagepng($resize, $tmpFile, quality: 0);
                 break;
-            case ('jpg'):
+            case 'jpg':
                 imagejpeg($resize, $tmpFile, quality: 100);
                 break;
-            case ('gif'):
+            case 'gif':
                 imagegif($resize, $tmpFile);
                 break;
             default:
@@ -121,6 +121,7 @@ class ResizeAvatarTask extends Task
                     ucfirst($this->extension),
                     implode(',', ['png', 'jpg', 'gif'])
                 );
+
                 throw new DomainException($msg);
         }
     }

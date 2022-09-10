@@ -18,7 +18,9 @@ abstract class Validator implements ValidatorInterface
 
     public function getValidated(): array
     {
-        if (!$this->start) return [];
+        if (!$this->start) {
+            return [];
+        }
 
         return array_diff_key($this->data, $this->getErrors());
     }

@@ -13,14 +13,14 @@ class FindProfileById extends Task
 {
     public function __construct(
         private ProfileRepository $profileRepository
-    )
-    {
+    ) {
     }
 
     public function run(int $id): Profile
     {
-        if (is_null($profile = $this->profileRepository->find($id)))
+        if (is_null($profile = $this->profileRepository->find($id))) {
             throw new ProfileNotFoundException();
+        }
 
         return $profile;
     }

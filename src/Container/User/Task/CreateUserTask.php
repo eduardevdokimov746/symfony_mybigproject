@@ -16,9 +16,8 @@ class CreateUserTask extends Task
 
     public function __construct(
         private UserPasswordHasherInterface $passwordHasher,
-        private EntityManagerInterface      $entityManager
-    )
-    {
+        private EntityManagerInterface $entityManager
+    ) {
     }
 
     public function run(string $login, string $email, string $plainPassword): User

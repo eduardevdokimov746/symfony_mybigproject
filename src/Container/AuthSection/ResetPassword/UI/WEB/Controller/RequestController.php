@@ -25,8 +25,7 @@ class RequestController extends Controller
 
     public function __construct(
         private GenerateAndSendResetPasswordTokenAction $generateAndSendResetPasswordToken
-    )
-    {
+    ) {
     }
 
     public function __invoke(RequestValidator $validator): Response
@@ -34,8 +33,9 @@ class RequestController extends Controller
         if ($validator->isValid()) {
             $resetPasswordToken = $this->generateAndSendResetPasswordToken->run($validator->getValidated()['email']);
 
-            if ($resetPasswordToken instanceof ResetPasswordToken)
+            if ($resetPasswordToken instanceof ResetPasswordToken) {
                 $this->setTokenObjectInSession($resetPasswordToken);
+            }
 
             return $this->redirectToRoute('reset_password.check_email');
         }

@@ -27,10 +27,9 @@ class RegistrationController extends Controller
     public function __construct(
         private CreateUserProfileByRegistrationAction $createUserProfileByRegistrationAction,
         #[Autowire(service: 'security.authenticator.form_login.main')]
-        private FormLoginAuthenticator                $authenticator,
-        private UserAuthenticatorInterface            $userAuthenticator,
-    )
-    {
+        private FormLoginAuthenticator $authenticator,
+        private UserAuthenticatorInterface $userAuthenticator,
+    ) {
     }
 
     public function __invoke(Request $request, RegistrationValidator $validator): Response

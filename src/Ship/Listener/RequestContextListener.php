@@ -13,12 +13,11 @@ class RequestContextListener implements EventSubscriberInterface
 {
     public function __construct(
         private RequestContext $requestContext,
-        private string         $host,
-        private int            $httpPort,
-        private int            $httpsPort,
-        private string         $scheme
-    )
-    {
+        private string $host,
+        private int $httpPort,
+        private int $httpsPort,
+        private string $scheme
+    ) {
     }
 
     public static function getSubscribedEvents(): array

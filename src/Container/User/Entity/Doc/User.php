@@ -38,12 +38,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Profile $profile;
 
     public function __construct(
-        string   $login,
-        string   $email,
-        string   $plainPassword,
+        string $login,
+        string $email,
+        string $plainPassword,
         callable $passwordHash
-    )
-    {
+    ) {
         $this->login = $login;
         $this->email = $email;
 

@@ -16,20 +16,19 @@ use Symfony\Component\Translation\LocaleSwitcher;
 class LocaleListener implements EventSubscriberInterface
 {
     public function __construct(
-        private LocaleSwitcher        $localeSwitcher,
+        private LocaleSwitcher $localeSwitcher,
         private UrlGeneratorInterface $urlGenerator,
-        private string                $defaultLocale,
-        private string                $localeCookieName,
-        private bool                  $useAcceptLanguageHeader = false,
-        private array                 $enabledLocales = []
-    )
-    {
+        private string $defaultLocale,
+        private string $localeCookieName,
+        private bool $useAcceptLanguageHeader = false,
+        private array $enabledLocales = []
+    ) {
     }
 
     public static function getSubscribedEvents(): array
     {
         return [
-            KernelEvents::REQUEST => ['onKernelRequest', 17]
+            KernelEvents::REQUEST => ['onKernelRequest', 17],
         ];
     }
 
@@ -37,23 +36,28 @@ class LocaleListener implements EventSubscriberInterface
     {
         $request = $event->getRequest();
 
-        if (null === ($locale = $request->cookies->get($this->localeCookieName)))
+        if (null === ($locale = $request->cookies->get($this->localeCookieName))) {
             $locale = $this->getFromAcceptLanguageHeader($request) ?: $this->defaultLocale;
+        }
 
         $this->localeSwitcher->setLocale($locale);
 
         try {
             if (
-                $request->attributes->get('_locale') !== $locale &&
-                $request->attributes->get('_route')
-            )
+                $request->attributes->get('_locale') !== $locale
+                && $request->attributes->get('_route')
+            ) {
                 $event->setResponse(new RedirectResponse($this->makeRedirectUrl($request)));
-        } catch (Exception) {}
+            }
+        } catch (Exception) {
+        }
     }
 
     private function getFromAcceptLanguageHeader(Request $request): string|false
     {
-        if (!$this->useAcceptLanguageHeader || empty($this->enabledLocales)) return false;
+        if (!$this->useAcceptLanguageHeader || empty($this->enabledLocales)) {
+            return false;
+        }
 
         return $request->getPreferredLanguage($this->enabledLocales);
     }

@@ -17,11 +17,10 @@ class CsrfTokenListener implements EventSubscriberInterface
     public function __construct(
         private CsrfTokenManagerInterface $csrfTokenManager,
         #[Autowire('%csrf_parameter%')]
-        private string                    $csrfParameter,
+        private string $csrfParameter,
         #[Autowire('%csrf_token_id%')]
-        private string                    $csrfId
-    )
-    {
+        private string $csrfId
+    ) {
     }
 
     public static function getSubscribedEvents(): array
@@ -34,9 +33,10 @@ class CsrfTokenListener implements EventSubscriberInterface
         $request = $event->getRequest();
 
         if (
-            in_array($request->getMethod(), ValidationListener::CHECK_METHODS) &&
-            !$this->csrfTokenManager->isTokenValid(new CsrfToken($this->csrfId, $request->request->get($this->csrfParameter)))
-        )
+            in_array($request->getMethod(), ValidationListener::CHECK_METHODS)
+            && !$this->csrfTokenManager->isTokenValid(new CsrfToken($this->csrfId, $request->request->get($this->csrfParameter)))
+        ) {
             throw new InvalidCsrfTokenException('Csrf token is not valid');
+        }
     }
 }

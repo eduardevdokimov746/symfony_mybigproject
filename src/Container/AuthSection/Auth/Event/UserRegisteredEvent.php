@@ -13,8 +13,7 @@ class UserRegisteredEvent extends Event
 
     public function __construct(
         private User $user
-    )
-    {
+    ) {
     }
 
     public function getUser(): User

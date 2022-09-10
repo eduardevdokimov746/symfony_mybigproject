@@ -18,25 +18,24 @@ class SwitchAction extends Action
 
     public function __construct(
         private GetRefererRouteByUrlTask $routeByUrlTask,
-        private SwitchTask               $switchTask,
-        private string                   $cookieName,
-        private string                   $cookieExpire,
-        private UrlGeneratorInterface    $urlGenerator
-    )
-    {
+        private SwitchTask $switchTask,
+        private string $cookieName,
+        private string $cookieExpire,
+        private UrlGeneratorInterface $urlGenerator
+    ) {
     }
 
     /**
-     * @param string|null $refererUrl
-     * @return Response Usually, action classes should not return a Response object, but should return the one
-     *                  given for the Presentation layer.
+     * @return Response usually, action classes should not return a Response object, but should return the one
+     *                  given for the Presentation layer
      */
     public function run(?string $refererUrl): Response
     {
         $newLocale = $this->switchTask->run();
 
-        if (!is_null($refererUrl))
+        if (!is_null($refererUrl)) {
             $refererRoute = $this->routeByUrlTask->run($refererUrl);
+        }
 
         $redirectUrl = $this->urlGenerator->generate(
             !is_null($refererRoute) ? $refererRoute['route']['_route'] : self::FALLBACK_ROUTE,

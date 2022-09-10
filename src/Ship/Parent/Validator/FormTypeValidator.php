@@ -17,8 +17,7 @@ abstract class FormTypeValidator extends Validator
 
     public function __construct(
         private FormFactoryInterface $formFactory
-    )
-    {
+    ) {
     }
 
     public function validate(array $data): array
@@ -26,10 +25,11 @@ abstract class FormTypeValidator extends Validator
         $this->start = true;
         $this->data = $data;
 
-        if (!$this->getForm()->isSubmitted())
+        if (!$this->getForm()->isSubmitted()) {
             $this->getForm()->submit($data);
-        else
+        } else {
             $this->getForm(true)->submit($data);
+        }
 
         /** @var Form $child */
         foreach ($this->getForm() as $child) {
@@ -43,17 +43,20 @@ abstract class FormTypeValidator extends Validator
             }
         }
 
-        if (empty($this->errors)) $this->valid = true;
+        if (empty($this->errors)) {
+            $this->valid = true;
+        }
 
         return $this->errors;
     }
 
     final public function getForm(bool $clearOld = false, bool $useFlashBag = UseFlashBagExtension::OPTION_DEFAULT_VALUE): FormInterface
     {
-        if (!isset($this->form) || $clearOld)
+        if (!isset($this->form) || $clearOld) {
             $this->form = $this->formFactory->create($this->getFormType(), options: [
-                UseFlashBagExtension::OPTION_NAME => $useFlashBag
+                UseFlashBagExtension::OPTION_NAME => $useFlashBag,
             ]);
+        }
 
         return $this->form;
     }

@@ -16,10 +16,9 @@ class ExceptionListener
 {
     public function __construct(
         private ExceptionMappingResolver $mappingResolver,
-        private LoggerInterface          $logger,
-        private bool                     $debug
-    )
-    {
+        private LoggerInterface $logger,
+        private bool $debug
+    ) {
     }
 
     public function __invoke(ExceptionEvent $event): void
@@ -28,15 +27,17 @@ class ExceptionListener
 
         $exceptionMapping = $this->mappingResolver->resolve($throwable);
 
-        if ($exceptionMapping->getCode() >= Response::HTTP_INTERNAL_SERVER_ERROR || $exceptionMapping->isLoggable())
+        if ($exceptionMapping->getCode() >= Response::HTTP_INTERNAL_SERVER_ERROR || $exceptionMapping->isLoggable()) {
             $this->log($exceptionMapping);
+        }
 
-        if (!$this->debug)
+        if (!$this->debug) {
             $event->setThrowable(new HttpException(
                 $exceptionMapping->getCode(),
                 $exceptionMapping->getMessage(),
                 $throwable
             ));
+        }
     }
 
     private function log(ExceptionMapping $exceptionMapping): void
@@ -46,17 +47,17 @@ class ExceptionListener
         $fileException = array_shift($trace);
 
         $context = [
-            'file'     => $exceptionMapping->getThrowable()->getFile(),
-            'line'     => $exceptionMapping->getThrowable()->getLine(),
-            'class'    => $fileException['class'] ?? '',
-            'function' => $fileException['function'] ?? ''
+            'file' => $exceptionMapping->getThrowable()->getFile(),
+            'line' => $exceptionMapping->getThrowable()->getLine(),
+            'class' => $fileException['class'] ?? '',
+            'function' => $fileException['function'] ?? '',
         ];
 
         switch (true) {
-            case ($code >= Level::Error->value && $code < Level::Critical->value):
+            case $code >= Level::Error->value && $code < Level::Critical->value:
                 $this->logger->error($exceptionMapping->getMessage(), $context);
                 break;
-            case ($code >= Level::Critical->value):
+            case $code >= Level::Critical->value:
                 $this->logger->critical($exceptionMapping->getMessage(), $context);
                 break;
         }

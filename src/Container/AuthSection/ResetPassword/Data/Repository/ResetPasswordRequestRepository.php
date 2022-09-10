@@ -24,15 +24,15 @@ class ResetPasswordRequestRepository extends ServiceEntityRepository implements 
     }
 
     public function createResetPasswordRequest(
-        object            $user,
+        object $user,
         DateTimeInterface $expiresAt,
-        string            $selector,
-        string            $hashedToken
-    ): ResetPasswordRequestInterface
-    {
-        if ($user instanceof User)
+        string $selector,
+        string $hashedToken
+    ): ResetPasswordRequestInterface {
+        if ($user instanceof User) {
             return new ResetPasswordRequest($user, $expiresAt, $selector, $hashedToken);
+        }
 
-        throw new InvalidArgumentException('Argument $user must be type ' . User::class);
+        throw new InvalidArgumentException('Argument $user must be type '.User::class);
     }
 }

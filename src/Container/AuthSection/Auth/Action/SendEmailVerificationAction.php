@@ -18,19 +18,18 @@ use Twig\Environment;
 
 class SendEmailVerificationAction extends Action
 {
-    private const VERIFY_EMAIL_ROUTE    = 'auth.verify_user_email';
+    private const VERIFY_EMAIL_ROUTE = 'auth.verify_user_email';
     private const VERIFY_EMAIL_TEMPLATE = '@email/verification.html.twig';
 
     public function __construct(
-        private TranslatorInterface        $translator,
-        private Environment                $twig,
-        private MailerInterface            $mailer,
+        private TranslatorInterface $translator,
+        private Environment $twig,
+        private MailerInterface $mailer,
         private VerifyEmailHelperInterface $verifyEmailHelper,
-        private Packages                   $asset,
-        private LoggerInterface            $authLogger,
-        private LoggerInterface            $logger
-    )
-    {
+        private Packages $asset,
+        private LoggerInterface $authLogger,
+        private LoggerInterface $logger
+    ) {
     }
 
     public function run(User $user): VerifyEmailSignatureComponents
@@ -42,8 +41,7 @@ class SendEmailVerificationAction extends Action
                 ->subject($this->getSubject())
                 ->to($user->getEmail())
                 ->embedFromPath($this->getLogoPath(), 'logo')
-                ->html($this->getHtmlBody($user->getEmail(), $signatureComponents->getSignedUrl()))
-            );
+                ->html($this->getHtmlBody($user->getEmail(), $signatureComponents->getSignedUrl())));
         } catch (TransportExceptionInterface $e) {
             $this->authLogger->warning('Email send', ['debug' => $e->getDebug()]);
             $this->logger->critical('Error sending verification mail');
@@ -54,14 +52,20 @@ class SendEmailVerificationAction extends Action
         return $signatureComponents;
     }
 
+    public function getFakeSignatureComponents(User $user): VerifyEmailSignatureComponents
+    {
+        return $this->createSignedUrl($user);
+    }
+
     private function createSignedUrl(User $user): VerifyEmailSignatureComponents
     {
         return $this->verifyEmailHelper
             ->generateSignature(
                 self::VERIFY_EMAIL_ROUTE,
-                $user->getId(),
+                (string) $user->getId(),
                 $user->getEmail()
-            );
+            )
+        ;
     }
 
     private function getSubject(): string
@@ -79,14 +83,9 @@ class SendEmailVerificationAction extends Action
         return $this->twig->render(
             self::VERIFY_EMAIL_TEMPLATE,
             [
-                'recipient'  => $recipient,
-                'signed_url' => $signedUrl
+                'recipient' => $recipient,
+                'signed_url' => $signedUrl,
             ]
         );
-    }
-
-    public function getFakeSignatureComponents(User $user): VerifyEmailSignatureComponents
-    {
-        return $this->createSignedUrl($user);
     }
 }

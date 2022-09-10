@@ -22,8 +22,8 @@ class LoginController extends Controller
     {
         return $this->render('@auth/login.html.twig', [
             'auth_csrf_token_id' => $this->getParameter('auth_csrf_token_id'),
-            'error'              => $authenticationUtils->getLastAuthenticationError(),
-            'last_username'      => $authenticationUtils->getLastUsername()
+            'error' => $authenticationUtils->getLastAuthenticationError(),
+            'last_username' => $authenticationUtils->getLastUsername(),
         ]);
     }
 }

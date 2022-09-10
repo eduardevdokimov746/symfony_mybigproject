@@ -41,8 +41,10 @@ class EditProfileValidator extends PropertyValidator
     #[Assert\IsFalse(message: 'change_delete_avatar')]
     public function isAvatar(): bool
     {
-        if (!isset($this->avatar) || !isset($this->deleteAvatar)) return false;
+        if (!isset($this->avatar) || !isset($this->deleteAvatar)) {
+            return false;
+        }
 
-        return $this->avatar instanceof UploadedFile && $this->deleteAvatar === true;
+        return $this->avatar instanceof UploadedFile && true === $this->deleteAvatar;
     }
 }

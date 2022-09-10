@@ -22,8 +22,7 @@ class EditController extends Controller
 {
     public function __construct(
         private UpdateProfileFromAuthUserAction $updateProfileFromAuthUserAction
-    )
-    {
+    ) {
     }
 
     public function __invoke(EditProfileValidator $validator): Response

@@ -17,19 +17,18 @@ use Twig\Environment;
 
 class SendEmailResetPasswordTask extends Task
 {
-    private const ROUTE    = 'reset_password.reset';
+    private const ROUTE = 'reset_password.reset';
     private const TEMPLATE = '@email/reset_password.html.twig';
 
     public function __construct(
-        private TranslatorInterface   $translator,
-        private Environment           $twig,
-        private MailerInterface       $mailer,
-        private Packages              $asset,
-        private LoggerInterface       $resetPasswordLogger,
-        private LoggerInterface       $logger,
+        private TranslatorInterface $translator,
+        private Environment $twig,
+        private MailerInterface $mailer,
+        private Packages $asset,
+        private LoggerInterface $resetPasswordLogger,
+        private LoggerInterface $logger,
         private UrlGeneratorInterface $urlGenerator
-    )
-    {
+    ) {
     }
 
     public function run(string $recipientEmail, string $userIdentifier, ResetPasswordToken $token): void
@@ -39,8 +38,7 @@ class SendEmailResetPasswordTask extends Task
                 ->subject($this->getSubject())
                 ->to($recipientEmail)
                 ->embedFromPath($this->getLogoPath(), 'logo')
-                ->html($this->getHtmlBody($userIdentifier, $this->getSignedUrl($token)))
-            );
+                ->html($this->getHtmlBody($userIdentifier, $this->getSignedUrl($token))));
         } catch (TransportExceptionInterface $e) {
             $this->resetPasswordLogger->warning('Email send', ['debug' => $e->getDebug()]);
             $this->logger->critical('Error sending password reset mail');
@@ -65,7 +63,7 @@ class SendEmailResetPasswordTask extends Task
             self::TEMPLATE,
             [
                 'user_identifier' => $userIdentifier,
-                'signed_url'      => $signedUrl
+                'signed_url' => $signedUrl,
             ]
         );
     }

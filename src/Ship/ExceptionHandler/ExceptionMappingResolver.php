@@ -20,9 +20,9 @@ class ExceptionMappingResolver
     public function __construct(array $mappings)
     {
         foreach ($mappings as $class => $mapping) {
-
-            if (empty($mapping['code']))
-                throw new InvalidArgumentException("Code is mandatory for class $class");
+            if (empty($mapping['code'])) {
+                throw new InvalidArgumentException("Code is mandatory for class {$class}");
+            }
 
             $this->addMapping(
                 $class,
@@ -33,19 +33,21 @@ class ExceptionMappingResolver
         }
     }
 
+    public function resolve(Throwable $throwable): ExceptionMapping
+    {
+        foreach ($this->mappings as $class => $exceptionMapping) {
+            if ($throwable::class === $class || is_subclass_of($throwable::class, $class)) {
+                $exceptionMapping->setThrowable($throwable);
+
+                return $exceptionMapping;
+            }
+        }
+
+        return ExceptionMapping::fromCode(500)->setThrowable($throwable);
+    }
+
     private function addMapping(string $class, int $code, bool $hidden, bool $loggable): void
     {
         $this->mappings[$class] = new ExceptionMapping($code, $hidden, $loggable);
-    }
-
-    public function resolve(Throwable $throwable): ExceptionMapping
-    {
-        foreach ($this->mappings as $class => $exceptionMapping)
-            if ($throwable::class === $class || is_subclass_of($throwable::class, $class)) {
-                $exceptionMapping->setThrowable($throwable);
-                return $exceptionMapping;
-            }
-
-        return ExceptionMapping::fromCode(500)->setThrowable($throwable);
     }
 }

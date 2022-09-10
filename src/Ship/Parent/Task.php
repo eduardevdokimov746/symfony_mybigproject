@@ -11,7 +11,7 @@ namespace App\Ship\Parent;
  *
  * It usually contains a single *run()* method or a set of methods for executing various scenarios.
  *
- * @link https://github.com/Mahmoudz/Porto#Tasks Detailed inforamtion
+ * @see https://github.com/Mahmoudz/Porto#Tasks Detailed inforamtion
  */
 abstract class Task
 {

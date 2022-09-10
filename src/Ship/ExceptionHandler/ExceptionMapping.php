@@ -10,7 +10,7 @@ use Throwable;
 
 class ExceptionMapping
 {
-    public const HIDDEN   = true;
+    public const HIDDEN = true;
     public const LOGGABLE = false;
 
     private Throwable $throwable;
@@ -26,8 +26,9 @@ class ExceptionMapping
 
     public function getMessage(): string
     {
-        if ($this->isHidden())
+        if ($this->isHidden()) {
             return Response::$statusTexts[$this->getCode()];
+        }
 
         return $this->getThrowable()->getMessage() ?: Response::$statusTexts[$this->getCode()];
     }
@@ -46,8 +47,9 @@ class ExceptionMapping
 
     public function getCode(): int
     {
-        if ($this->getThrowable() instanceof HttpExceptionInterface)
+        if ($this->getThrowable() instanceof HttpExceptionInterface) {
             return $this->getThrowable()->getStatusCode();
+        }
 
         return $this->code;
     }

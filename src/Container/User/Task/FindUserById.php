@@ -13,19 +13,20 @@ class FindUserById extends Task
 {
     public function __construct(
         private UserRepository $userRepository
-    )
-    {
+    ) {
     }
 
     public function run(int $id, bool $withDisabled = false): User
     {
-        if ($withDisabled)
+        if ($withDisabled) {
             $user = $this->userRepository->findOneBy(['id' => $id]);
-        else
+        } else {
             $user = $this->userRepository->findActiveOneBy(['id' => $id]);
+        }
 
-        if (is_null($user))
+        if (is_null($user)) {
             throw new UserNotFoundException();
+        }
 
         return $user;
     }

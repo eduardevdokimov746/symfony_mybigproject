@@ -11,27 +11,26 @@ use Doctrine\ORM\EntityManagerInterface;
 class UpdateProfileFullNameAndAboutTask extends Task
 {
     public function __construct(
-        private FindProfileById        $findProfileById,
+        private FindProfileById $findProfileById,
         private EntityManagerInterface $entityManager
-    )
-    {
+    ) {
     }
 
     public function run(
-        int     $id,
+        int $id,
         ?string $firstName,
         ?string $lastName,
         ?string $patronymic,
         ?string $about,
-    ): Profile
-    {
+    ): Profile {
         $profile = $this->findProfileById->run($id);
 
         $profile
             ->setFirstName($firstName)
             ->setLastName($lastName)
             ->setPatronymic($patronymic)
-            ->setAbout($about);
+            ->setAbout($about)
+        ;
 
         $this->entityManager->flush();
 

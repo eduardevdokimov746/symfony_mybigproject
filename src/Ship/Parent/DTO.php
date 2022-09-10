@@ -21,8 +21,9 @@ abstract class DTO
         $static = new static();
 
         foreach ((new ReflectionClass($static))->getProperties(ReflectionProperty::IS_PUBLIC) as $property) {
-            if (!isset($data[$property->getName()]) && !$property->hasDefaultValue())
+            if (!isset($data[$property->getName()]) && !$property->hasDefaultValue()) {
                 throw new OutOfBoundsException(sprintf('Argument $data does\'t have \'%s\' key', $property->getName()));
+            }
 
             $property->setValue($static, $data[$property->getName()] ?? $property->getDefaultValue());
         }

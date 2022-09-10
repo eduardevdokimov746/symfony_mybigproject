@@ -17,7 +17,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  *
  * Usually contains the *__invoke()* method, which accepts the request object and returns a response
  *
- * @link https://github.com/Mahmoudz/Porto#Controllers Detailed information
+ * @see https://github.com/Mahmoudz/Porto#Controllers Detailed information
  *
  * @method User|UserInterface getUser
  */

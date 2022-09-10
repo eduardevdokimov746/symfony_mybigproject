@@ -24,9 +24,9 @@ class GetFlashBagNameTask
     public function run(string $key, string $prefix): string
     {
         return match ($prefix) {
-            self::ERROR => $prefix . $key,
-            self::FIELD => $prefix . $key,
-            default => throw new DomainException("'$prefix' value is not supported.")
+            self::ERROR => $prefix.$key,
+            self::FIELD => $prefix.$key,
+            default => throw new DomainException("'{$prefix}' value is not supported.")
         };
     }
 }

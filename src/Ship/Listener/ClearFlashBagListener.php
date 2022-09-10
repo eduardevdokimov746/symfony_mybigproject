@@ -13,8 +13,7 @@ class ClearFlashBagListener implements EventSubscriberInterface
 {
     public function __construct(
         private RequestStack $requestStack
-    )
-    {
+    ) {
     }
 
     public static function getSubscribedEvents(): array
@@ -24,7 +23,8 @@ class ClearFlashBagListener implements EventSubscriberInterface
 
     public function onKernelResponse(ResponseEvent $event): void
     {
-        if ($event->getResponse()->getStatusCode() === 200)
+        if (200 === $event->getResponse()->getStatusCode()) {
             $this->requestStack->getSession()->getFlashBag()->clear();
+        }
     }
 }

@@ -15,15 +15,16 @@ class RemoveResetTokenAndChangeUserPasswordAction extends Action
 {
     public function __construct(
         private ResetPasswordHelperInterface $resetPasswordHelper,
-        private ChangeUserPasswordTask       $changeUserPasswordTask,
-        private LoggerInterface              $resetPasswordLogger
-    )
-    {
+        private ChangeUserPasswordTask $changeUserPasswordTask,
+        private LoggerInterface $resetPasswordLogger
+    ) {
     }
 
     public function run(string $token, string $password): ?string
     {
-        if (is_string($user = $this->validateTokenAndFetchUser($token))) return $user;
+        if (is_string($user = $this->validateTokenAndFetchUser($token))) {
+            return $user;
+        }
 
         $this->resetPasswordHelper->removeResetRequest($token);
 
@@ -40,6 +41,7 @@ class RemoveResetTokenAndChangeUserPasswordAction extends Action
             return $this->resetPasswordHelper->validateTokenAndFetchUser($token);
         } catch (ResetPasswordExceptionInterface $e) {
             $this->resetPasswordLogger->info($e->getReason());
+
             return $e->getReason();
         }
     }

@@ -15,27 +15,18 @@ abstract class PropertyValidator extends Validator
 {
     public function __construct(
         private ValidatorInterface $validator
-    )
-    {
+    ) {
     }
 
     public function __get(string $name)
     {
-        foreach ($this->mapValidationProperties() as $property)
-            if ($property->getName() === $name)
+        foreach ($this->mapValidationProperties() as $property) {
+            if ($property->getName() === $name) {
                 return $property->getValue($this);
+            }
+        }
 
         throw new PropertyClassNotExists($this::class, $name);
-    }
-
-    /**
-     * @return ReflectionProperty[]
-     */
-    private function mapValidationProperties(): array
-    {
-        $allProperties = (new ReflectionClass($this))->getProperties(ReflectionProperty::IS_PRIVATE);
-
-        return array_filter($allProperties, fn(ReflectionProperty $property) => !empty($property->getAttributes()));
     }
 
     public function validate(array $data): array
@@ -45,12 +36,25 @@ abstract class PropertyValidator extends Validator
         $this->setData($data);
 
         /** @var ConstraintViolation $error */
-        foreach ($this->validator->validate($this) as $error)
+        foreach ($this->validator->validate($this) as $error) {
             $this->addError($error->getPropertyPath(), $error->getMessage());
+        }
 
-        if (empty($this->errors)) $this->valid = true;
+        if (empty($this->errors)) {
+            $this->valid = true;
+        }
 
         return $this->errors;
+    }
+
+    /**
+     * @return ReflectionProperty[]
+     */
+    private function mapValidationProperties(): array
+    {
+        $allProperties = (new ReflectionClass($this))->getProperties(ReflectionProperty::IS_PRIVATE);
+
+        return array_filter($allProperties, fn (ReflectionProperty $property) => !empty($property->getAttributes()));
     }
 
     private function setData(array $data): void
@@ -67,7 +71,8 @@ abstract class PropertyValidator extends Validator
 
     private function addError(string $property, string $error): void
     {
-        if (!isset($this->errors[$property]))
+        if (!isset($this->errors[$property])) {
             $this->errors[$property] = $error;
+        }
     }
 }

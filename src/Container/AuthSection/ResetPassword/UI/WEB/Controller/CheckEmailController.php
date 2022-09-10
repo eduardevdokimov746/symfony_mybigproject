@@ -23,17 +23,17 @@ class CheckEmailController extends Controller
 
     public function __construct(
         private ResetPasswordHelperInterface $resetPasswordHelper
-    )
-    {
+    ) {
     }
 
     public function __invoke(): Response
     {
-        if (null === ($resetToken = $this->getTokenObjectFromSession()))
+        if (null === ($resetToken = $this->getTokenObjectFromSession())) {
             $resetToken = $this->resetPasswordHelper->generateFakeResetToken();
+        }
 
         return $this->render('@reset_password/check_email.html.twig', [
-            'reset_token' => $resetToken
+            'reset_token' => $resetToken,
         ]);
     }
 }

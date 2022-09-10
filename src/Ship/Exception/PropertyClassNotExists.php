@@ -10,6 +10,6 @@ class PropertyClassNotExists extends RuntimeException
 {
     public function __construct(string $class, string $property)
     {
-        parent::__construct("Property '$property' in class '$class' not exists");
+        parent::__construct("Property '{$property}' in class '{$class}' not exists");
     }
 }

@@ -14,6 +14,7 @@ class ExceptionCompilerPass implements CompilerPassInterface
         $extensions = $container->findTaggedServiceIds('app.exception');
 
         $container->getDefinition(ExceptionMappingResolver::class)
-            ->addArgument(array_map(fn ($argsArray) => array_pop($argsArray), $extensions));
+            ->addArgument(array_map(fn ($argsArray) => array_pop($argsArray), $extensions))
+        ;
     }
 }
