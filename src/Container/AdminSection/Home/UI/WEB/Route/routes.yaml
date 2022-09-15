@@ -1,0 +1,4 @@
+group:
+    type: annotation
+    resource: ../Controller
+    name_prefix: home.

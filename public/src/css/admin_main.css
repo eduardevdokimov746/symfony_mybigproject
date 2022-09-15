@@ -1,0 +1,5 @@
+@media (min-width: 1008px) {
+    #burger-menu {
+        display: none;
+    }
+}

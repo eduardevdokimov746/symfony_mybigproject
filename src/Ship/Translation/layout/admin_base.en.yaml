@@ -1,0 +1,13 @@
+logout:
+    title: Logout
+
+burger_menu:
+    title: Show sidebar
+
+sidebar:
+    users: Users
+    news: News
+    comments: Comments
+    categories: Categories
+
+go_to_main: Main site

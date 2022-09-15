@@ -1,0 +1,3 @@
+twig:
+    paths:
+        '%kernel.project_dir%/src/Container/AdminSection/Home/UI/WEB/View': admin_home

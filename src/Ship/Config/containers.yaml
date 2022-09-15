@@ -6,3 +6,6 @@ imports:
     - { resource: ../../../src/Container/AuthSection/ResetPassword/Config/ }
     - { resource: ../../../src/Container/User/Config/ }
     - { resource: ../../../src/Container/Profile/Config/ }
+
+    # admin section
+    - { resource: ../../../src/Container/AdminSection/Home/Config/ }

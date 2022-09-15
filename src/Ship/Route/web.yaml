@@ -22,6 +22,12 @@ profile:
     resource: ../../Container/Profile/UI/WEB/Route
     type: directory
 
+admin:
+    resource: web/admin.yaml
+    prefix: /admin
+    name_prefix: admin.
+    trailing_slash_on_root: false
+
 #user:
 #    resource: ../../Container/User/UI/WEB/Route
 #    type: directory

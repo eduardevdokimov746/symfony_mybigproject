@@ -1,0 +1,128 @@
+{% trans_default_domain 'admin_base' %}
+
+<!doctype html>
+<html lang="{{ app.request.locale }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>{{ app_name }}</title>
+
+    {% block style %}
+        <link rel="stylesheet" href="{{ absolute_url(asset('bootstrap.min.css', 'css')) }}">
+        <link rel="stylesheet" href="{{ absolute_url(asset('fontawesome.min.css', 'css')) }}">
+        <link rel="stylesheet" href="{{ absolute_url(asset('adminlte.min.css', 'css')) }}">
+        <link rel="stylesheet" href="{{ absolute_url(asset('admin_main.css', 'css')) }}">
+    {% endblock %}
+</head>
+
+<body class="dark-mode">
+
+<div class="wrapper">
+    <nav class="main-header navbar navbar-expand navbar-dark">
+        <ul class="navbar-nav" id="burger-menu">
+            <li class="nav-item">
+                <a class="nav-link" data-widget="pushmenu" href="#" title="{{ 'burger_menu.title'|trans }}"
+                   role="button"><i class="fas fa-bars"></i>
+                </a>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url('locale.switch') }}" title="{{ 'title'|trans(domain = 'locale') }}">
+                    <i class="fa-solid fa-earth-americas"></i>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="#" title="{{ 'logout.title'|trans }}">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <aside class="main-sidebar sidebar-dark-primary layout-fixed">
+        <a href="#" class="brand-link">
+            <img src="{{ absolute_url(asset('logo.png', 'img')) }}" alt="Admin" class="brand-image img-circle">
+            <span class="brand-text font-weight-light">{{ app_name }}</span>
+        </a>
+
+        <div class="sidebar">
+            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                <div class="image">
+                    <img src="{{ absolute_url(asset('no_user.png', 'avatar')) }}" class="img-circle">
+                </div>
+                <div class="info">
+                    <a href="#" class="d-block">Alexander Pierce</a>
+                </div>
+            </div>
+
+            <nav class="mt-2">
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                    data-accordion="false">
+
+                    <li class="nav-item">
+                        <a href="#" class="nav-link active">
+                            <i class="fa-solid fa-users"></i>
+                            <p>{{ 'sidebar.users'|trans }}</p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fa-solid fa-newspaper"></i>
+                            <p>{{ 'sidebar.news'|trans }}</p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fa-solid fa-comments"></i>
+                            <p>{{ 'sidebar.comments'|trans }}</p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fa-solid fa-object-group"></i>
+                            <p>{{ 'sidebar.categories'|trans }}</p>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </aside>
+
+    <div class="content-wrapper" style="min-height: 215px;">
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0">{% block page_title %}{% endblock %}</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% block content %}{% endblock %}
+    </div>
+
+    <footer class="main-footer">
+        <div class="float-right d-none d-sm-inline">
+            <a href="{{ url('home.main') }}">{{ 'go_to_main'|trans }}</a>
+        </div>
+        <strong>Copyright © 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+    </footer>
+</div>
+
+{% block script %}
+    <script src="{{ absolute_url(asset('jquery.min.js', 'js')) }}"></script>
+    <script src="{{ absolute_url(asset('bootstrap.min.js', 'js')) }}"></script>
+    <script src="{{ absolute_url(asset('fontawesome.min.js', 'js')) }}"></script>
+    <script src="{{ absolute_url(asset('adminlte.min.js', 'js')) }}"></script>
+{% endblock %}
+</body>
+</html>

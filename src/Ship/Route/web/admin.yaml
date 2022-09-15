@@ -1,0 +1,3 @@
+home:
+    resource: ../../../Container/AdminSection/Home/UI/WEB/Route
+    type: directory

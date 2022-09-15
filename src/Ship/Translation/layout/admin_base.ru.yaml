@@ -1,0 +1,13 @@
+logout:
+    title: Выход
+
+burger_menu:
+    title: Показать боковую панель
+
+sidebar:
+    users: Пользователи
+    news: Новости
+    comments: Комментарии
+    categories: Категории
+
+go_to_main: Основной сайт
