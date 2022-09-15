@@ -1,0 +1,9 @@
+doctrine:
+    orm:
+        mappings:
+            News:
+                type: attribute
+                dir: '%kernel.project_dir%/src/Container/News/Entity'
+                is_bundle: false
+                prefix: App\Container\News\Entity
+                alias: NewsContainer

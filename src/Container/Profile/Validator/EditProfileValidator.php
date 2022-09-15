@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Container\Profile\Validator;
 
-use App\Container\Profile\Task\ResizeAvatarTask;
 use App\Ship\Parent\Validator\PropertyValidator;
+use App\Ship\Service\ImageResize\AvatarImageResizeService;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -27,8 +27,8 @@ class EditProfileValidator extends PropertyValidator
     private ?string $about;
 
     #[Assert\Image(
-        minWidth: ResizeAvatarTask::AVATAR_WIDTH,
-        minHeight: ResizeAvatarTask::AVATAR_HEIGHT,
+        minWidth: AvatarImageResizeService::WIDTH,
+        minHeight: AvatarImageResizeService::HEIGHT,
         maxSize: '5M',
         mimeTypes: ['image/png', 'image/jpeg', 'image/gif'],
         mimeTypesMessage: 'This file is not a valid image.'

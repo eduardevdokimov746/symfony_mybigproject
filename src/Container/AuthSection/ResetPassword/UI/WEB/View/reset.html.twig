@@ -35,7 +35,7 @@
                 {% if app|flashError('plainPasswordConfirmation', true) %}
                     <tr>
                         <td colspan="2">
-                            <p class="form-error t-center">{{ app|flashError('plainPasswordConfirmation')|trans }}</p>
+                            <p class="form-error t-center">{{ app|flashError('plainPasswordConfirmation') }}</p>
                         </td>
                     </tr>
                 {% endif %}

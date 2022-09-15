@@ -40,7 +40,9 @@
         "symfonycasts/verify-email-bundle": "^1.11",
         "symfonycasts/reset-password-bundle": "^1.14",
         "twig/intl-extra": "^3.4",
-        "symfony/rate-limiter": "^6.1"
+        "symfony/rate-limiter": "^6.1",
+        "symfony/security-core": "^6.1",
+        "stof/doctrine-extensions-bundle": "^1.7"
     },
     "config": {
         "allow-plugins": {

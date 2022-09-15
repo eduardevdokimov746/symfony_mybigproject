@@ -1,0 +1,40 @@
+:root {
+    /* основное окно */
+    --ck-color-base-background: rgb(37, 37, 37) !important;
+    --ck-color-base-border: gray !important;
+    --ck-color-base-text: white !important;
+
+    --ck-border-radius: 5px !important;
+    --ck-color-focus-border: #fff !important;
+
+    /* шапка с кнопками */
+    --ck-color-toolbar-background: rgb(37, 37, 37) !important;
+    --ck-color-toolbar-border: gray !important;
+    --ck-color-text: #fff !important;
+
+    /* поле ввода */
+    --ck-color-input-background: rgb(37, 37, 37) !important;
+
+    /* кнопки в шапке */
+    --ck-color-button-default-background: none !important;
+    --ck-color-button-default-hover-background: rgba(255, 255, 255, 0.8) !important;
+    --ck-color-button-default-active-background: rgba(255, 255, 255, 0.8) !important;
+    --ck-color-button-default-active-shadow: none !important;
+    --ck-color-button-default-disabled-background: none !important;
+
+    --ck-color-button-on-background: rgba(255, 255, 255, 0.8) !important;
+    --ck-color-button-on-hover-background: rgba(255, 255, 255, 0.8) !important;
+    --ck-color-button-on-active-background: rgba(255, 255, 255, 0.8) !important;
+
+    /* модальное окно */
+    --ck-color-labeled-field-label-background: #303030 !important;
+    --ck-color-panel-background: #303030 !important;
+    --ck-color-panel-border: #262626 !important;
+    --ck-color-shadow-drop: #262626 !important;
+}
+
+.ck.ck-editor__editable[role='textbox'] {
+    color: #fff;
+	padding: 0 2em;
+    height: 400px;
+}

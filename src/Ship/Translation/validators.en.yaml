@@ -1,1 +1,2 @@
 password_does_match: Passwords don't match
+new_password_is_same: The new password must be different from the old one

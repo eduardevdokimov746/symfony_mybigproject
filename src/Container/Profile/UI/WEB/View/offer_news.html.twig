@@ -5,6 +5,7 @@
 {% block style %}
     {{ parent() }}
     <link rel="stylesheet" href="{{ absolute_url(asset('profile_page.css', 'css')) }}">
+    <link rel="stylesheet" href="{{ absolute_url(asset('ckeditor.css', 'css')) }}">
 {% endblock %}
 
 {% block page_title %}
@@ -21,39 +22,40 @@
             </div>
 
             <div class="content-inner-body">
-                <div>
-                    <div class="form-field">
-                        <div class="form-label">
-                            <label for="title">{{ 'form.title'|trans }}</label>
+                <form method="POST">
+                    <input type="hidden" name="{{ csrf_parameter }}" value="{{ csrf_token(csrf_token_id) }}">
+                    <div>
+                        <div class="form-field">
+                            <div class="form-label">
+                                <label for="title">{{ 'form.title'|trans }}</label>
+                            </div>
+                            <div>
+                                <input id="title" name="title" class="form-input" type="text">
+                            </div>
                         </div>
-                        <div>
-                            <input id="title" name="title" class="form-input" type="text">
-                        </div>
-                    </div>
 
-                    <div class="form-field field-margin-top">
-                        <div class="form-label">
-                            <label for="content">{{ 'form.content'|trans }}</label>
+                        <div class="field-margin-top">
+                            <div class="form-label">
+                                <label for="content">{{ 'form.content'|trans }}</label>
+                            </div>
+                            <textarea id="content" name="content" class="editor"></textarea>
                         </div>
-                        <div>
-                            <textarea id="content" name="content" class="form-input" rows="10"></textarea>
-                        </div>
-                    </div>
 
-                    <div class="form-field field-margin-top">
-                        <div class="form-label">
-                            <label for="news-img">{{ 'form.img'|trans }}</label>
+                        <div class="form-field field-margin-top">
+                            <div class="form-label">
+                                <label for="news-img">{{ 'form.img'|trans }}</label>
+                            </div>
+                            <img src="{{ absolute_url(asset('src/image/2.jpg')) }}">
+                            <div>
+                                <input id="news-img" name="news-img" type="file">
+                            </div>
                         </div>
-                        <img src="{{ absolute_url(asset('src/image/2.jpg')) }}">
-                        <div>
-                            <input id="news-img" name="news-img" type="file">
-                        </div>
-                    </div>
 
-                    <div class="field-margin-top t-end">
-                        <button class="btn">{{ 'btn.offer'|trans }}</button>
+                        <div class="field-margin-top t-end">
+                            <button class="btn">{{ 'btn.offer'|trans }}</button>
+                        </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
 
@@ -68,4 +70,18 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block script %}
+    {{ parent() }}
+
+    <script src="{{ absolute_url(asset('ckeditor.js', 'js')) }}"></script>
+    <script src="{{ absolute_url(asset('translations/en.js', 'js')) }}"></script>
+
+    <script>
+        ClassicEditor
+            .create(document.querySelector('.editor'), {
+                language: '{{ app.request.locale }}'
+            });
+    </script>
 {% endblock %}

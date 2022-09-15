@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Container\Profile\Task;
 
 use App\Ship\Parent\Task;
+use App\Ship\Service\ImageResize\AvatarImageResizeService;
 use Doctrine\ORM\EntityManagerInterface;
 use RuntimeException;
 use SplFileInfo;
@@ -32,8 +33,8 @@ class ChangeAvatarTask extends Task
         try {
             $this->deleteAvatarTask->run($profileId);
 
-            if (ResizeAvatarTask::shouldResize($file)) {
-                $file = ResizeAvatarTask::createFromUploadedFile($file)->run();
+            if (AvatarImageResizeService::shouldResize($file)) {
+                $file = AvatarImageResizeService::createFromUploadedFile($file)->run();
             }
 
             $fileName = $this->storeFile($file);
