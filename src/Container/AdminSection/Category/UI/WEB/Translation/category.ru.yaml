@@ -1,0 +1,10 @@
+main_block_title:
+    index: Список категорий
+
+index:
+    table:
+        title: Название
+        slug: Слаг
+        active: Активно
+        edit: Редактировать
+        btn: Добавить

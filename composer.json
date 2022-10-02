@@ -42,7 +42,8 @@
         "twig/intl-extra": "^3.4",
         "symfony/rate-limiter": "^6.1",
         "symfony/security-core": "^6.1",
-        "stof/doctrine-extensions-bundle": "^1.7"
+        "stof/doctrine-extensions-bundle": "^1.7",
+        "knplabs/knp-paginator-bundle": "^5.9"
     },
     "config": {
         "allow-plugins": {

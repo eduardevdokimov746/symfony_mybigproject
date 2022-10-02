@@ -1,0 +1,6 @@
+group:
+    type: annotation
+    resource: ../Controller
+    name_prefix: categories.
+    prefix: /categories
+    trailing_slash_on_root: false

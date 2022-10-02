@@ -1,0 +1,10 @@
+main_block_title:
+    index: Category list
+
+index:
+    table:
+        title: Title
+        slug: Slug
+        active: Active
+        edit: Edit
+        btn: Add

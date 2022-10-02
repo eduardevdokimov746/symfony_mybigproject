@@ -18,20 +18,26 @@ class ProfileFixture extends Fixture implements DependentFixtureInterface
         /** @var User $user */
         $user = $this->getReference(UserFixture::REFERENCE);
 
-        $profile = new Profile($user);
-        $profile
-            ->setFirstName('FirstName')
-            ->setLastName('LastName')
-            ->setPatronymic('Patronymic')
-            ->setAbout('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt'.
-                'ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation '.
-                'ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in'.
-                'reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur'.
-                'sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id'.
-                'est laborum.')
-        ;
+        /** @var User $user */
+        $admin = $this->getReference(UserFixture::REFERENCE_ADMIN);
 
-        $manager->persist($profile);
+        foreach ([$user, $admin] as $user) {
+            $profile = new Profile($user);
+            $profile
+                ->setFirstName('FirstName')
+                ->setLastName('LastName')
+                ->setPatronymic('Patronymic')
+                ->setAbout('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt'.
+                    'ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation '.
+                    'ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in'.
+                    'reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur'.
+                    'sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id'.
+                    'est laborum.')
+            ;
+
+            $manager->persist($profile);
+        }
+
         $manager->flush();
     }
 

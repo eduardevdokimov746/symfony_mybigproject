@@ -1,0 +1,3 @@
+doctrine_migrations:
+    migrations_paths:
+        App\Container\AdminSection\Category\Data\Migration: '%kernel.project_dir%/src/Container/AdminSection/Category/Data/Migration'

@@ -6,6 +6,7 @@ namespace App\Container\User\Entity\Doc;
 
 use App\Container\Profile\Entity\Doc\Profile;
 use App\Container\User\Data\Repository\Doc\UserRepository;
+use App\Container\User\Enum\RoleEnum;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -34,6 +35,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(name: 'email_verified', type: 'boolean', options: ['default' => false])]
     private bool $emailVerified = false;
 
+    #[ORM\Column(name: 'role', type: 'string', enumType: RoleEnum::class, length: 20, options: ['default' => RoleEnum::USER])]
+    private RoleEnum $role = RoleEnum::USER;
+
     #[ORM\OneToOne(targetEntity: Profile::class, mappedBy: 'user')]
     private Profile $profile;
 
@@ -57,6 +61,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getProfile(): Profile
     {
         return $this->profile;
+    }
+
+    public function getRole(): RoleEnum
+    {
+        return $this->role;
+    }
+
+    public function setRole(RoleEnum $role): self
+    {
+        $this->role = $role;
+
+        return $this;
     }
 
     public function setProfile(Profile $profile): self

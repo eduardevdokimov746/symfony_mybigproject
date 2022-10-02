@@ -1,3 +1,7 @@
 home:
     resource: ../../../Container/AdminSection/Home/UI/WEB/Route
     type: directory
+
+category:
+    resource: ../../../Container/AdminSection/Category/UI/WEB/Route
+    type: directory

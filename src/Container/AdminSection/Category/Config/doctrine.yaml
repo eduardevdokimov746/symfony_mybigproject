@@ -1,0 +1,9 @@
+doctrine:
+    orm:
+        mappings:
+            Category:
+                type: attribute
+                dir: '%kernel.project_dir%/src/Container/AdminSection/Category/Entity'
+                is_bundle: false
+                prefix: App\Container\AdminSection\Category\Entity
+                alias: CategoryContainer
