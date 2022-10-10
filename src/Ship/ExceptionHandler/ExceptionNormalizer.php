@@ -7,14 +7,15 @@ namespace App\Ship\ExceptionHandler;
 use Symfony\Component\ErrorHandler\Exception\FlattenException;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
+/**
+ * @codeCoverageIgnore
+ */
 class ExceptionNormalizer implements NormalizerInterface
 {
     /**
      * @param FlattenException $object
-     *
-     * @return array
      */
-    public function normalize(mixed $object, string $format = null, array $context = [])
+    public function normalize(mixed $object, string $format = null, array $context = []): array
     {
         return [
             'code' => $object->getStatusCode(),
@@ -22,7 +23,7 @@ class ExceptionNormalizer implements NormalizerInterface
         ];
     }
 
-    public function supportsNormalization(mixed $data, string $format = null)
+    public function supportsNormalization(mixed $data, string $format = null, array $context = []): bool
     {
         return $data instanceof FlattenException;
     }

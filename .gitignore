@@ -19,5 +19,7 @@
 /.php-cs-fixer.cache
 ###< friendsofphp/php-cs-fixer ###
 
+tests/reports
+
 .idea
 c

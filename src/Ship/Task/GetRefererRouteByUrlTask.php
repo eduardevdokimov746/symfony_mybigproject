@@ -55,6 +55,10 @@ class GetRefererRouteByUrlTask extends Task
     {
         $parseUrl = parse_url($refererUrl);
 
+        if (empty($parseUrl['path'])) {
+            return null;
+        }
+
         if (!empty($parseUrl['query'])) {
             parse_str($parseUrl['query'], $queryString);
         }

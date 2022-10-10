@@ -8,6 +8,9 @@ use DomainException;
 use IntlDateFormatter;
 use Symfony\Component\Translation\LocaleSwitcher;
 
+/**
+ * @codeCoverageIgnore
+ */
 class FormatDateTimeFactory
 {
     private const RU_PATTERN = 'd MMMM y в HH:mm';

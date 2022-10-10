@@ -7,6 +7,9 @@ namespace App\Ship\ExceptionHandler;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
+/**
+ * @codeCoverageIgnore
+ */
 class ExceptionCompilerPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container)

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Ship\ExceptionHandler;
 
+use RuntimeException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Throwable;
@@ -17,6 +18,7 @@ class ExceptionMapping
 
     public function __construct(private int $code, private bool $hidden, private bool $loggable)
     {
+        $this->throwable = new RuntimeException('Default exception');
     }
 
     public static function fromCode(int $code): self

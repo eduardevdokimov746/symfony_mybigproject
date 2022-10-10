@@ -1,0 +1,4 @@
+validation_redirect:
+    controller: 'App\Ship\Controller\ValidationRedirectController'
+    path: /validation_redirect
+    methods: GET

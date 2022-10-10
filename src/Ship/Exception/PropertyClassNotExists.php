@@ -6,6 +6,9 @@ namespace App\Ship\Exception;
 
 use RuntimeException;
 
+/**
+ * @codeCoverageIgnore
+ */
 class PropertyClassNotExists extends RuntimeException
 {
     public function __construct(string $class, string $property)

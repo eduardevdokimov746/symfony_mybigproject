@@ -16,7 +16,7 @@ class CustomComparator implements Comparator
 
     private function getVersion(string $version): string
     {
-        preg_match('#.+\\\\(?<version>\S+)$#', $version, $matches);
+        preg_match('#^(.*\\\\)?(?<version>\S+?)(\.php)?$#', $version, $matches);
 
         return $matches['version'];
     }

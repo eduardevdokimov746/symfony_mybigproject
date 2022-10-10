@@ -9,6 +9,9 @@ use Symfony\Bridge\Twig\AppVariable;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 
+/**
+ * @codeCoverageIgnore
+ */
 class FlashBagExtension extends AbstractExtension
 {
     public function __construct(

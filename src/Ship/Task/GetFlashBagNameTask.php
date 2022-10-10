@@ -6,6 +6,9 @@ namespace App\Ship\Task;
 
 use DomainException;
 
+/**
+ * @codeCoverageIgnore
+ */
 class GetFlashBagNameTask
 {
     public const ERROR = 'error.';

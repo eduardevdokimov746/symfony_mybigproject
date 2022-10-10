@@ -28,6 +28,13 @@ admin:
     name_prefix: admin.
     trailing_slash_on_root: false
 
+when@test:
+    test:
+        resource: test/web.yaml
+        prefix: /test
+        name_prefix: test.
+        trailing_slash_on_root: false
+
 #user:
 #    resource: ../../Container/User/UI/WEB/Route
 #    type: directory

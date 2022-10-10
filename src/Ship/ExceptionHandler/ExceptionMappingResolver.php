@@ -15,7 +15,7 @@ class ExceptionMappingResolver
     private array $mappings = [];
 
     /**
-     * @param ExceptionMapping[] $mappings
+     * @throws InvalidArgumentException When the mapping does not contain key code
      */
     public function __construct(array $mappings)
     {
