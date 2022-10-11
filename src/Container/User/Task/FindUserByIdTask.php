@@ -9,7 +9,7 @@ use App\Container\User\Entity\Doc\User;
 use App\Container\User\Exception\UserNotFoundException;
 use App\Ship\Parent\Task;
 
-class FindUserById extends Task
+class FindUserByIdTask extends Task
 {
     public function __construct(
         private UserRepository $userRepository

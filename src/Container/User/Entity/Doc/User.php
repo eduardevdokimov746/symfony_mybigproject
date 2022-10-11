@@ -35,8 +35,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(name: 'email_verified', type: 'boolean', options: ['default' => false])]
     private bool $emailVerified = false;
 
-    #[ORM\Column(name: 'role', type: 'string', enumType: RoleEnum::class, length: 20, options: ['default' => RoleEnum::USER])]
-    private RoleEnum $role = RoleEnum::USER;
+    #[ORM\Column(name: 'role', type: 'string', enumType: RoleEnum::class, length: 20, options: ['default' => RoleEnum::User])]
+    private RoleEnum $role = RoleEnum::User;
 
     #[ORM\OneToOne(targetEntity: Profile::class, mappedBy: 'user')]
     private Profile $profile;
@@ -61,6 +61,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getProfile(): Profile
     {
         return $this->profile;
+    }
+
+    public function getLogin(): string
+    {
+        return $this->login;
     }
 
     public function getRole(): RoleEnum
@@ -102,6 +107,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setEmailVerified(bool $emailVerified): self
     {
         $this->emailVerified = $emailVerified;
+
+        return $this;
+    }
+
+    public function disable(): self
+    {
+        $this->active = false;
+
+        return $this;
+    }
+
+    public function activate(): self
+    {
+        $this->active = true;
 
         return $this;
     }

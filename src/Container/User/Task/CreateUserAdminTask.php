@@ -21,7 +21,7 @@ class CreateUserAdminTask extends Task
     {
         $user = $this->createUserTask->run($login, $email, $plainPassword);
 
-        $user->setRole(RoleEnum::ADMIN);
+        $user->setRole(RoleEnum::Admin);
 
         $this->entityManager->flush();
 

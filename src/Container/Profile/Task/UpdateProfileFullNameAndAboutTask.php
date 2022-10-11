@@ -11,7 +11,7 @@ use Doctrine\ORM\EntityManagerInterface;
 class UpdateProfileFullNameAndAboutTask extends Task
 {
     public function __construct(
-        private FindProfileById $findProfileById,
+        private FindProfileByIdTask $findProfileById,
         private EntityManagerInterface $entityManager
     ) {
     }

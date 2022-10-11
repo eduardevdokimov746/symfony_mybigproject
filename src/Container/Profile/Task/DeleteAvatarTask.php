@@ -6,18 +6,17 @@ namespace App\Container\Profile\Task;
 
 use App\Container\Profile\Entity\Doc\Profile;
 use App\Ship\Parent\Task;
+use App\Ship\Service\ImageStorage\ImageStorage;
+use App\Ship\Service\ImageStorage\ImageStorageEnum;
 use Doctrine\ORM\EntityManagerInterface;
 use RuntimeException;
-use Symfony\Component\Asset\Packages;
-use Symfony\Component\Filesystem\Filesystem;
 
 class DeleteAvatarTask extends Task
 {
     public function __construct(
-        private Filesystem $filesystem,
         private EntityManagerInterface $entityManager,
-        private FindProfileById $findProfileById,
-        private Packages $asset
+        private FindProfileByIdTask $findProfileById,
+        private ImageStorage $imageStorage
     ) {
     }
 
@@ -32,7 +31,7 @@ class DeleteAvatarTask extends Task
         $this->entityManager->beginTransaction();
 
         try {
-            $this->filesystem->remove(ltrim($this->asset->getUrl($profile->getAvatar(), 'avatar'), '/'));
+            $this->imageStorage->remove($profile->getAvatar(), ImageStorageEnum::Avatar);
 
             $profile->setAvatar(null);
 

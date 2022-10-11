@@ -9,7 +9,7 @@ use App\Container\Profile\Entity\Doc\Profile;
 use App\Container\Profile\Exception\ProfileNotFoundException;
 use App\Ship\Parent\Task;
 
-class FindProfileById extends Task
+class FindProfileByIdTask extends Task
 {
     public function __construct(
         private ProfileRepository $profileRepository

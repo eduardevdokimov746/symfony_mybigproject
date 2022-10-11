@@ -10,7 +10,7 @@ use Doctrine\ORM\EntityManagerInterface;
 class MarkUserEmailVerifiedTask extends Task
 {
     public function __construct(
-        private FindUserById $findUserById,
+        private FindUserByIdTask $findUserById,
         private EntityManagerInterface $entityManager
     ) {
     }

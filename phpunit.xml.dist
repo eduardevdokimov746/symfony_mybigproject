@@ -25,10 +25,24 @@
         </include>
 
         <exclude>
+            <!-- Ship -->
             <directory>src/Ship/Listener</directory>
             <directory>src/Ship/Test</directory>
             <directory>src/Ship/Parent</directory>
             <directory>src/Ship/Form/Extension</directory>
+            <!-- Ship -->
+
+            <!-- User -->
+            <directory>src/Container/User/Test</directory>
+            <!-- User -->
+
+            <!-- Profile -->
+            <directory>src/Container/Profile/Test</directory>
+            <!-- Profile -->
+
+            <!-- Locale -->
+            <directory>src/Container/Locale/Test</directory>
+            <!-- Locale -->
         </exclude>
 
         <report>
@@ -41,6 +55,7 @@
     </listeners>
 
     <testsuites>
+        <!-- Ship -->
         <testsuite name="ship-unit">
             <directory>src/Ship/Test/Unit</directory>
         </testsuite>
@@ -50,6 +65,25 @@
         <testsuite name="ship-functional">
             <directory>src/Ship/Test/Functional</directory>
         </testsuite>
+        <!-- Ship -->
+
+        <!-- User -->
+        <testsuite name="user-unit">
+            <directory>src/Container/User/Test/Unit</directory>
+        </testsuite>
+        <!-- User -->
+
+        <!-- Profile -->
+        <testsuite name="profile-unit">
+            <directory>src/Container/Profile/Test/Unit</directory>
+        </testsuite>
+        <!-- Profile -->
+
+        <!-- Locale -->
+        <testsuite name="locale-unit">
+            <directory>src/Container/Locale/Test/Unit</directory>
+        </testsuite>
+        <!-- Locale -->
     </testsuites>
 
     <!-- Run `composer require symfony/panther` before enabling this extension -->

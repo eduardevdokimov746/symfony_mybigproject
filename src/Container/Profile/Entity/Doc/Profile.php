@@ -24,19 +24,19 @@ class Profile
     private User $user;
 
     #[ORM\Column(name: 'first_name', type: 'string', nullable: true)]
-    private ?string $firstName;
+    private ?string $firstName = null;
 
     #[ORM\Column(name: 'last_name', type: 'string', nullable: true)]
-    private ?string $lastName;
+    private ?string $lastName = null;
 
     #[ORM\Column(name: 'patronymic', type: 'string', nullable: true)]
-    private ?string $patronymic;
+    private ?string $patronymic = null;
 
     #[ORM\Column(name: 'about', type: 'text', nullable: true)]
-    private ?string $about;
+    private ?string $about = null;
 
     #[ORM\Column(name: 'avatar', type: 'string', nullable: true)]
-    private ?string $avatar;
+    private ?string $avatar = null;
 
     public function __construct(User $user)
     {
