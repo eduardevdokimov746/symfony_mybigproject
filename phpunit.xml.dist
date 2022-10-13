@@ -34,15 +34,31 @@
 
             <!-- User -->
             <directory>src/Container/User/Test</directory>
+            <directory>src/Container/User/Data/Fixture</directory>
+            <directory>src/Container/User/Data/Migration</directory>
             <!-- User -->
 
             <!-- Profile -->
             <directory>src/Container/Profile/Test</directory>
+            <directory>src/Container/Profile/Data/Fixture</directory>
+            <directory>src/Container/Profile/Data/Migration</directory>
+            <directory>src/Container/Profile/Validator</directory>
             <!-- Profile -->
 
             <!-- Locale -->
             <directory>src/Container/Locale/Test</directory>
             <!-- Locale -->
+
+            <!-- AuthSection -->
+            <!-- Auth -->
+            <directory>src/Container/AuthSection/Auth/Validator</directory>
+            <directory>src/Container/AuthSection/Auth/Listener</directory>
+            <!-- Auth -->
+            <!-- ResetPassword -->
+            <directory>src/Container/AuthSection/ResetPassword/Validator</directory>
+            <directory>src/Container/AuthSection/ResetPassword/Data/Migration</directory>
+            <!-- ResetPassword -->
+            <!-- AuthSection -->
         </exclude>
 
         <report>
@@ -71,11 +87,17 @@
         <testsuite name="user-unit">
             <directory>src/Container/User/Test/Unit</directory>
         </testsuite>
+        <testsuite name="user-integration">
+            <directory>src/Container/User/Test/Integration</directory>
+        </testsuite>
         <!-- User -->
 
         <!-- Profile -->
         <testsuite name="profile-unit">
             <directory>src/Container/Profile/Test/Unit</directory>
+        </testsuite>
+        <testsuite name="profile-integration">
+            <directory>src/Container/Profile/Test/Integration</directory>
         </testsuite>
         <!-- Profile -->
 
@@ -83,13 +105,34 @@
         <testsuite name="locale-unit">
             <directory>src/Container/Locale/Test/Unit</directory>
         </testsuite>
+        <testsuite name="locale-integration">
+            <directory>src/Container/Locale/Test/Integration</directory>
+        </testsuite>
         <!-- Locale -->
+
+        <!-- AuthSection -->
+        <!-- Auth -->
+        <testsuite name="auth-integration">
+            <directory>src/Container/AuthSection/Auth/Test/Integration</directory>
+        </testsuite>
+        <testsuite name="auth-unit">
+            <directory>src/Container/AuthSection/Auth/Test/Unit</directory>
+        </testsuite>
+        <!-- Auth -->
+        <!-- ResetPassword -->
+        <testsuite name="reset-password-integration">
+            <directory>src/Container/AuthSection/ResetPassword/Test/Integration</directory>
+        </testsuite>
+        <!-- ResetPassword -->
+        <!-- AuthSection -->
+
     </testsuites>
 
     <!-- Run `composer require symfony/panther` before enabling this extension -->
-    <!--
+
     <extensions>
-        <extension class="Symfony\Component\Panther\ServerExtension" />
+        <extension class="DAMA\DoctrineTestBundle\PHPUnit\PHPUnitExtension"/>
+<!--        <extension class="Symfony\Component\Panther\ServerExtension" />-->
     </extensions>
-    -->
+
 </phpunit>

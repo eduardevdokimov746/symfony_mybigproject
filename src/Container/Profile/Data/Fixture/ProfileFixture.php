@@ -21,7 +21,10 @@ class ProfileFixture extends Fixture implements DependentFixtureInterface
         /** @var User $user */
         $admin = $this->getReference(UserFixture::REFERENCE_ADMIN);
 
-        foreach ([$user, $admin] as $user) {
+        /** @var User $inactiveUser $inactiveUser */
+        $inactiveUser = $this->getReference(UserFixture::INACTIVE);
+
+        foreach ([$user, $admin, $inactiveUser] as $user) {
             $profile = new Profile($user);
             $profile
                 ->setFirstName('FirstName')

@@ -23,9 +23,9 @@ class DeleteAvatarTaskTest extends TestCase
         $findProfileByIdTask->method('run')->willReturn(new Profile($this->createUser()));
         $imageStorageService = $this->createStub(ImageStorage::class);
 
-        $deleteAvatarTaskTest = new DeleteAvatarTask($entityManager, $findProfileByIdTask, $imageStorageService);
+        $deleteAvatarTask = new DeleteAvatarTask($entityManager, $findProfileByIdTask, $imageStorageService);
 
-        $this->assertFalse($deleteAvatarTaskTest->run(1));
+        $this->assertFalse($deleteAvatarTask->run(1));
     }
 
     public function testRunExpectTrue(): void
@@ -37,9 +37,9 @@ class DeleteAvatarTaskTest extends TestCase
         $findProfileByIdTask->method('run')->willReturn($profile);
         $imageStorageService = $this->createStub(ImageStorage::class);
 
-        $deleteAvatarTaskTest = new DeleteAvatarTask($entityManager, $findProfileByIdTask, $imageStorageService);
+        $deleteAvatarTask = new DeleteAvatarTask($entityManager, $findProfileByIdTask, $imageStorageService);
 
-        $this->assertTrue($deleteAvatarTaskTest->run(1));
+        $this->assertTrue($deleteAvatarTask->run(1));
         $this->assertSame(Profile::DEFAULT_AVATAR, $profile->getAvatar());
     }
 }

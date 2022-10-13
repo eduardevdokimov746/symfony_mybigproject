@@ -30,3 +30,7 @@ services:
 
     App\Ship\Parent\Validator\:
         resource: '%kernel.project_dir%/src/Ship/Parent/Validator'
+
+    App\Ship\Service\Doctrine\PurgerFactory:
+        tags:
+            - { name: doctrine.fixtures.purger_factory, alias: purger }

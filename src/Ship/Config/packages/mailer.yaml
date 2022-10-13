@@ -5,6 +5,13 @@ when@dev:
             envelope:
                 sender: '%env(MAILER_SENDER)%'
 
+when@test:
+    framework:
+        mailer:
+            dsn: null://null
+            envelope:
+                sender: '%env(MAILER_SENDER)%'
+
 when@prod:
     framework:
         mailer:

@@ -13,6 +13,7 @@ class UserFixture extends Fixture
 {
     public const REFERENCE = 'user';
     public const REFERENCE_ADMIN = 'admin';
+    public const INACTIVE = 'inactive';
 
     public function __construct(
         private CreateUserTask $createUserTask,
@@ -34,7 +35,20 @@ class UserFixture extends Fixture
             'admin'
         );
 
+        $admin->setEmailVerified(true);
+
+        $inactiveUser = $this->createUserTask->run(
+            'dis',
+            'dis@mail.com',
+            'dis'
+        );
+
+        $inactiveUser->disable();
+
+        $manager->flush();
+
         $this->setReference(self::REFERENCE, $user);
         $this->setReference(self::REFERENCE_ADMIN, $admin);
+        $this->setReference(self::INACTIVE, $inactiveUser);
     }
 }
