@@ -8,8 +8,8 @@ use App\Container\User\Entity\Doc\User;
 use App\Container\User\Enum\RoleEnum;
 use App\Container\User\Task\CreateUserAdminTask;
 use App\Container\User\Task\CreateUserTask;
+use App\Ship\Parent\Test\KernelTestCase;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class CreateUserAdminTaskTest extends KernelTestCase
 {

@@ -7,9 +7,9 @@ namespace App\Container\Profile\Test\Integration\Task;
 use App\Container\Profile\Entity\Doc\Profile;
 use App\Container\Profile\Task\DeleteAvatarTask;
 use App\Container\Profile\Task\FindProfileByIdTask;
+use App\Ship\Parent\Test\KernelTestCase;
 use App\Ship\Service\ImageStorage\ImageStorage;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class DeleteAvatarTaskTest extends KernelTestCase
 {

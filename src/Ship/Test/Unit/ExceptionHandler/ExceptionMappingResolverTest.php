@@ -6,9 +6,9 @@ namespace App\Ship\Test\Unit\ExceptionHandler;
 
 use App\Ship\ExceptionHandler\ExceptionMapping;
 use App\Ship\ExceptionHandler\ExceptionMappingResolver;
+use App\Ship\Parent\Test\TestCase;
 use Exception;
 use InvalidArgumentException;
-use PHPUnit\Framework\TestCase;
 
 class ExceptionMappingResolverTest extends TestCase
 {

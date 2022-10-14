@@ -6,14 +6,11 @@ namespace App\Container\User\Test\Unit\Task;
 
 use App\Container\User\Task\FindUserByIdTask;
 use App\Container\User\Task\MarkUserEmailVerifiedTask;
-use App\Container\User\Test\Trait\CreateUserTrait;
+use App\Ship\Parent\Test\TestCase;
 use Doctrine\ORM\EntityManagerInterface;
-use PHPUnit\Framework\TestCase;
 
 class MarkUserEmailVerifiedTaskTest extends TestCase
 {
-    use CreateUserTrait;
-
     public function testRun(): void
     {
         $user = $this->createUser();

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Ship\Test\Unit\Service\Doctrine;
 
+use App\Ship\Parent\Test\TestCase;
 use App\Ship\Service\Doctrine\CustomComparator;
 use Doctrine\Migrations\Version\Version;
-use PHPUnit\Framework\TestCase;
 
 class CustomComparatorTest extends TestCase
 {

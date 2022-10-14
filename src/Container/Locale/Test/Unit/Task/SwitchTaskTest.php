@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Container\Locale\Test\Unit\Task;
 
 use App\Container\Locale\Task\SwitchTask;
-use PHPUnit\Framework\TestCase;
+use App\Ship\Parent\Test\TestCase;
 use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Translation\LocaleSwitcher;

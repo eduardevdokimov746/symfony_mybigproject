@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Ship\Test\Unit\ExceptionHandler;
 
 use App\Ship\ExceptionHandler\ExceptionMapping;
+use App\Ship\Parent\Test\TestCase;
 use Exception;
-use PHPUnit\Framework\TestCase;
 use Throwable;
 
 class ExceptionMappingTest extends TestCase

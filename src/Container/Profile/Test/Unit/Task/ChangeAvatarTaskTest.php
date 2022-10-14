@@ -8,18 +8,15 @@ use App\Container\Profile\Entity\Doc\Profile;
 use App\Container\Profile\Task\ChangeAvatarTask;
 use App\Container\Profile\Task\DeleteAvatarTask;
 use App\Container\Profile\Task\FindProfileByIdTask;
-use App\Container\User\Test\Trait\CreateUserTrait;
 use App\Ship\Contract\ImageResize;
+use App\Ship\Parent\Test\TestCase;
 use App\Ship\Service\ImageResize\AvatarImageResizeService;
 use App\Ship\Service\ImageStorage\ImageStorage;
 use Doctrine\ORM\EntityManagerInterface;
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class ChangeAvatarTaskTest extends TestCase
 {
-    use CreateUserTrait;
-
     private string $tmpFile;
 
     protected function tearDown(): void

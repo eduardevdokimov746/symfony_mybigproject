@@ -6,8 +6,8 @@ namespace App\Container\User\Test\Integration\Task;
 
 use App\Container\User\Task\FindUserByIdTask;
 use App\Container\User\Task\MarkUserEmailVerifiedTask;
+use App\Ship\Parent\Test\KernelTestCase;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class MarkUserEmailVerifiedTaskTest extends KernelTestCase
 {
@@ -16,7 +16,7 @@ class MarkUserEmailVerifiedTaskTest extends KernelTestCase
         $findUserById = self::getContainer()->get(FindUserByIdTask::class);
         $entityManager = self::getContainer()->get(EntityManagerInterface::class);
 
-        $user = $findUserById->run(1);
+        $user = $this->findUserFromDB();
 
         $markUserEmailVerifiedTask = new MarkUserEmailVerifiedTask($findUserById, $entityManager);
 

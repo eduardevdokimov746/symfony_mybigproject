@@ -7,9 +7,9 @@ namespace App\Container\User\Test\Integration\Task;
 use App\Container\User\Entity\Doc\User;
 use App\Container\User\Task\ChangeUserPasswordTask;
 use App\Container\User\Task\FindUserByIdTask;
+use App\Ship\Parent\Test\KernelTestCase;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class ChangeUserPasswordTaskTest extends KernelTestCase
@@ -21,7 +21,7 @@ class ChangeUserPasswordTaskTest extends KernelTestCase
         $entityManager = self::getContainer()->get(EntityManagerInterface::class);
         $logger = self::getContainer()->get(LoggerInterface::class);
 
-        $user = $findUserByIdTask->run(1);
+        $user = $this->findUserFromDB();
 
         $oldPassword = $user->getPassword();
 

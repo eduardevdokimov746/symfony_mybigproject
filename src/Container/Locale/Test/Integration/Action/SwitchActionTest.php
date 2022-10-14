@@ -6,8 +6,8 @@ namespace App\Container\Locale\Test\Integration\Action;
 
 use App\Container\Locale\Action\SwitchAction;
 use App\Container\Locale\Task\SwitchTask;
+use App\Ship\Parent\Test\KernelTestCase;
 use App\Ship\Task\GetRefererRouteByUrlTask;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 

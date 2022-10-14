@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Ship\Test\Unit\Task;
 
+use App\Ship\Parent\Test\TestCase;
 use App\Ship\Task\GetRefererRouteByUrlTask;
-use PHPUnit\Framework\TestCase;
 use RuntimeException;
 use Symfony\Component\Routing\RouterInterface;
 

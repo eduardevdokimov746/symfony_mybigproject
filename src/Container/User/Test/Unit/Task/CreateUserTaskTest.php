@@ -6,8 +6,8 @@ namespace App\Container\User\Test\Unit\Task;
 
 use App\Container\User\Entity\Doc\User;
 use App\Container\User\Task\CreateUserTask;
+use App\Ship\Parent\Test\TestCase;
 use Doctrine\ORM\EntityManagerInterface;
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class CreateUserTaskTest extends TestCase

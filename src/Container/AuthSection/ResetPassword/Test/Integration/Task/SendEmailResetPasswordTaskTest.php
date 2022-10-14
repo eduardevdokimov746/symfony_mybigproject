@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Container\AuthSection\ResetPassword\Test\Integration\Task;
 
 use App\Container\AuthSection\ResetPassword\Task\SendEmailResetPasswordTask;
+use App\Ship\Parent\Test\KernelTestCase;
 use DateTime;
 use Psr\Log\LoggerInterface;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Asset\Packages;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;

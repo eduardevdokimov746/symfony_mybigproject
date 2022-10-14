@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Ship\Test\Integration\Task;
 
+use App\Ship\Parent\Test\KernelTestCase;
 use App\Ship\Task\GetRefererRouteByUrlTask;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Routing\RouterInterface;
 
 class GetRefererRouteByUrlTaskTest extends KernelTestCase

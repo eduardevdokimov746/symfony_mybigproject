@@ -5,11 +5,9 @@ declare(strict_types=1);
 namespace App\Container\AuthSection\ResetPassword\Test\Integration\Action;
 
 use App\Container\AuthSection\ResetPassword\Action\RemoveResetTokenAndChangeUserPasswordAction;
-use App\Container\User\Entity\Doc\User;
 use App\Container\User\Task\ChangeUserPasswordTask;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Ship\Parent\Test\KernelTestCase;
 use Psr\Log\LoggerInterface;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use SymfonyCasts\Bundle\ResetPassword\Exception\InvalidResetPasswordTokenException;
 use SymfonyCasts\Bundle\ResetPassword\ResetPasswordHelperInterface;
 
@@ -17,10 +15,7 @@ class RemoveResetTokenAndChangeUserPasswordActionTest extends KernelTestCase
 {
     public function testRunExpectNull(): void
     {
-        $entityManager = self::getContainer()->get(EntityManagerInterface::class);
-
-        /** @var User $user */
-        $user = $entityManager->find(User::class, 1);
+        $user = $this->findUserFromDB();
         $oldPassword = $user->getPassword();
 
         $resetPasswordHelper = $this->createStub(ResetPasswordHelperInterface::class);
@@ -36,7 +31,7 @@ class RemoveResetTokenAndChangeUserPasswordActionTest extends KernelTestCase
 
         $result = $removeResetTokenAndChangeUserPasswordAction->run('token', 'new password');
 
-        $userWithNewPassword = $entityManager->find(User::class, 1);
+        $userWithNewPassword = $this->findUserFromDB();
 
         $this->assertNull($result);
         $this->assertNotSame($oldPassword, $userWithNewPassword->getPassword());

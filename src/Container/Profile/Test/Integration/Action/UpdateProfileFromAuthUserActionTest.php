@@ -10,8 +10,7 @@ use App\Container\Profile\Task\ChangeAvatarTask;
 use App\Container\Profile\Task\DeleteAvatarTask;
 use App\Container\Profile\Task\UpdateProfileFullNameAndAboutTask;
 use App\Container\User\Entity\Doc\User;
-use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use App\Ship\Parent\Test\KernelTestCase;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Security;
@@ -20,8 +19,7 @@ class UpdateProfileFromAuthUserActionTest extends KernelTestCase
 {
     public function testRun(): void
     {
-        /** @var User $user */
-        $user = self::getContainer()->get(EntityManagerInterface::class)->find(User::class, 1);
+        $user = $this->findUserFromDB();
 
         $oldFirstName = $user->getProfile()->getFirstName();
         $oldLastName = $user->getProfile()->getLastName();

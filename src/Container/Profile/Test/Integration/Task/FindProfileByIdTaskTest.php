@@ -8,7 +8,7 @@ use App\Container\Profile\Data\Repository\ProfileRepository;
 use App\Container\Profile\Entity\Doc\Profile;
 use App\Container\Profile\Exception\ProfileNotFoundException;
 use App\Container\Profile\Task\FindProfileByIdTask;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use App\Ship\Parent\Test\KernelTestCase;
 
 class FindProfileByIdTaskTest extends KernelTestCase
 {

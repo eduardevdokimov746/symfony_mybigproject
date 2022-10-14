@@ -7,8 +7,8 @@ namespace App\Container\AuthSection\ResetPassword\Test\Integration\Action;
 use App\Container\AuthSection\ResetPassword\Action\GenerateAndSendResetPasswordTokenAction;
 use App\Container\AuthSection\ResetPassword\Task\SendEmailResetPasswordTask;
 use App\Container\User\Task\FindUserByVerifiedEmailTask;
+use App\Ship\Parent\Test\KernelTestCase;
 use Psr\Log\LoggerInterface;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use SymfonyCasts\Bundle\ResetPassword\Model\ResetPasswordToken;
 use SymfonyCasts\Bundle\ResetPassword\ResetPasswordHelperInterface;
 

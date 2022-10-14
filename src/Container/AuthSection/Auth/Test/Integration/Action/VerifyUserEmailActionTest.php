@@ -5,11 +5,9 @@ declare(strict_types=1);
 namespace App\Container\AuthSection\Auth\Test\Integration\Action;
 
 use App\Container\AuthSection\Auth\Action\VerifyUserEmailAction;
-use App\Container\User\Entity\Doc\User;
 use App\Container\User\Task\MarkUserEmailVerifiedTask;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Ship\Parent\Test\KernelTestCase;
 use Psr\Log\LoggerInterface;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\InvalidSignatureException;
 use SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface;
 
@@ -25,8 +23,7 @@ class VerifyUserEmailActionTest extends KernelTestCase
 
         $result = $verifyUserEmailAction->run('signedUrl', 1, 'user@mail.com');
 
-        /** @var User $user */
-        $user = self::getContainer()->get(EntityManagerInterface::class)->find(User::class, 1);
+        $user = $this->findUserFromDB();
 
         $this->assertTrue($user->isEmailVerified());
         $this->assertNull($result);

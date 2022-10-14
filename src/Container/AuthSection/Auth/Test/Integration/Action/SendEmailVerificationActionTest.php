@@ -6,9 +6,8 @@ namespace App\Container\AuthSection\Auth\Test\Integration\Action;
 
 use App\Container\AuthSection\Auth\Action\SendEmailVerificationAction;
 use App\Container\User\Entity\Doc\User;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Ship\Parent\Test\KernelTestCase;
 use Psr\Log\LoggerInterface;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Asset\Packages;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -40,7 +39,7 @@ class SendEmailVerificationActionTest extends KernelTestCase
             $logger
         );
 
-        $this->user = self::getContainer()->get(EntityManagerInterface::class)->find(User::class, 1);
+        $this->user = $this->findUserFromDB();
     }
 
     public function testRun(): void

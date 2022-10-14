@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Container\User\Test\Trait;
+namespace App\Ship\Trait;
 
 use App\Container\User\Entity\Doc\User;
 
-trait CreateUserTrait
+trait CreateTestUserInstanceTrait
 {
-    private function createUser(): User
+    protected function createUser(): User
     {
         return new User('user', 'user@mail.com', 'password', fn () => 'hash');
     }

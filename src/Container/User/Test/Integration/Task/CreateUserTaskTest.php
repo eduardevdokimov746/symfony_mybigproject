@@ -6,8 +6,8 @@ namespace App\Container\User\Test\Integration\Task;
 
 use App\Container\User\Entity\Doc\User;
 use App\Container\User\Task\CreateUserTask;
+use App\Ship\Parent\Test\KernelTestCase;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class CreateUserTaskTest extends KernelTestCase

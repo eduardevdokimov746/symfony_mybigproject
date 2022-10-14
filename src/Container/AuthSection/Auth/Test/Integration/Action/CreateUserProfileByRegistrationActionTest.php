@@ -11,9 +11,9 @@ use App\Container\Profile\Entity\Doc\Profile;
 use App\Container\Profile\Task\CreateProfileTask;
 use App\Container\User\Entity\Doc\User;
 use App\Container\User\Task\CreateUserTask;
+use App\Ship\Parent\Test\KernelTestCase;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class CreateUserProfileByRegistrationActionTest extends KernelTestCase

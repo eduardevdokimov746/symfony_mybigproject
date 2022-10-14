@@ -8,13 +8,10 @@ use App\Container\User\Data\Repository\Doc\UserRepository;
 use App\Container\User\Entity\Doc\User;
 use App\Container\User\Exception\UserNotFoundException;
 use App\Container\User\Task\FindUserByIdTask;
-use App\Container\User\Test\Trait\CreateUserTrait;
-use PHPUnit\Framework\TestCase;
+use App\Ship\Parent\Test\TestCase;
 
 class FindUserByIdTaskTest extends TestCase
 {
-    use CreateUserTrait;
-
     private FindUserByIdTask $findUserByIdTask;
 
     protected function setUp(): void

@@ -7,8 +7,7 @@ namespace App\Container\Profile\Test\Integration\Action;
 use App\Container\Profile\Action\ChangePasswordFromAuthUserAction;
 use App\Container\User\Entity\Doc\User;
 use App\Container\User\Task\ChangeUserPasswordTask;
-use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use App\Ship\Parent\Test\KernelTestCase;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
@@ -16,8 +15,7 @@ class ChangePasswordFromAuthUserActionTest extends KernelTestCase
 {
     public function testRun(): void
     {
-        /** @var User $user */
-        $user = self::getContainer()->get(EntityManagerInterface::class)->find(User::class, 1);
+        $user = $this->findUserFromDB();
         $oldPassword = $user->getPassword();
 
         $changeUserPasswordTask = self::getContainer()->get(ChangeUserPasswordTask::class);

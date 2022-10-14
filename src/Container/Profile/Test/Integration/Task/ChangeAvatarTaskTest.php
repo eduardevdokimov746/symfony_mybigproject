@@ -8,10 +8,10 @@ use App\Container\Profile\Task\ChangeAvatarTask;
 use App\Container\Profile\Task\DeleteAvatarTask;
 use App\Container\Profile\Task\FindProfileByIdTask;
 use App\Ship\Contract\ImageResize;
+use App\Ship\Parent\Test\KernelTestCase;
 use App\Ship\Service\ImageResize\AvatarImageResizeService;
 use App\Ship\Service\ImageStorage\ImageStorage;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class ChangeAvatarTaskTest extends KernelTestCase

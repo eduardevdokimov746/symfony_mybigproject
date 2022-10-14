@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Ship\Test\Unit\Attribute;
 
 use App\Ship\Attribute\OnlyGuest;
-use PHPUnit\Framework\TestCase;
+use App\Ship\Parent\Test\TestCase;
 
 class OnlyGuestTest extends TestCase
 {

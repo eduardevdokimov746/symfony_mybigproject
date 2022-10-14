@@ -6,8 +6,8 @@ namespace App\Container\Profile\Test\Integration\Task;
 
 use App\Container\Profile\Task\FindProfileByIdTask;
 use App\Container\Profile\Task\UpdateProfileFullNameAndAboutTask;
+use App\Ship\Parent\Test\KernelTestCase;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class UpdateProfileFullNameAndAboutTaskTest extends KernelTestCase
 {

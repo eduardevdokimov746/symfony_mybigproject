@@ -7,14 +7,11 @@ namespace App\Container\Profile\Test\Unit\Task;
 use App\Container\Profile\Entity\Doc\Profile;
 use App\Container\Profile\Task\FindProfileByIdTask;
 use App\Container\Profile\Task\UpdateProfileFullNameAndAboutTask;
-use App\Container\User\Test\Trait\CreateUserTrait;
+use App\Ship\Parent\Test\TestCase;
 use Doctrine\ORM\EntityManagerInterface;
-use PHPUnit\Framework\TestCase;
 
 class UpdateProfileFullNameAndAboutTaskTest extends TestCase
 {
-    use CreateUserTrait;
-
     public function testRun(): void
     {
         $profile = (new Profile($this->createUser()))

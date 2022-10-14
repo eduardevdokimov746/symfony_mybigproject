@@ -8,7 +8,7 @@ use App\Container\User\Data\Repository\Doc\UserRepository;
 use App\Container\User\Entity\Doc\User;
 use App\Container\User\Exception\UserNotFoundException;
 use App\Container\User\Task\FindUserByVerifiedEmailTask;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use App\Ship\Parent\Test\KernelTestCase;
 
 class FindUserByVerifiedEmailTaskTest extends KernelTestCase
 {

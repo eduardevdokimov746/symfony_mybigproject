@@ -8,14 +8,11 @@ use App\Container\User\Entity\Doc\User;
 use App\Container\User\Enum\RoleEnum;
 use App\Container\User\Task\CreateUserAdminTask;
 use App\Container\User\Task\CreateUserTask;
-use App\Container\User\Test\Trait\CreateUserTrait;
+use App\Ship\Parent\Test\TestCase;
 use Doctrine\ORM\EntityManagerInterface;
-use PHPUnit\Framework\TestCase;
 
 class CreateUserAdminTaskTest extends TestCase
 {
-    use CreateUserTrait;
-
     public function testRun(): void
     {
         $entityManager = $this->createStub(EntityManagerInterface::class);

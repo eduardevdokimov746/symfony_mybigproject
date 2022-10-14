@@ -8,13 +8,10 @@ use App\Container\Profile\Data\Repository\ProfileRepository;
 use App\Container\Profile\Entity\Doc\Profile;
 use App\Container\Profile\Exception\ProfileNotFoundException;
 use App\Container\Profile\Task\FindProfileByIdTask;
-use App\Container\User\Test\Trait\CreateUserTrait;
-use PHPUnit\Framework\TestCase;
+use App\Ship\Parent\Test\TestCase;
 
 class FindProfileByIdTaskTest extends TestCase
 {
-    use CreateUserTrait;
-
     public function testRun(): void
     {
         $profileRepository = $this->createStub(ProfileRepository::class);
