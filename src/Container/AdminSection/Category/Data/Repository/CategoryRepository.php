@@ -6,28 +6,27 @@ namespace App\Container\AdminSection\Category\Data\Repository;
 
 use App\Container\AdminSection\Category\Entity\Book\Category;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
+use Knp\Component\Pager\Pagination\PaginationInterface;
+use Knp\Component\Pager\PaginatorInterface;
 
 class CategoryRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    private PaginatorInterface $paginator;
+
+    public function __construct(ManagerRegistry $registry, PaginatorInterface $paginator)
     {
         parent::__construct($registry, Category::class);
+
+        $this->paginator = $paginator;
     }
 
-    public function getAllWithPagination(int $firstResult, int $maxResults): Paginator
+    public function getAllWithPagination(int $page, int $limit): PaginationInterface
     {
-        $sql = 'SELECT c FROM '.Category::class.' c';
+        $dql = 'SELECT c FROM '.Category::class.' as c ORDER BY c.id';
 
-        $query = $this->getEntityManager()
-            ->createQuery($sql)
-            ->setFirstResult($firstResult)
-            ->setMaxResults($maxResults)
-        ;
+        $query = $this->getEntityManager()->createQuery($dql);
 
-        $p = new Paginator($query, false);
-
-        return new Paginator($query, false);
+        return $this->paginator->paginate($query, $page, $limit);
     }
 }
