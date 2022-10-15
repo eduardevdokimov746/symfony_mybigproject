@@ -31,6 +31,7 @@ class SwitchAction extends Action
      */
     public function run(?string $refererUrl): Response
     {
+        $refererRoute = null;
         $newLocale = $this->switchTask->run();
 
         if (!is_null($refererUrl)) {

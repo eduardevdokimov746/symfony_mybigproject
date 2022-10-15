@@ -19,7 +19,9 @@ class CsrfTokenListener implements EventSubscriberInterface
         #[Autowire('%csrf_parameter%')]
         private string $csrfParameter,
         #[Autowire('%csrf_token_id%')]
-        private string $csrfId
+        private string $csrfId,
+        #[Autowire('%kernel.environment%')]
+        private string $env
     ) {
     }
 
@@ -33,7 +35,8 @@ class CsrfTokenListener implements EventSubscriberInterface
         $request = $event->getRequest();
 
         if (
-            in_array($request->getMethod(), ValidationListener::CHECK_METHODS)
+            $this->env !== 'test'
+            && in_array($request->getMethod(), ValidationListener::CHECK_METHODS)
             && !$this->csrfTokenManager->isTokenValid(new CsrfToken($this->csrfId, $request->request->get($this->csrfParameter)))
         ) {
             throw new InvalidCsrfTokenException('Csrf token is not valid');

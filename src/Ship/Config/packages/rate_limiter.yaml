@@ -4,3 +4,9 @@ framework:
             policy: fixed_window
             limit: 1
             interval: 1 minutes
+
+when@test:
+    framework:
+        rate_limiter:
+            send_email:
+                limit: 100

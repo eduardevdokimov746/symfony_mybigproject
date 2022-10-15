@@ -53,10 +53,12 @@
             <!-- Auth -->
             <directory>src/Container/AuthSection/Auth/Validator</directory>
             <directory>src/Container/AuthSection/Auth/Listener</directory>
+            <directory>src/Container/AuthSection/Auth/Test</directory>
             <!-- Auth -->
             <!-- ResetPassword -->
             <directory>src/Container/AuthSection/ResetPassword/Validator</directory>
             <directory>src/Container/AuthSection/ResetPassword/Data/Migration</directory>
+            <directory>src/Container/AuthSection/ResetPassword/Test</directory>
             <!-- ResetPassword -->
             <!-- AuthSection -->
         </exclude>
@@ -99,6 +101,9 @@
         <testsuite name="profile-integration">
             <directory>src/Container/Profile/Test/Integration</directory>
         </testsuite>
+        <testsuite name="profile-controller">
+            <directory>src/Container/Profile/Test/Controller</directory>
+        </testsuite>
         <!-- Profile -->
 
         <!-- Locale -->
@@ -107,6 +112,9 @@
         </testsuite>
         <testsuite name="locale-integration">
             <directory>src/Container/Locale/Test/Integration</directory>
+        </testsuite>
+        <testsuite name="locale-controller">
+            <directory>src/Container/Locale/Test/Controller</directory>
         </testsuite>
         <!-- Locale -->
 
@@ -118,10 +126,16 @@
         <testsuite name="auth-unit">
             <directory>src/Container/AuthSection/Auth/Test/Unit</directory>
         </testsuite>
+        <testsuite name="auth-controller">
+            <directory>src/Container/AuthSection/Auth/Test/Controller</directory>
+        </testsuite>
         <!-- Auth -->
         <!-- ResetPassword -->
         <testsuite name="reset-password-integration">
             <directory>src/Container/AuthSection/ResetPassword/Test/Integration</directory>
+        </testsuite>
+        <testsuite name="reset-password-controller">
+            <directory>src/Container/AuthSection/ResetPassword/Test/Controller</directory>
         </testsuite>
         <!-- ResetPassword -->
         <!-- AuthSection -->
