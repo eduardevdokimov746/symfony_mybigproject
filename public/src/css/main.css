@@ -70,12 +70,17 @@ a:hover {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
+    width: 55%;
 }
 
 #search-content {
     display: flex;
     justify-content: center;
     margin-top: 18px;
+}
+
+#search-form {
+    width: 40%;
 }
 
 #search-input {
@@ -86,7 +91,7 @@ a:hover {
     background: -webkit-linear-gradient(top, #fff, #b8b0b0);
     height: 20px;
     text-align: center;
-    width: 300px;
+    width: 100%;
     font-size: 0.75em;
     font-weight: 600;
 }
@@ -105,8 +110,10 @@ a:hover {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    border-radius: 5px;
     background-color: rgba(0, 0, 0, 0.3);
+    scroll-snap-type: x mandatory;
+    overflow: hidden;
+    position: relative;
 }
 
 .navbar-item {
@@ -116,11 +123,30 @@ a:hover {
     font-size: 0.9em;
     padding: 8px 18px;
     font-weight: 600;
+    scroll-snap-align: start;
+    white-space: nowrap;
+}
+
+.nav-btn {
+    background-color: rgba(0,0,0,0.3);
+    border: 1px solid rgba(0,0,0,0.3);
+    padding: 8px 18px;
+    color: #fff;
+    font-weight: 600;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+}
+
+.nav-btn-previous {
+    border-radius: 5px 0 0 5px;
+}
+
+.nav-btn-next {
+    border-radius: 0 5px 5px 0;
 }
 
 .navbar-item-active {
     background-color: rgba(255, 255, 255, 0.8);
-    border-radius: 5px;
     color: #222222;
 }
 
