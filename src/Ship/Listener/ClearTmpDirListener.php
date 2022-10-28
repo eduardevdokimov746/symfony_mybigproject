@@ -4,16 +4,12 @@ declare(strict_types=1);
 
 namespace App\Ship\Listener;
 
-use App\Ship\Contract\ImageResize;
+use App\Ship\Helper\RemoveFilesFromTmpDir;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 class ClearTmpDirListener implements EventSubscriberInterface
 {
-    private const PREFIXES = [
-        ImageResize::TMP_PREFIX,
-    ];
-
     public static function getSubscribedEvents(): array
     {
         return [KernelEvents::TERMINATE => 'onKernelTerminate'];
@@ -21,8 +17,6 @@ class ClearTmpDirListener implements EventSubscriberInterface
 
     public function onKernelTerminate(): void
     {
-        $pattern = sprintf('%s/{%s}*', sys_get_temp_dir(), implode(',', self::PREFIXES));
-
-        array_map('unlink', glob($pattern, GLOB_NOSORT | GLOB_BRACE));
+        RemoveFilesFromTmpDir::run();
     }
 }

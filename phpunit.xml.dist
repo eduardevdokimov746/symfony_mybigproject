@@ -140,12 +140,24 @@
         <!-- ResetPassword -->
         <!-- AuthSection -->
 
+        <!-- AdminSection -->
+        <!-- Category -->
+        <testsuite name="admin-category-controller">
+            <directory>src/Container/AdminSection/Category/Test</directory>
+        </testsuite>
+        <testsuite name="admin-category-integration">
+            <directory>src/Container/AdminSection/Category/Test</directory>
+        </testsuite>
+        <!-- Category -->
+        <!-- AdminSection -->
+
     </testsuites>
 
     <!-- Run `composer require symfony/panther` before enabling this extension -->
 
     <extensions>
         <extension class="DAMA\DoctrineTestBundle\PHPUnit\PHPUnitExtension"/>
+        <extension class="App\Ship\PhpUnitExtension\ClearTmpFilesExtension"/>
 <!--        <extension class="Symfony\Component\Panther\ServerExtension" />-->
     </extensions>
 
