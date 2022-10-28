@@ -44,7 +44,7 @@ class LocaleListener implements EventSubscriberInterface
 
         try {
             if (
-                $request->attributes->get('_locale') !== $locale
+                $request->attributes->get('_locale', $locale) !== $locale
                 && $request->attributes->get('_route')
             ) {
                 $event->setResponse(new RedirectResponse($this->makeRedirectUrl($request)));
