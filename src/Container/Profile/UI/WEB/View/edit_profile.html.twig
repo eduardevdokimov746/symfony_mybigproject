@@ -67,9 +67,10 @@
                                 <p>
                                     <label><input type="checkbox" name="deleteAvatar">&nbsp;<span>{{ 'form.delete_avatar'|trans }}</span></label>
                                 </p>
+                                <p class="form-error">{{ app|flashError('deleteAvatar')|first }}</p>
                             </div>
                             {% if app|flashError('avatar', true) %}
-                                <p class="form-error">{{ app|flashError('avatar') }}</p>
+                                <p class="form-error">{{ app|flashError('avatar')|first }}</p>
                             {% endif %}
                         </div>
 
@@ -82,7 +83,7 @@
                                        value="{{ app|flashField('firstName', true) ? app|flashField('firstName') : app.user.profile.firstName }}">
                             </div>
                             {% if app|flashError('firstName', true) %}
-                                <p class="form-error">{{ app|flashError('firstName') }}</p>
+                                <p class="form-error">{{ app|flashError('firstName')|first }}</p>
                             {% endif %}
                         </div>
 
@@ -95,7 +96,7 @@
                                        value="{{ app|flashField('lastName', true) ? app|flashField('lastName') : app.user.profile.lastName }}">
                             </div>
                             {% if app|flashError('lastName', true) %}
-                                <p class="form-error">{{ app|flashError('lastName') }}</p>
+                                <p class="form-error">{{ app|flashError('lastName')|first }}</p>
                             {% endif %}
                         </div>
 
@@ -108,7 +109,7 @@
                                        value="{{ app|flashField('patronymic', true) ? app|flashField('patronymic') : app.user.profile.patronymic }}">
                             </div>
                             {% if app|flashError('patronymic', true) %}
-                                <p class="form-error">{{ app|flashError('patronymic') }}</p>
+                                <p class="form-error">{{ app|flashError('patronymic')|first }}</p>
                             {% endif %}
                         </div>
 
@@ -120,7 +121,7 @@
                                 <textarea id="about" name="about" class="form-input" rows="10">{{ app|flashField('about', true) ? app|flashField('about')|trim : app.user.profile.about|trim }}</textarea>
                             </div>
                             {% if app|flashError('about', true) %}
-                                <p class="form-error">{{ app|flashError('about') }}</p>
+                                <p class="form-error">{{ app|flashError('about')|first }}</p>
                             {% endif %}
                         </div>
 

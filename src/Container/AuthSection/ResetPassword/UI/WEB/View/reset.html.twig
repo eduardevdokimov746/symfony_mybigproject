@@ -23,7 +23,7 @@
                 {% if app|flashError('plainPassword', true) %}
                     <tr>
                         <td colspan="2">
-                            <p class="form-error t-center">{{ app|flashError('plainPassword') }}</p>
+                            <p class="form-error t-center">{{ app|flashError('plainPassword')|first }}</p>
                         </td>
                     </tr>
                 {% endif %}
@@ -35,7 +35,7 @@
                 {% if app|flashError('plainPasswordConfirmation', true) %}
                     <tr>
                         <td colspan="2">
-                            <p class="form-error t-center">{{ app|flashError('plainPasswordConfirmation') }}</p>
+                            <p class="form-error t-center">{{ app|flashError('plainPasswordConfirmation')|first }}</p>
                         </td>
                     </tr>
                 {% endif %}

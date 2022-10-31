@@ -23,20 +23,22 @@ class ExceptionListener
 
     public function __invoke(ExceptionEvent $event): void
     {
-        $throwable = $event->getThrowable();
+        if ($event->isMainRequest()) {
+            $throwable = $event->getThrowable();
 
-        $exceptionMapping = $this->mappingResolver->resolve($throwable);
+            $exceptionMapping = $this->mappingResolver->resolve($throwable);
 
-        if ($exceptionMapping->getCode() >= Response::HTTP_INTERNAL_SERVER_ERROR || $exceptionMapping->isLoggable()) {
-            $this->log($exceptionMapping);
-        }
+            if ($exceptionMapping->getCode() >= Response::HTTP_INTERNAL_SERVER_ERROR || $exceptionMapping->isLoggable()) {
+                $this->log($exceptionMapping);
+            }
 
-        if (!$this->debug) {
-            $event->setThrowable(new HttpException(
-                $exceptionMapping->getCode(),
-                $exceptionMapping->getMessage(),
-                $throwable
-            ));
+            if (!$this->debug) {
+                $event->setThrowable(new HttpException(
+                    $exceptionMapping->getCode(),
+                    $exceptionMapping->getMessage(),
+                    $throwable
+                ));
+            }
         }
     }
 

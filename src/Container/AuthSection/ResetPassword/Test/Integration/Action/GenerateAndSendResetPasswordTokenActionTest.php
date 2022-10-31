@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Container\AuthSection\ResetPassword\Test\Integration\Action;
 
 use App\Container\AuthSection\ResetPassword\Action\GenerateAndSendResetPasswordTokenAction;
+use App\Container\AuthSection\ResetPassword\Data\DTO\GenerateAndSendResetPasswordTokenDTO;
 use App\Container\AuthSection\ResetPassword\Task\SendEmailResetPasswordTask;
 use App\Container\User\Task\FindUserByVerifiedEmailTask;
 use App\Ship\Parent\Test\KernelTestCase;
@@ -33,7 +34,9 @@ class GenerateAndSendResetPasswordTokenActionTest extends KernelTestCase
 
     public function testRunExpectToken(): void
     {
-        $result = $this->generateAndSendResetPasswordTokenAction->run('admin@mail.com');
+        $result = $this->generateAndSendResetPasswordTokenAction->run(
+            GenerateAndSendResetPasswordTokenDTO::create(['email' => 'admin@mail.com'])
+        );
 
         $this->assertInstanceOf(ResetPasswordToken::class, $result);
         $this->assertEmailCount(1);
@@ -41,7 +44,9 @@ class GenerateAndSendResetPasswordTokenActionTest extends KernelTestCase
 
     public function testRunExpectString(): void
     {
-        $result = $this->generateAndSendResetPasswordTokenAction->run('ens@mail.com');
+        $result = $this->generateAndSendResetPasswordTokenAction->run(
+            GenerateAndSendResetPasswordTokenDTO::create(['email' => 'ens@mail.com'])
+        );
 
         $this->assertIsString($result);
     }

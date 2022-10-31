@@ -29,7 +29,7 @@
             <directory>src/Ship/Listener</directory>
             <directory>src/Ship/Test</directory>
             <directory>src/Ship/Parent</directory>
-            <directory>src/Ship/Form/Extension</directory>
+            <directory>src/Ship/PhpUnitExtension</directory>
             <!-- Ship -->
 
             <!-- User -->
@@ -79,9 +79,6 @@
         </testsuite>
         <testsuite name="ship-integration">
             <directory>src/Ship/Test/Integration</directory>
-        </testsuite>
-        <testsuite name="ship-functional">
-            <directory>src/Ship/Test/Functional</directory>
         </testsuite>
         <!-- Ship -->
 

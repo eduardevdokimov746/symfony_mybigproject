@@ -41,7 +41,7 @@ class UpdateProfileFromAuthUserActionTest extends KernelTestCase
             $deleteAvatarTask
         );
 
-        $updateProfileFromAuthUserDTO = UpdateProfileFromAuthUserDTO::fromArray([
+        $updateProfileFromAuthUserDTO = UpdateProfileFromAuthUserDTO::create([
             'firstName' => 'new firstName',
             'lastName' => 'new lastName',
             'patronymic' => 'new patronymic',

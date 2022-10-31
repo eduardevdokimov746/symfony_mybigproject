@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Container\AuthSection\ResetPassword\Action;
 
+use App\Container\AuthSection\ResetPassword\Data\DTO\GenerateAndSendResetPasswordTokenDTO;
 use App\Container\AuthSection\ResetPassword\Task\SendEmailResetPasswordTask;
 use App\Container\User\Entity\Doc\User;
 use App\Container\User\Exception\UserNotFoundException;
@@ -24,9 +25,9 @@ class GenerateAndSendResetPasswordTokenAction extends Action
     ) {
     }
 
-    public function run(string $email): string|ResetPasswordToken
+    public function run(GenerateAndSendResetPasswordTokenDTO $dto): string|ResetPasswordToken
     {
-        if (is_string($user = $this->getUser($email))) {
+        if (is_string($user = $this->getUser($dto->email))) {
             return $user;
         }
 

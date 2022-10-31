@@ -4,30 +4,46 @@ declare(strict_types=1);
 
 namespace App\Ship\Parent;
 
-use App\Ship\Contract\Validator;
-use OutOfBoundsException;
+use App\Ship\Attribute\DefaultValue;
+use InvalidArgumentException;
+use ReflectionAttribute;
 use ReflectionClass;
 use ReflectionProperty;
+use Symfony\Component\HttpFoundation\Request;
 
 abstract class DTO
 {
-    public static function fromValidator(Validator $validator): static
+    private function __construct(array $data)
     {
-        return self::fromArray($validator->getValidated());
-    }
+        $properties = (new ReflectionClass($this))->getProperties(ReflectionProperty::IS_PUBLIC);
 
-    public static function fromArray(array $data): static
-    {
-        $static = new static();
+        foreach ($properties as $property) {
+            /** @var ReflectionAttribute[] */
+            $defaultValueAttributes = $property->getAttributes(DefaultValue::class);
 
-        foreach ((new ReflectionClass($static))->getProperties(ReflectionProperty::IS_PUBLIC) as $property) {
-            if (!isset($data[$property->getName()]) && !$property->hasDefaultValue()) {
-                throw new OutOfBoundsException(sprintf('Argument $data does\'t have \'%s\' key', $property->getName()));
+            if (!empty($defaultValueAttributes)) {
+                /** @var DefaultValue $defaultValueAttribute */
+                $defaultValueAttribute = $defaultValueAttributes[0]->newInstance();
+
+                $defaultValue = $defaultValueAttribute->getValue();
             }
 
-            $property->setValue($static, $data[$property->getName()] ?? $property->getDefaultValue());
+            $dataHasProperty = array_key_exists($property->name, $data);
+
+            if (!$dataHasProperty && empty($defaultValueAttributes)) {
+                throw new InvalidArgumentException('Value for property {'.$property->name.'} does not exists');
+            }
+
+            $property->setValue($this, $dataHasProperty ? $data[$property->name] : $defaultValue);
+        }
+    }
+
+    final public static function create(array|Request $data): static
+    {
+        if ($data instanceof Request) {
+            $data = array_merge($data->request->all(), $data->query->all(), $data->files->all());
         }
 
-        return $static;
+        return new static($data);
     }
 }

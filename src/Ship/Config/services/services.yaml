@@ -28,9 +28,10 @@ services:
         arguments:
             $fallbackRoute: '%app_default_route%'
 
-    App\Ship\Parent\Validator\:
-        resource: '%kernel.project_dir%/src/Ship/Parent/Validator'
-
     App\Ship\Service\Doctrine\PurgerFactory:
         tags:
             - { name: doctrine.fixtures.purger_factory, alias: purger }
+
+    App\Ship\Validator\ControllerValidator:
+        arguments:
+            $storageErrorAdapter: '@App\Ship\Validator\SessionFlashBagStorageErrorAdapter'

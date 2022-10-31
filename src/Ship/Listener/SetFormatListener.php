@@ -25,8 +25,10 @@ class SetFormatListener implements EventSubscriberInterface
 
     public function onKernelRequest(RequestEvent $event): void
     {
-        $request = $event->getRequest();
+        if ($event->isMainRequest()) {
+            $request = $event->getRequest();
 
-        $this->requestContext->setParameter('format', $request->attributes->get('_format'));
+            $this->requestContext->setParameter('format', $request->attributes->get('_format'));
+        }
     }
 }
