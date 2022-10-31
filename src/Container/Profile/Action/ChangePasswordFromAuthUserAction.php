@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Container\Profile\Action;
 
+use App\Container\Profile\Data\DTO\ChangePasswordFromAuthUserDTO;
 use App\Container\User\Entity\Doc\User;
 use App\Container\User\Task\ChangeUserPasswordTask;
 use App\Ship\Parent\Action;
@@ -18,12 +19,12 @@ class ChangePasswordFromAuthUserAction extends Action
     ) {
     }
 
-    public function run(string $plainPassword): User
+    public function run(ChangePasswordFromAuthUserDTO $dto): User
     {
         if (null === $user = $this->tokenStorage->getToken()?->getUser()) {
             throw new RuntimeException('User is not authenticated');
         }
 
-        return $this->changeUserPasswordTask->run($user->getId(), $plainPassword);
+        return $this->changeUserPasswordTask->run($user->getId(), $dto->newPlainPassword);
     }
 }

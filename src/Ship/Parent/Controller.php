@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Ship\Parent;
 
 use App\Container\User\Entity\Doc\User;
+use App\Ship\Validator\ControllerValidator;
+use InvalidArgumentException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -23,6 +25,30 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 abstract class Controller extends AbstractController
 {
+    public static function getSubscribedServices(): array
+    {
+        return array_merge(
+            parent::getSubscribedServices(),
+            [
+                'controller_validator' => '?'.ControllerValidator::class,
+            ]
+        );
+    }
+
+    public function createDTO(string $dtoClass): DTO
+    {
+        if (class_exists($dtoClass) && is_subclass_of($dtoClass, DTO::class)) {
+            return $dtoClass::create($this->container->get('request_stack')->getCurrentRequest());
+        }
+
+        throw new InvalidArgumentException('Invalid DTO class.');
+    }
+
+    public function isValid(DTO $dto): bool
+    {
+        return $this->container->get('controller_validator')->validate($dto);
+    }
+
     protected function redirectBack(): RedirectResponse
     {
         $route = $this->container->get('request_stack')->getCurrentRequest()->attributes->get('_route');

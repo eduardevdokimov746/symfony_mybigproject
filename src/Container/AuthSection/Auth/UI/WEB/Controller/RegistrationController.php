@@ -6,7 +6,6 @@ namespace App\Container\AuthSection\Auth\UI\WEB\Controller;
 
 use App\Container\AuthSection\Auth\Action\CreateUserProfileByRegistrationAction;
 use App\Container\AuthSection\Auth\Data\DTO\CreateUserProfileByRegistrationDTO;
-use App\Container\AuthSection\Auth\Validator\RegistrationValidator;
 use App\Ship\Attribute\OnlyGuest;
 use App\Ship\Parent\Controller;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
@@ -32,12 +31,14 @@ class RegistrationController extends Controller
     ) {
     }
 
-    public function __invoke(Request $request, RegistrationValidator $validator): Response
+    public function __invoke(Request $request): Response
     {
-        if ($validator->isValid()) {
-            $user = $this->createUserProfileByRegistrationAction->run(
-                CreateUserProfileByRegistrationDTO::fromValidator($validator)
-            );
+        if (
+            $request->isMethod('POST')
+            && $this->isValid($dto = $this->createDTO(CreateUserProfileByRegistrationDTO::class))
+        ) {
+            /** @var CreateUserProfileByRegistrationDTO $dto */
+            $user = $this->createUserProfileByRegistrationAction->run($dto);
 
             $request->headers->set('referer', $this->generateUrl('profile.index'));
 

@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace App\Container\AuthSection\ResetPassword\Validator;
+namespace App\Container\AuthSection\ResetPassword\Data\DTO;
 
-use App\Ship\Parent\Validator\PropertyValidator;
+use App\Ship\Parent\DTO;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class ResetValidator extends PropertyValidator
+class RemoveResetTokenAndChangeUserPasswordDTO extends DTO
 {
     #[Assert\NotBlank]
     #[Assert\Length(min: 3)]
-    private string $plainPassword;
+    public readonly ?string $plainPassword;
 
     #[Assert\NotBlank]
     #[Assert\EqualTo(propertyPath: 'plainPassword', message: 'password_does_match')]
-    private string $plainPasswordConfirmation;
+    public readonly ?string $plainPasswordConfirmation;
 }

@@ -22,7 +22,7 @@
                 {% if app|flashError('email', true) %}
                     <tr>
                         <td colspan="2">
-                            <p class="form-error t-center">{{ app|flashError('email') }}</p>
+                            <p class="form-error t-center">{{ app|flashError('email')|first }}</p>
                         </td>
                     </tr>
                 {% endif %}

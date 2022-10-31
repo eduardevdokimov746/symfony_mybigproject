@@ -14,6 +14,13 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 class CsrfTokenListener implements EventSubscriberInterface
 {
+    private const CHECK_METHODS = [
+        'POST',
+        'PATCH',
+        'PUT',
+        'DELETE',
+    ];
+
     public function __construct(
         private CsrfTokenManagerInterface $csrfTokenManager,
         #[Autowire('%csrf_parameter%')]
@@ -32,14 +39,16 @@ class CsrfTokenListener implements EventSubscriberInterface
 
     public function onKernelRequest(RequestEvent $event): void
     {
-        $request = $event->getRequest();
+        if ($event->isMainRequest()) {
+            $request = $event->getRequest();
 
-        if (
-            $this->env !== 'test'
-            && in_array($request->getMethod(), ValidationListener::CHECK_METHODS)
-            && !$this->csrfTokenManager->isTokenValid(new CsrfToken($this->csrfId, $request->request->get($this->csrfParameter)))
-        ) {
-            throw new InvalidCsrfTokenException('Csrf token is not valid');
+            if (
+                'test' !== $this->env
+                && in_array($request->getMethod(), self::CHECK_METHODS)
+                && !$this->csrfTokenManager->isTokenValid(new CsrfToken($this->csrfId, $request->request->get($this->csrfParameter)))
+            ) {
+                throw new InvalidCsrfTokenException('Csrf token is not valid');
+            }
         }
     }
 }

@@ -39,7 +39,7 @@ class CreateUserProfileByRegistrationActionTest extends KernelTestCase
 
     public function testRun(): void
     {
-        $createUserProfileByRegistrationDTO = CreateUserProfileByRegistrationDTO::fromArray([
+        $createUserProfileByRegistrationDTO = CreateUserProfileByRegistrationDTO::create([
             'login' => 'user',
             'email' => 'user@mail.com',
             'plainPassword' => 'password',
@@ -55,7 +55,7 @@ class CreateUserProfileByRegistrationActionTest extends KernelTestCase
 
     public function testRunExpectException(): void
     {
-        $createUserProfileByRegistrationDTO = CreateUserProfileByRegistrationDTO::fromArray([
+        $createUserProfileByRegistrationDTO = CreateUserProfileByRegistrationDTO::create([
             'login' => 'ens',
             'email' => 'ens@mail.com',
             'plainPassword' => 'password',

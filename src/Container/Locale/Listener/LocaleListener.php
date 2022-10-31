@@ -34,22 +34,24 @@ class LocaleListener implements EventSubscriberInterface
 
     public function onKernelRequest(RequestEvent $event): void
     {
-        $request = $event->getRequest();
+        if ($event->isMainRequest()) {
+            $request = $event->getRequest();
 
-        if (null === ($locale = $request->cookies->get($this->localeCookieName))) {
-            $locale = $this->getFromAcceptLanguageHeader($request) ?: $this->defaultLocale;
-        }
-
-        $this->localeSwitcher->setLocale($locale);
-
-        try {
-            if (
-                $request->attributes->get('_locale', $locale) !== $locale
-                && $request->attributes->get('_route')
-            ) {
-                $event->setResponse(new RedirectResponse($this->makeRedirectUrl($request)));
+            if (null === ($locale = $request->cookies->get($this->localeCookieName))) {
+                $locale = $this->getFromAcceptLanguageHeader($request) ?: $this->defaultLocale;
             }
-        } catch (Exception) {
+
+            $this->localeSwitcher->setLocale($locale);
+
+            try {
+                if (
+                    $request->attributes->get('_locale', $locale) !== $locale
+                    && $request->attributes->get('_route')
+                ) {
+                    $event->setResponse(new RedirectResponse($this->makeRedirectUrl($request)));
+                }
+            } catch (Exception) {
+            }
         }
     }
 

@@ -29,13 +29,11 @@ class RequestContextListener implements EventSubscriberInterface
 
     public function onKernelRequest(RequestEvent $event): void
     {
-        if (!$event->isMainRequest()) {
-            return;
+        if ($event->isMainRequest()) {
+            $this->requestContext->setHost($this->host);
+            $this->requestContext->setHttpPort($this->httpPort);
+            $this->requestContext->setHttpsPort($this->httpsPort);
+            $this->requestContext->setScheme($this->scheme);
         }
-
-        $this->requestContext->setHost($this->host);
-        $this->requestContext->setHttpPort($this->httpPort);
-        $this->requestContext->setHttpsPort($this->httpsPort);
-        $this->requestContext->setScheme($this->scheme);
     }
 }

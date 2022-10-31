@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Ship\Twig\Extension;
 
-use App\Ship\Task\GetFlashBagNameTask;
+use App\Ship\Enum\FlashBagNameEnum;
 use Symfony\Bridge\Twig\AppVariable;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
@@ -14,11 +14,6 @@ use Twig\TwigFilter;
  */
 class FlashBagExtension extends AbstractExtension
 {
-    public function __construct(
-        private GetFlashBagNameTask $bagNameTask
-    ) {
-    }
-
     public function getFilters(): array
     {
         return [
@@ -27,30 +22,32 @@ class FlashBagExtension extends AbstractExtension
         ];
     }
 
-    public function getFlashBagError(AppVariable $appVariable, string $key, bool $peek = false): string
+    public function getFlashBagError(AppVariable $appVariable, string $key, bool $peek = false): array
     {
-        return $this->getFlashBag(GetFlashBagNameTask::ERROR, $appVariable, $key, $peek);
+        return $this->getFlashBag(FlashBagNameEnum::ERROR, $appVariable, $key, $peek);
     }
 
     public function getFlashBagField(AppVariable $appVariable, string $key, bool $peek = false): string
     {
-        return $this->getFlashBag(GetFlashBagNameTask::FIELD, $appVariable, $key, $peek);
+        $fields = $this->getFlashBag(FlashBagNameEnum::FIELD, $appVariable, $key, $peek);
+
+        return empty($fields) ? '' : array_pop($fields);
     }
 
-    private function getFlashBag(string $prefix, AppVariable $appVariable, string $key, bool $peek = false): string
+    private function getFlashBag(FlashBagNameEnum $flashBagNameEnum, AppVariable $appVariable, string $key, bool $peek = false): array
     {
-        $errorName = $this->bagNameTask->run($key, $prefix);
+        $bagName = $flashBagNameEnum->getNameFor($key);
 
         if ($peek) {
-            $errors = $appVariable->getSession()->getFlashBag()->peek($errorName);
+            $values = $appVariable->getSession()->getFlashBag()->peek($bagName);
         } else {
-            $errors = $appVariable->getFlashes($errorName);
+            $values = $appVariable->getFlashes($bagName);
         }
 
-        if (empty(array_filter($errors))) {
-            return '';
+        if (empty($values = array_filter($values))) {
+            return [];
         }
 
-        return array_pop($errors);
+        return $values;
     }
 }

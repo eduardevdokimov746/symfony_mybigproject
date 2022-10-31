@@ -17,15 +17,23 @@ class FilterDataListener implements EventSubscriberInterface
 
     public function onKernelRequest(RequestEvent $event): void
     {
-        $request = $event->getRequest()->request;
+        if ($event->isMainRequest()) {
+            $request = $event->getRequest()->request;
 
-        foreach ($request->all() as $name => $value) {
-            $request->set($name, $this->filter($value));
+            foreach ($request->all() as $name => $value) {
+                $request->set($name, $this->filter($value));
+            }
         }
     }
 
-    private function filter(int|string $value): int|string|null
+    private function filter(mixed $value): mixed
     {
-        return trim($value) ?: null;
+        if (is_string($value)) {
+            $value = trim(htmlspecialchars($value));
+
+            return '' === $value ? null : $value;
+        }
+
+        return $value;
     }
 }
