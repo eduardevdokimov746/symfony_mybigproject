@@ -32,7 +32,7 @@ class ResetController extends Controller
     ) {
     }
 
-    public function __invoke(?string $token = null, Request $request): Response
+    public function __invoke(Request $request, ?string $token = null): Response
     {
         if ($token && $this->isTokenValid($token)) {
             $this->storeTokenInSession($token);
