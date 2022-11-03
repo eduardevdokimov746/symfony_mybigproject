@@ -11,3 +11,5 @@ sidebar:
     categories: Категории
 
 go_to_main: Основной сайт
+
+success_message_default: Успешно выполнено

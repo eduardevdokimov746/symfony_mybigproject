@@ -11,3 +11,5 @@ sidebar:
     categories: Categories
 
 go_to_main: Main site
+
+success_message_default: Completed successfully

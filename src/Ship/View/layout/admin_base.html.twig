@@ -104,6 +104,14 @@
                         <h1 class="m-0">{% block page_title %}{% endblock %}</h1>
                     </div>
                 </div>
+
+                {% if app.flashes('success') %}
+                    <div class="alert alert-success mb-0" role="alert">
+                        <div>
+                            <i class="fa-sharp fa-solid fa-circle-check"></i>&nbsp;{% block success_message %}{{ 'success_message_default'|trans }}{% endblock %}
+                        </div>
+                    </div>
+                {% endif %}
             </div>
         </div>
 

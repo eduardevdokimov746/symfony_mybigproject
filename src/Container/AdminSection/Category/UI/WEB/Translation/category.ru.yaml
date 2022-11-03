@@ -1,5 +1,12 @@
 main_block_title:
     index: Список категорий
+    edit: Редактирование категории № %id%
+    create: Создание категории
+
+success_message:
+    create: Категория успешно создана
+    edit: Категория успешно изменена
+    delete: Категория успешно удалена
 
 index:
     table:
@@ -8,3 +15,10 @@ index:
         active: Активно
         edit: Редактировать
         btn: Добавить
+
+form:
+    title: Название (%lang%)
+    active: Статус активности
+    save_btn: Сохранить
+    delete_btn: Удалить
+    create_btn: Создать

@@ -1,6 +1,9 @@
 twig:
     default_path: '%kernel.project_dir%/src/Ship/View'
 
+    form_theme:
+        - 'bootstrap_5_layout.html.twig'
+
     paths:
         '%kernel.project_dir%/src/Ship/View': ship
 

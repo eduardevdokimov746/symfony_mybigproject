@@ -1,5 +1,12 @@
 main_block_title:
     index: Category list
+    edit: Category editing № %id%
+    create: Creating a category
+
+success_message:
+    create: Category created successfully
+    edit: Category changed successfully
+    delete: Category deleted successfully
 
 index:
     table:
@@ -8,3 +15,10 @@ index:
         active: Active
         edit: Edit
         btn: Add
+
+form:
+    title: Title (%lang%)
+    active: Activity status
+    save_btn: Save
+    delete_btn: Delete
+    create_btn: Create

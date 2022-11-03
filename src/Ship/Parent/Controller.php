@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace App\Ship\Parent;
 
 use App\Container\User\Entity\Doc\User;
+use App\Ship\Action\ValidateFormAndSaveEntityAction;
 use App\Ship\Validator\ControllerValidator;
 use InvalidArgumentException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -31,6 +33,7 @@ abstract class Controller extends AbstractController
             parent::getSubscribedServices(),
             [
                 'controller_validator' => '?'.ControllerValidator::class,
+                'validate_and_save_form_action' => '?'.ValidateFormAndSaveEntityAction::class,
             ]
         );
     }
@@ -51,8 +54,15 @@ abstract class Controller extends AbstractController
 
     protected function redirectBack(): RedirectResponse
     {
-        $route = $this->container->get('request_stack')->getCurrentRequest()->attributes->get('_route');
+        $currentRequest = $this->container->get('request_stack')->getCurrentRequest();
 
-        return $this->redirectToRoute($route);
+        $route = $currentRequest->attributes->get('_route', $currentRequest->attributes->all());
+
+        return $this->redirectToRoute($route, $currentRequest->attributes->get('_route_params'));
+    }
+
+    protected function validateAndSaveForm(FormInterface $form): bool
+    {
+        return $this->container->get('validate_and_save_form_action')->run($form);
     }
 }

@@ -1,0 +1,4 @@
+services:
+    App\Container\AdminSection\Category\Exception\CategoryNotFoundException:
+        tags:
+            - { name: app.exception, code: 404, hidden: false }

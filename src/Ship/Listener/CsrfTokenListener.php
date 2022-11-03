@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Ship\Listener;
 
+use RecursiveArrayIterator;
+use RecursiveIteratorIterator;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
@@ -42,10 +44,19 @@ class CsrfTokenListener implements EventSubscriberInterface
         if ($event->isMainRequest()) {
             $request = $event->getRequest();
 
+            $requestParametersIterator = new RecursiveIteratorIterator(new RecursiveArrayIterator($request->request->all()));
+
+            foreach ($requestParametersIterator as $name => $value) {
+                if ($name === $this->csrfParameter) {
+                    $checkValue = $value;
+                    break;
+                }
+            }
+
             if (
                 'test' !== $this->env
                 && in_array($request->getMethod(), self::CHECK_METHODS)
-                && !$this->csrfTokenManager->isTokenValid(new CsrfToken($this->csrfId, $request->request->get($this->csrfParameter)))
+                && !$this->csrfTokenManager->isTokenValid(new CsrfToken($this->csrfId, $checkValue ?? ''))
             ) {
                 throw new InvalidCsrfTokenException('Csrf token is not valid');
             }

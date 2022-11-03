@@ -1,0 +1,26 @@
+{% extends '@ship/layout/admin_base.html.twig' %}
+
+{% trans_default_domain 'category' %}
+
+{% block page_title %}{{ 'main_block_title.edit'|trans({'%id%': category.id}) }}{% endblock %}
+
+{% block success_message %}{{ 'success_message.edit'|trans }}{% endblock %}
+
+{% block content %}
+    <div class="card">
+        <div class="card-body p-3">
+            {{ form_start(form) }}
+
+            {{ form_widget(form) }}
+
+            <div class="d-flex justify-content-between">
+                <button type="submit" name="_method" value="DELETE"
+                        class="btn btn-danger">{{ 'form.delete_btn'|trans }}</button>
+
+                <button type="submit" class="btn btn-primary align-self-end">{{ 'form.save_btn'|trans }}</button>
+            </div>
+
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

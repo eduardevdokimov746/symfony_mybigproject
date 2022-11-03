@@ -5,3 +5,4 @@ services:
 
     App\Container\AdminSection\Category\:
         resource: '%kernel.project_dir%/src/Container/AdminSection/Category'
+        exclude: '%kernel.project_dir%/src/Container/AdminSection/Category/Exception'
