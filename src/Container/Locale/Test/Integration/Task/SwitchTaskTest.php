@@ -21,8 +21,8 @@ class SwitchTaskTest extends KernelTestCase
 
         $newLocale = $switchTask->run();
 
-        $this->assertSame('en', $newLocale);
-        $this->assertSame('en', $localeSwitcher->getLocale());
+        self::assertSame('en', $newLocale);
+        self::assertSame('en', $localeSwitcher->getLocale());
     }
 
     public function testRunExpectException(): void

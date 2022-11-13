@@ -24,16 +24,16 @@ class FindUserByIdTaskTest extends KernelTestCase
     {
         $user = $this->findUserByIdTask->run(1);
 
-        $this->assertInstanceOf(User::class, $user);
-        $this->assertTrue($user->isActive());
+        self::assertInstanceOf(User::class, $user);
+        self::assertTrue($user->isActive());
     }
 
     public function testRunWithDisabled(): void
     {
         $user = $this->findUserByIdTask->run(3, true);
 
-        $this->assertInstanceOf(User::class, $user);
-        $this->assertFalse($user->isActive());
+        self::assertInstanceOf(User::class, $user);
+        self::assertFalse($user->isActive());
     }
 
     public function testRunExpectException(): void

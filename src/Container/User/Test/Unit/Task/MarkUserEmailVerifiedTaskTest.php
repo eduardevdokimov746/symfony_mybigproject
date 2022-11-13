@@ -15,8 +15,8 @@ class MarkUserEmailVerifiedTaskTest extends TestCase
     {
         $user = $this->createUser();
 
-        $findUserById = $this->createStub(FindUserByIdTask::class);
-        $entityManager = $this->createStub(EntityManagerInterface::class);
+        $findUserById = self::createStub(FindUserByIdTask::class);
+        $entityManager = self::createStub(EntityManagerInterface::class);
 
         $findUserById->method('run')->willReturn($user);
 
@@ -24,6 +24,6 @@ class MarkUserEmailVerifiedTaskTest extends TestCase
 
         $markUserEmailVerifiedTask->run(1);
 
-        $this->assertTrue($user->isEmailVerified());
+        self::assertTrue($user->isEmailVerified());
     }
 }

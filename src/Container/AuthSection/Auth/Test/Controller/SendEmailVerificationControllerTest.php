@@ -18,8 +18,8 @@ class SendEmailVerificationControllerTest extends WebTestCase
 
         $client->request('GET', '/send-email-verification');
 
-        $this->assertEmailCount(1);
-        $this->assertResponseIsSuccessful();
+        self::assertEmailCount(1);
+        self::assertResponseIsSuccessful();
     }
 
     public function testRequestNotAuthenticated(): void
@@ -28,6 +28,6 @@ class SendEmailVerificationControllerTest extends WebTestCase
 
         $client->request('GET', '/send-email-verification');
 
-        $this->assertResponseRedirects();
+        self::assertResponseRedirects();
     }
 }

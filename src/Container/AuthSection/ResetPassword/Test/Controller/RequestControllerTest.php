@@ -14,7 +14,7 @@ class RequestControllerTest extends WebTestCase
 
         $client->request('GET', '/reset-password');
 
-        $this->assertResponseIsSuccessful();
+        self::assertResponseIsSuccessful();
     }
 
     public function testRequestPOST(): void
@@ -25,9 +25,9 @@ class RequestControllerTest extends WebTestCase
             'email' => 'ens@mail.com',
         ]);
 
-        $this->assertStringContainsString(
+        self::assertStringContainsString(
             '/reset-password/check-email',
-            $client->getInternalResponse()->getHeader('location')
+            $client->getInternalResponse()->getHeader('location') /** @phpstan-ignore-line */
         );
     }
 
@@ -41,6 +41,6 @@ class RequestControllerTest extends WebTestCase
 
         $client->request('GET', '/reset-password');
 
-        $this->assertResponseRedirects();
+        self::assertResponseRedirects();
     }
 }

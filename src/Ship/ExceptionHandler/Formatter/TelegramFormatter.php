@@ -24,6 +24,10 @@ class TelegramFormatter implements FormatterInterface
 
     public function formatBatch(array $records): mixed
     {
-        return $this->format(array_shift($records));
+        if (null !== $record = array_shift($records)) {
+            return $this->format($record);
+        }
+
+        return null;
     }
 }

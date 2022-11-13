@@ -29,6 +29,6 @@ class SwitchActionTest extends KernelTestCase
 
         $result = $switchAction->run('http://localhost/login');
 
-        $this->assertInstanceOf(Response::class, $result);
+        self::assertInstanceOf(Response::class, $result);
     }
 }

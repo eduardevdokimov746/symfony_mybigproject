@@ -21,14 +21,14 @@ class DeleteAvatarTaskTest extends KernelTestCase
     {
         $this->entityManager = self::getContainer()->get(EntityManagerInterface::class);
         $this->findProfileByIdTask = self::getContainer()->get(FindProfileByIdTask::class);
-        $imageStorageService = $this->createStub(ImageStorage::class);
+        $imageStorageService = self::createStub(ImageStorage::class);
 
         $this->deleteAvatarTask = new DeleteAvatarTask($this->entityManager, $this->findProfileByIdTask, $imageStorageService);
     }
 
     public function testRunExpectFalse(): void
     {
-        $this->assertFalse($this->deleteAvatarTask->run(1));
+        self::assertFalse($this->deleteAvatarTask->run(1));
     }
 
     public function testRunExpectTrue(): void
@@ -37,7 +37,7 @@ class DeleteAvatarTaskTest extends KernelTestCase
         $profile->setAvatar('avatar.png');
         $this->entityManager->flush();
 
-        $this->assertTrue($this->deleteAvatarTask->run(1));
-        $this->assertSame(Profile::DEFAULT_AVATAR, $profile->getAvatar());
+        self::assertTrue($this->deleteAvatarTask->run(1));
+        self::assertSame(Profile::DEFAULT_AVATAR, $profile->getAvatar());
     }
 }

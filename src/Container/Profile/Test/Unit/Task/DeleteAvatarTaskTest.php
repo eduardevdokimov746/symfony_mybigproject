@@ -15,28 +15,28 @@ class DeleteAvatarTaskTest extends TestCase
 {
     public function testRunExpectFalse(): void
     {
-        $entityManager = $this->createStub(EntityManagerInterface::class);
-        $findProfileByIdTask = $this->createStub(FindProfileByIdTask::class);
+        $entityManager = self::createStub(EntityManagerInterface::class);
+        $findProfileByIdTask = self::createStub(FindProfileByIdTask::class);
         $findProfileByIdTask->method('run')->willReturn(new Profile($this->createUser()));
-        $imageStorageService = $this->createStub(ImageStorage::class);
+        $imageStorageService = self::createStub(ImageStorage::class);
 
         $deleteAvatarTask = new DeleteAvatarTask($entityManager, $findProfileByIdTask, $imageStorageService);
 
-        $this->assertFalse($deleteAvatarTask->run(1));
+        self::assertFalse($deleteAvatarTask->run(1));
     }
 
     public function testRunExpectTrue(): void
     {
         $profile = (new Profile($this->createUser()))->setAvatar('avatar.png');
 
-        $entityManager = $this->createStub(EntityManagerInterface::class);
-        $findProfileByIdTask = $this->createStub(FindProfileByIdTask::class);
+        $entityManager = self::createStub(EntityManagerInterface::class);
+        $findProfileByIdTask = self::createStub(FindProfileByIdTask::class);
         $findProfileByIdTask->method('run')->willReturn($profile);
-        $imageStorageService = $this->createStub(ImageStorage::class);
+        $imageStorageService = self::createStub(ImageStorage::class);
 
         $deleteAvatarTask = new DeleteAvatarTask($entityManager, $findProfileByIdTask, $imageStorageService);
 
-        $this->assertTrue($deleteAvatarTask->run(1));
-        $this->assertSame(Profile::DEFAULT_AVATAR, $profile->getAvatar());
+        self::assertTrue($deleteAvatarTask->run(1));
+        self::assertSame(Profile::DEFAULT_AVATAR, $profile->getAvatar());
     }
 }

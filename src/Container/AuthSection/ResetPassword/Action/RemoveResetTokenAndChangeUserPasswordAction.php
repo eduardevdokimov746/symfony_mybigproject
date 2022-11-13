@@ -38,6 +38,7 @@ class RemoveResetTokenAndChangeUserPasswordAction extends Action
     private function validateTokenAndFetchUser(string $token): string|User
     {
         try {
+            /** @var User */
             return $this->resetPasswordHelper->validateTokenAndFetchUser($token);
         } catch (ResetPasswordExceptionInterface $e) {
             $this->resetPasswordLogger->info($e->getReason());

@@ -33,9 +33,9 @@ class UpdateProfileFullNameAndAboutTaskTest extends KernelTestCase
             'update about'
         );
 
-        $this->assertNotSame($oldFirstName, $updatedProfile->getFirstName());
-        $this->assertNotSame($oldLastName, $updatedProfile->getLastName());
-        $this->assertNotSame($oldPatronymic, $updatedProfile->getPatronymic());
-        $this->assertNotSame($oldAbout, $updatedProfile->getAbout());
+        self::assertNotSame($oldFirstName, $updatedProfile->getFirstName());
+        self::assertNotSame($oldLastName, $updatedProfile->getLastName());
+        self::assertNotSame($oldPatronymic, $updatedProfile->getPatronymic());
+        self::assertNotSame($oldAbout, $updatedProfile->getAbout());
     }
 }

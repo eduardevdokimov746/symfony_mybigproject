@@ -14,7 +14,7 @@ class ResetControllerTest extends WebTestCase
 
         $client->request('GET', '/reset-password/reset');
 
-        $this->assertResponseRedirects();
+        self::assertResponseRedirects();
     }
 
     public function testRequestNotGuest(): void
@@ -27,6 +27,6 @@ class ResetControllerTest extends WebTestCase
 
         $client->request('GET', '/reset-password/reset');
 
-        $this->assertResponseRedirects();
+        self::assertResponseRedirects();
     }
 }

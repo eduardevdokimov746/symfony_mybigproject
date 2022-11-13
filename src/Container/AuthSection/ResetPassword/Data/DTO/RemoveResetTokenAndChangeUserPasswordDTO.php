@@ -11,9 +11,9 @@ class RemoveResetTokenAndChangeUserPasswordDTO extends DTO
 {
     #[Assert\NotBlank]
     #[Assert\Length(min: 3)]
-    public readonly ?string $plainPassword;
+    public readonly string $plainPassword;
 
     #[Assert\NotBlank]
     #[Assert\EqualTo(propertyPath: 'plainPassword', message: 'password_does_match')]
-    public readonly ?string $plainPasswordConfirmation;
+    public readonly string $plainPasswordConfirmation;
 }

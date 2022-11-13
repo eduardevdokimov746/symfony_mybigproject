@@ -37,12 +37,15 @@ class RegistrationController extends Controller
             $request->isMethod('POST')
             && $this->isValid($dto = $this->createDTO(CreateUserProfileByRegistrationDTO::class))
         ) {
-            /** @var CreateUserProfileByRegistrationDTO $dto */
             $user = $this->createUserProfileByRegistrationAction->run($dto);
 
             $request->headers->set('referer', $this->generateUrl('profile.index'));
 
-            return $this->userAuthenticator->authenticateUser($user, $this->authenticator, $request);
+            if (null === $response = $this->userAuthenticator->authenticateUser($user, $this->authenticator, $request)) {
+                return $this->redirectToRoute($this->getParameter('app_default_route'));
+            }
+
+            return $response;
         }
 
         return $this->render('@auth/registration.html.twig');

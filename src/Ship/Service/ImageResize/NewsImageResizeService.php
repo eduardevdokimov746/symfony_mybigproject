@@ -39,10 +39,10 @@ class NewsImageResizeService extends AbstractImageResizeService
         }
 
         return [
-            'x' => round(($originWidth - $newWidth) / 2),
-            'y' => round(($originHeight - $newHeight) / 2),
-            'width' => $newWidth,
-            'height' => $newHeight,
+            'x' => (int) round(($originWidth - $newWidth) / 2),
+            'y' => (int) round(($originHeight - $newHeight) / 2),
+            'width' => (int) $newWidth,
+            'height' => (int) $newHeight,
         ];
     }
 

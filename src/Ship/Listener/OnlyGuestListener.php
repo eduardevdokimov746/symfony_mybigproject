@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Ship\Listener;
 
 use App\Ship\Attribute\OnlyGuest;
+use App\Ship\Helper\Security;
 use ReflectionClass;
 use ReflectionMethod;
 use RuntimeException;
@@ -14,14 +15,12 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 class OnlyGuestListener implements EventSubscriberInterface
 {
     public function __construct(
         private UrlGeneratorInterface $urlGenerator,
-        private TokenStorageInterface $tokenStorage,
+        private Security $security,
         private string $fallbackRoute
     ) {
     }
@@ -33,7 +32,7 @@ class OnlyGuestListener implements EventSubscriberInterface
 
     public function onKernelController(ControllerEvent $event): void
     {
-        if ($this->isUserLogged() && $event->isMainRequest()) {
+        if ($this->security->isAuth() && $event->isMainRequest()) {
             if (null === ($attr = $this->findOnlyGuestAttribute($event->getController()))) {
                 return;
             }
@@ -42,16 +41,12 @@ class OnlyGuestListener implements EventSubscriberInterface
         }
     }
 
-    private function isUserLogged(): bool
-    {
-        return $this->tokenStorage->getToken()?->getUser() instanceof UserInterface;
-    }
-
     private function findOnlyGuestAttribute(callable $controller): ?OnlyGuest
     {
+        /** @var array{object, string}|object $controller */
         $reflection = is_array($controller) ? new ReflectionMethod(...$controller) : new ReflectionClass($controller);
 
-        if (empty($attrs = $reflection->getAttributes(OnlyGuest::class))) {
+        if (0 === count($attrs = $reflection->getAttributes(OnlyGuest::class))) {
             return null;
         }
 
@@ -66,8 +61,6 @@ class OnlyGuestListener implements EventSubscriberInterface
     {
         $redirectUrl = $this->urlGenerator->generate($onlyGuest->getRedirectRoute() ?? $this->fallbackRoute);
 
-        return static function () use ($redirectUrl): Response {
-            return new RedirectResponse($redirectUrl);
-        };
+        return static fn (): Response => new RedirectResponse($redirectUrl);
     }
 }

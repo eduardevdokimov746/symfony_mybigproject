@@ -12,6 +12,9 @@ use InvalidArgumentException;
 
 class ExceptionMappingResolverTest extends TestCase
 {
+    /**
+     * @return list<array<string, array<string, array<string, bool|int>>>>
+     */
     public function mappingsProvider(): array
     {
         return [
@@ -22,24 +25,26 @@ class ExceptionMappingResolverTest extends TestCase
     }
 
     /**
+     * @param array<string, array{code: int, hidden?: bool, loggable?: bool}> $mappings
+     *
      * @dataProvider mappingsProvider
      */
     public function testConstruct(array $mappings): void
     {
-        $this->assertInstanceOf(ExceptionMappingResolver::class, new ExceptionMappingResolver($mappings));
+        self::assertInstanceOf(ExceptionMappingResolver::class, new ExceptionMappingResolver($mappings));
     }
 
     public function testConstructExpectException(): void
     {
         $this->expectException(InvalidArgumentException::class);
 
-        new ExceptionMappingResolver([['class' => []]]);
+        new ExceptionMappingResolver(['class' => []]);
     }
 
     public function testResolve(): void
     {
         $exceptionMappingResolver = new ExceptionMappingResolver([]);
 
-        $this->assertInstanceOf(ExceptionMapping::class, $exceptionMappingResolver->resolve(new Exception()));
+        self::assertInstanceOf(ExceptionMapping::class, $exceptionMappingResolver->resolve(new Exception()));
     }
 }

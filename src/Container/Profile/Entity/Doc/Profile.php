@@ -108,9 +108,9 @@ class Profile
         return $this->lastName.' '.$this->firstName.' '.$this->patronymic;
     }
 
-    public function getAvatar(): ?string
+    public function getAvatar(): string
     {
-        return $this->avatar ?: self::DEFAULT_AVATAR;
+        return $this->avatar ?? self::DEFAULT_AVATAR;
     }
 
     public function setAvatar(?string $avatar): self

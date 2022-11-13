@@ -16,7 +16,7 @@ use Symfony\Component\Translation\LocaleSwitcher;
 class SwitchTask extends Task
 {
     /**
-     * @param array $enabledLocales The path to the framework.enabledLocale configuration
+     * @param list<string> $enabledLocales The path to the framework.enabledLocale configuration
      *
      * @throws RuntimeException Occurs if more than 2 locales are passed to *$enabledLocales* or the array is empty
      */
@@ -40,10 +40,11 @@ class SwitchTask extends Task
 
         $currentLocale = $this->router->getContext()->getParameter('_locale');
 
-        $currentLocaleKey = array_search($currentLocale, $this->enabledLocales, true);
+        $currentLocaleKey = array_search($currentLocale, $enabledLocales, true);
 
         unset($enabledLocales[$currentLocaleKey]);
 
+        /** @var string $newLocale */
         $newLocale = array_pop($enabledLocales);
 
         $this->localeSwitcher->setLocale($newLocale);

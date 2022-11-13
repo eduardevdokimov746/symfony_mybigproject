@@ -16,8 +16,8 @@ class VerifyUserEmailActionTest extends KernelTestCase
     public function testRunExpectNull(): void
     {
         $markUserEmailVerifiedTask = self::getContainer()->get(MarkUserEmailVerifiedTask::class);
-        $verifyEmailHelper = $this->createStub(VerifyEmailHelperInterface::class);
-        $logger = $this->createStub(LoggerInterface::class);
+        $verifyEmailHelper = self::createStub(VerifyEmailHelperInterface::class);
+        $logger = self::createStub(LoggerInterface::class);
 
         $verifyUserEmailAction = new VerifyUserEmailAction($verifyEmailHelper, $markUserEmailVerifiedTask, $logger);
 
@@ -25,22 +25,22 @@ class VerifyUserEmailActionTest extends KernelTestCase
 
         $user = $this->findUserFromDB();
 
-        $this->assertTrue($user->isEmailVerified());
-        $this->assertNull($result);
+        self::assertTrue($user->isEmailVerified());
+        self::assertNull($result);
     }
 
     public function testRunExpectString(): void
     {
         $markUserEmailVerifiedTask = self::getContainer()->get(MarkUserEmailVerifiedTask::class);
-        $verifyEmailHelper = $this->createStub(VerifyEmailHelperInterface::class);
+        $verifyEmailHelper = self::createStub(VerifyEmailHelperInterface::class);
         $exception = new InvalidSignatureException();
         $verifyEmailHelper->method('validateEmailConfirmation')->willThrowException($exception);
-        $logger = $this->createStub(LoggerInterface::class);
+        $logger = self::createStub(LoggerInterface::class);
 
         $verifyUserEmailAction = new VerifyUserEmailAction($verifyEmailHelper, $markUserEmailVerifiedTask, $logger);
 
         $result = $verifyUserEmailAction->run('badSignedUrl', 1, 'user@mail.com');
 
-        $this->assertIsString($result);
+        self::assertIsString($result);
     }
 }

@@ -23,7 +23,7 @@ class SendEmailResetPasswordTaskTest extends KernelTestCase
         $twig = self::getContainer()->get(Environment::class);
         $mailer = self::getContainer()->get(MailerInterface::class);
         $packages = self::getContainer()->get(Packages::class);
-        $logger = $this->createStub(LoggerInterface::class);
+        $logger = self::createStub(LoggerInterface::class);
         $urlGenerator = self::getContainer()->get(UrlGeneratorInterface::class);
 
         $sendEmailResetPasswordTask = new SendEmailResetPasswordTask(
@@ -40,6 +40,6 @@ class SendEmailResetPasswordTaskTest extends KernelTestCase
 
         $sendEmailResetPasswordTask->run('user@mail.com', 'user', $resetPasswordToken);
 
-        $this->assertEmailCount(1);
+        self::assertEmailCount(1);
     }
 }

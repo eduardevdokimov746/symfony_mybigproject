@@ -22,9 +22,9 @@ class CreateProfileTaskTest extends KernelTestCase
 
         $profile = $createProfileTask->run($user, 'firstName', 'lastName', 'patronymic');
 
-        $this->assertSame('firstName', $profile->getFirstName());
-        $this->assertSame('lastName', $profile->getLastName());
-        $this->assertSame('patronymic', $profile->getPatronymic());
-        $this->assertEquals($profile, $user->getProfile());
+        self::assertSame('firstName', $profile->getFirstName());
+        self::assertSame('lastName', $profile->getLastName());
+        self::assertSame('patronymic', $profile->getPatronymic());
+        self::assertEquals($profile, $user->getProfile());
     }
 }

@@ -11,6 +11,10 @@ use Doctrine\ORM\EntityManagerInterface;
 class PostgresPurger implements ORMPurgerInterface
 {
     private EntityManagerInterface $entityManager;
+
+    /**
+     * @var list<string>
+     */
     private array $excludeTables = [
         'doctrine_migration_versions',
     ];

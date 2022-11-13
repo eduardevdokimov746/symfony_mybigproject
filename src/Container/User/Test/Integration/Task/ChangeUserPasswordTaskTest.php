@@ -29,7 +29,7 @@ class ChangeUserPasswordTaskTest extends KernelTestCase
 
         $userWithNewPassword = $changeUserPasswordTask->run(1, 'new-password');
 
-        $this->assertInstanceOf(User::class, $userWithNewPassword);
-        $this->assertNotSame($oldPassword, $userWithNewPassword->getPassword());
+        self::assertInstanceOf(User::class, $userWithNewPassword);
+        self::assertNotSame($oldPassword, $userWithNewPassword->getPassword());
     }
 }

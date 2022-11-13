@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace App\Container\Profile\Test\Controller;
 
-use App\Container\User\Entity\Doc\User;
 use App\Ship\Parent\Test\WebTestCase;
-use Doctrine\ORM\EntityManagerInterface;
 
 class IndexControllerTest extends WebTestCase
 {
@@ -14,13 +12,13 @@ class IndexControllerTest extends WebTestCase
     {
         $client = self::createClient();
 
-        $user = self::getContainer()->get(EntityManagerInterface::class)->find(User::class, 1);
+        $user = $this->findUserFromDB();
 
         $client->loginUser($user);
 
         $client->request('GET', '/profile');
 
-        $this->assertResponseIsSuccessful();
+        self::assertResponseIsSuccessful();
     }
 
     public function testRequestNotAuthenticated(): void
@@ -29,6 +27,6 @@ class IndexControllerTest extends WebTestCase
 
         $client->request('GET', '/profile');
 
-        $this->assertResponseRedirects();
+        self::assertResponseRedirects();
     }
 }

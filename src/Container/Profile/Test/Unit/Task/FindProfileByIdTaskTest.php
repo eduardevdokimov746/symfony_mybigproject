@@ -14,19 +14,19 @@ class FindProfileByIdTaskTest extends TestCase
 {
     public function testRun(): void
     {
-        $profileRepository = $this->createStub(ProfileRepository::class);
+        $profileRepository = self::createStub(ProfileRepository::class);
         $profileRepository->method('find')->willReturn(new Profile($this->createUser()));
 
         $findProfileByIdTask = new FindProfileByIdTask($profileRepository);
 
         $profile = $findProfileByIdTask->run(1);
 
-        $this->assertInstanceOf(Profile::class, $profile);
+        self::assertInstanceOf(Profile::class, $profile);
     }
 
     public function testRunExceptException(): void
     {
-        $profileRepository = $this->createStub(ProfileRepository::class);
+        $profileRepository = self::createStub(ProfileRepository::class);
 
         $findProfileByIdTask = new FindProfileByIdTask($profileRepository);
 

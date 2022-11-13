@@ -14,7 +14,7 @@ class LoginControllerTest extends WebTestCase
 
         $client->request('GET', '/login');
 
-        $this->assertResponseIsSuccessful();
+        self::assertResponseIsSuccessful();
     }
 
     public function testRequestPOST(): void
@@ -26,7 +26,8 @@ class LoginControllerTest extends WebTestCase
             'password' => 'ens',
         ]);
 
-        $this->assertStringNotContainsString('/login', $client->getInternalResponse()->getHeader('location'));
+        /** @phpstan-ignore-next-line */
+        self::assertStringNotContainsString('/login', $client->getInternalResponse()->getHeader('location'));
     }
 
     public function testRequestNotGuest(): void
@@ -39,6 +40,6 @@ class LoginControllerTest extends WebTestCase
 
         $client->request('GET', '/login');
 
-        $this->assertResponseRedirects();
+        self::assertResponseRedirects();
     }
 }

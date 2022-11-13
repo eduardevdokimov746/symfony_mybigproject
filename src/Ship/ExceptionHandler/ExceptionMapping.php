@@ -32,7 +32,9 @@ class ExceptionMapping
             return Response::$statusTexts[$this->getCode()];
         }
 
-        return $this->getThrowable()->getMessage() ?: Response::$statusTexts[$this->getCode()];
+        $message = $this->getThrowable()->getMessage();
+
+        return '' === $message ? $message : Response::$statusTexts[$this->getCode()];
     }
 
     public function getThrowable(): Throwable

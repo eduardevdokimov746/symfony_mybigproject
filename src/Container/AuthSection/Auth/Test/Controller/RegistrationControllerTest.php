@@ -14,7 +14,7 @@ class RegistrationControllerTest extends WebTestCase
 
         $client->request('GET', '/registration');
 
-        $this->assertResponseIsSuccessful();
+        self::assertResponseIsSuccessful();
     }
 
     public function testRequestPOST(): void
@@ -27,7 +27,8 @@ class RegistrationControllerTest extends WebTestCase
             'plainPassword' => 'password',
         ]);
 
-        $this->assertStringNotContainsString('/registration', $client->getInternalResponse()->getHeader('location'));
+        /** @phpstan-ignore-next-line */
+        self::assertStringNotContainsString('/registration', $client->getInternalResponse()->getHeader('location'));
     }
 
     public function testRequestNotGuest(): void
@@ -40,6 +41,6 @@ class RegistrationControllerTest extends WebTestCase
 
         $client->request('GET', '/registration');
 
-        $this->assertResponseRedirects();
+        self::assertResponseRedirects();
     }
 }

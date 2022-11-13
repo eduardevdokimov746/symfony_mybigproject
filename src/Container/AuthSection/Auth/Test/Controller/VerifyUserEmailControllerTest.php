@@ -18,7 +18,7 @@ class VerifyUserEmailControllerTest extends WebTestCase
 
         $client->request('GET', '/verify-user-email');
 
-        $this->assertResponseIsSuccessful();
+        self::assertResponseIsSuccessful();
     }
 
     public function testRequestNotAuthenticated(): void
@@ -27,6 +27,6 @@ class VerifyUserEmailControllerTest extends WebTestCase
 
         $client->request('GET', '/verify-user-email');
 
-        $this->assertResponseRedirects();
+        self::assertResponseRedirects();
     }
 }

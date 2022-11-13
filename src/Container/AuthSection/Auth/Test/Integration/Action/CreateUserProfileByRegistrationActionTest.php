@@ -9,7 +9,6 @@ use App\Container\AuthSection\Auth\Data\DTO\CreateUserProfileByRegistrationDTO;
 use App\Container\AuthSection\Auth\Exception\SaveByRegistrationException;
 use App\Container\Profile\Entity\Doc\Profile;
 use App\Container\Profile\Task\CreateProfileTask;
-use App\Container\User\Entity\Doc\User;
 use App\Container\User\Task\CreateUserTask;
 use App\Ship\Parent\Test\KernelTestCase;
 use Doctrine\ORM\EntityManagerInterface;
@@ -25,8 +24,8 @@ class CreateUserProfileByRegistrationActionTest extends KernelTestCase
         $createUserTask = self::getContainer()->get(CreateUserTask::class);
         $createProfileTask = self::getContainer()->get(CreateProfileTask::class);
         $entityManager = self::getContainer()->get(EntityManagerInterface::class);
-        $logger = $this->createStub(LoggerInterface::class);
-        $eventDispatcher = $this->createStub(EventDispatcherInterface::class);
+        $logger = self::createStub(LoggerInterface::class);
+        $eventDispatcher = self::createStub(EventDispatcherInterface::class);
 
         $this->createUserProfileByRegistrationAction = new CreateUserProfileByRegistrationAction(
             $createUserTask,
@@ -47,10 +46,9 @@ class CreateUserProfileByRegistrationActionTest extends KernelTestCase
 
         $user = $this->createUserProfileByRegistrationAction->run($createUserProfileByRegistrationDTO);
 
-        $this->assertInstanceOf(User::class, $user);
-        $this->assertSame('user', $user->getLogin());
-        $this->assertSame('user@mail.com', $user->getEmail());
-        $this->assertInstanceOf(Profile::class, $user->getProfile());
+        self::assertSame('user', $user->getLogin());
+        self::assertSame('user@mail.com', $user->getEmail());
+        self::assertInstanceOf(Profile::class, $user->getProfile());
     }
 
     public function testRunExpectException(): void

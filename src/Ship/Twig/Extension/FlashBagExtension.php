@@ -14,6 +14,9 @@ use Twig\TwigFilter;
  */
 class FlashBagExtension extends AbstractExtension
 {
+    /**
+     * @return TwigFilter[]
+     */
     public function getFilters(): array
     {
         return [
@@ -22,6 +25,9 @@ class FlashBagExtension extends AbstractExtension
         ];
     }
 
+    /**
+     * @return string[]
+     */
     public function getFlashBagError(AppVariable $appVariable, string $key, bool $peek = false): array
     {
         return $this->getFlashBag(FlashBagNameEnum::ERROR, $appVariable, $key, $peek);
@@ -31,23 +37,22 @@ class FlashBagExtension extends AbstractExtension
     {
         $fields = $this->getFlashBag(FlashBagNameEnum::FIELD, $appVariable, $key, $peek);
 
-        return empty($fields) ? '' : array_pop($fields);
+        return 0 === count($fields) ? '' : array_pop($fields);
     }
 
+    /**
+     * @return string[]
+     */
     private function getFlashBag(FlashBagNameEnum $flashBagNameEnum, AppVariable $appVariable, string $key, bool $peek = false): array
     {
         $bagName = $flashBagNameEnum->getNameFor($key);
 
         if ($peek) {
-            $values = $appVariable->getSession()->getFlashBag()->peek($bagName);
+            $values = $appVariable->getSession()?->getFlashBag()->peek($bagName) ?? [];
         } else {
             $values = $appVariable->getFlashes($bagName);
         }
 
-        if (empty($values = array_filter($values))) {
-            return [];
-        }
-
-        return $values;
+        return array_filter($values);
     }
 }

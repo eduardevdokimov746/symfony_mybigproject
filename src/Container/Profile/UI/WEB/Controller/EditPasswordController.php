@@ -31,7 +31,6 @@ class EditPasswordController extends Controller
             $request->isMethod('POST')
             && $this->isValid($dto = $this->createDTO(ChangePasswordFromAuthUserDTO::class))
         ) {
-            /** @var ChangePasswordFromAuthUserDTO $dto */
             $this->changePasswordFromAuthUserAction->run($dto);
 
             $this->addFlash('success', '');

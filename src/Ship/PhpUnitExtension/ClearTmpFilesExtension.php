@@ -2,13 +2,13 @@
 
 namespace App\Ship\PhpUnitExtension;
 
-use App\Ship\Helper\RemoveFilesFromTmpDir;
+use App\Ship\Helper\File;
 use PHPUnit\Runner\AfterLastTestHook;
 
 class ClearTmpFilesExtension implements AfterLastTestHook
 {
     public function executeAfterLastTest(): void
     {
-        RemoveFilesFromTmpDir::run();
+        File::removeTmpFiles();
     }
 }

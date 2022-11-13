@@ -11,5 +11,5 @@ class GenerateAndSendResetPasswordTokenDTO extends DTO
 {
     #[Assert\NotBlank]
     #[Assert\Email]
-    public readonly ?string $email;
+    public readonly string $email;
 }

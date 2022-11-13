@@ -16,7 +16,7 @@ abstract class FormType extends AbstractType
     ) {
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefault('csrf_token_id', $this->csrfTokenId);
     }

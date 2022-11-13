@@ -16,7 +16,7 @@ class GetRefererRouteByUrlTaskTest extends TestCase
 
     protected function setUp(): void
     {
-        $router = $this->createStub(RouterInterface::class);
+        $router = self::createStub(RouterInterface::class);
         $router->method('match')->willReturn([
             '_route' => 'app.home',
             '_controller' => 'controller::method',
@@ -38,13 +38,13 @@ class GetRefererRouteByUrlTaskTest extends TestCase
             ],
         ];
 
-        $this->assertSame($expect, $this->refererRouteByUrlTask->run($this->refererUrl));
+        self::assertSame($expect, $this->refererRouteByUrlTask->run($this->refererUrl));
     }
 
     public function testGetOnly(): void
     {
-        $this->assertSame('app.home', $this->refererRouteByUrlTask->getOnly($this->refererUrl, $this->refererRouteByUrlTask::ROURE));
-        $this->assertSame('controller::method', $this->refererRouteByUrlTask->getOnly($this->refererUrl, $this->refererRouteByUrlTask::CONTROLLER));
+        self::assertSame('app.home', $this->refererRouteByUrlTask->getOnly($this->refererUrl, $this->refererRouteByUrlTask::ROURE));
+        self::assertSame('controller::method', $this->refererRouteByUrlTask->getOnly($this->refererUrl, $this->refererRouteByUrlTask::CONTROLLER));
     }
 
     public function testGetOnlyExpectException(): void

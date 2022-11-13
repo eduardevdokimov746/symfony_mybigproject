@@ -6,12 +6,15 @@ namespace App\Ship\Parent;
 
 use App\Container\User\Entity\Doc\User;
 use App\Ship\Action\ValidateFormAndSaveEntityAction;
+use App\Ship\Helper\Security;
 use App\Ship\Validator\ControllerValidator;
 use InvalidArgumentException;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Controllers are responsible for validating the request, serving the request data and building a response.
@@ -22,25 +25,40 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * Usually contains the *__invoke()* method, which accepts the request object and returns a response
  *
  * @see https://github.com/Mahmoudz/Porto#Controllers Detailed information
- *
- * @method User|UserInterface getUser
  */
 abstract class Controller extends AbstractController
 {
+    public function getUser(): ?User
+    {
+        return $this->container->get(Security::class)->getUser();
+    }
+
     public static function getSubscribedServices(): array
     {
         return array_merge(
             parent::getSubscribedServices(),
             [
-                'controller_validator' => '?'.ControllerValidator::class,
-                'validate_and_save_form_action' => '?'.ValidateFormAndSaveEntityAction::class,
+                ControllerValidator::class,
+                ValidateFormAndSaveEntityAction::class,
+                Security::class,
             ]
         );
     }
 
+    /**
+     * @template T of DTO
+     *
+     * @param class-string<T> $dtoClass
+     *
+     * @return T
+     *
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     */
     public function createDTO(string $dtoClass): DTO
     {
-        if (class_exists($dtoClass) && is_subclass_of($dtoClass, DTO::class)) {
+        if (class_exists($dtoClass)) {
+            /** @phpstan-ignore-next-line */
             return $dtoClass::create($this->container->get('request_stack')->getCurrentRequest());
         }
 
@@ -49,20 +67,25 @@ abstract class Controller extends AbstractController
 
     public function isValid(DTO $dto): bool
     {
-        return $this->container->get('controller_validator')->validate($dto);
+        return $this->container->get(ControllerValidator::class)->validate($dto);
     }
 
     protected function redirectBack(): RedirectResponse
     {
+        /** @var Request $currentRequest */
         $currentRequest = $this->container->get('request_stack')->getCurrentRequest();
 
-        $route = $currentRequest->attributes->get('_route', $currentRequest->attributes->all());
+        /** @var string $route */
+        $route = $currentRequest->attributes->get('_route');
 
-        return $this->redirectToRoute($route, $currentRequest->attributes->get('_route_params'));
+        /** @var array<string, mixed> $params */
+        $params = $currentRequest->attributes->get('_route_params');
+
+        return $this->redirectToRoute($route, $params);
     }
 
     protected function validateAndSaveForm(FormInterface $form): bool
     {
-        return $this->container->get('validate_and_save_form_action')->run($form);
+        return $this->container->get(ValidateFormAndSaveEntityAction::class)->run($form);
     }
 }

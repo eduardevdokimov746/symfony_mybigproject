@@ -13,13 +13,13 @@ class OnlyGuestTest extends TestCase
     {
         $onlyGuest = new OnlyGuest();
 
-        $this->assertNull($onlyGuest->getRedirectRoute());
+        self::assertNull($onlyGuest->getRedirectRoute());
     }
 
     public function testRedirectRouteReturnCorrect(): void
     {
         $onlyGuest = new OnlyGuest('app.home');
 
-        $this->assertSame('app.home', $onlyGuest->getRedirectRoute());
+        self::assertSame('app.home', $onlyGuest->getRedirectRoute());
     }
 }

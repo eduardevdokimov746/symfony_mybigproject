@@ -27,7 +27,7 @@ class SendEmailVerificationActionTest extends KernelTestCase
         $mailer = self::getContainer()->get(MailerInterface::class);
         $verifyEmailHelper = self::getContainer()->get(VerifyEmailHelperInterface::class);
         $packages = self::getContainer()->get(Packages::class);
-        $logger = $this->createStub(LoggerInterface::class);
+        $logger = self::createStub(LoggerInterface::class);
 
         $this->sendEmailVerificationAction = new SendEmailVerificationAction(
             $translator,
@@ -46,13 +46,13 @@ class SendEmailVerificationActionTest extends KernelTestCase
     {
         $this->sendEmailVerificationAction->run($this->user);
 
-        $this->assertEmailCount(1);
+        self::assertEmailCount(1);
     }
 
     public function testGetFakeSignatureComponents(): void
     {
         $result = $this->sendEmailVerificationAction->getFakeSignatureComponents($this->user);
 
-        $this->assertInstanceOf(VerifyEmailSignatureComponents::class, $result);
+        self::assertInstanceOf(VerifyEmailSignatureComponents::class, $result);
     }
 }

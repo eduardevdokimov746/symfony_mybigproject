@@ -14,8 +14,8 @@ class CreateUserTaskTest extends TestCase
 {
     public function testRun(): void
     {
-        $passwordHasher = $this->createStub(UserPasswordHasherInterface::class);
-        $entityManager = $this->createStub(EntityManagerInterface::class);
+        $passwordHasher = self::createStub(UserPasswordHasherInterface::class);
+        $entityManager = self::createStub(EntityManagerInterface::class);
 
         $passwordHasher->method('hashPassword')->willReturn('hash');
 
@@ -23,9 +23,9 @@ class CreateUserTaskTest extends TestCase
 
         $user = $createUserTask->run('user', 'user@mail.com', 'password');
 
-        $this->assertInstanceOf(User::class, $user);
-        $this->assertSame('user', $user->getLogin());
-        $this->assertSame('user@mail.com', $user->getEmail());
-        $this->assertSame('hash', $user->getPassword());
+        self::assertInstanceOf(User::class, $user);
+        self::assertSame('user', $user->getLogin());
+        self::assertSame('user@mail.com', $user->getEmail());
+        self::assertSame('hash', $user->getPassword());
     }
 }

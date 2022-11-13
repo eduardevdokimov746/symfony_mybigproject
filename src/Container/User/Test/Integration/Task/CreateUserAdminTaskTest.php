@@ -22,7 +22,7 @@ class CreateUserAdminTaskTest extends KernelTestCase
 
         $user = $createUserAdminTask->run('user', 'user@mail.com', 'password');
 
-        $this->assertInstanceOf(User::class, $user);
-        $this->assertSame(RoleEnum::Admin, $user->getRole());
+        self::assertInstanceOf(User::class, $user);
+        self::assertSame(RoleEnum::Admin, $user->getRole());
     }
 }

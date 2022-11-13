@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 )]
 class LogoutController extends Controller
 {
-    public function __invoke()
+    public function __invoke(): void
     {
         // noop
     }

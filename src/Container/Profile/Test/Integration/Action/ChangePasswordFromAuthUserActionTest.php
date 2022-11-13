@@ -8,6 +8,7 @@ use App\Container\Profile\Action\ChangePasswordFromAuthUserAction;
 use App\Container\Profile\Data\DTO\ChangePasswordFromAuthUserDTO;
 use App\Container\User\Entity\Doc\User;
 use App\Container\User\Task\ChangeUserPasswordTask;
+use App\Ship\Helper\Security;
 use App\Ship\Parent\Test\KernelTestCase;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
@@ -27,25 +28,30 @@ class ChangePasswordFromAuthUserActionTest extends KernelTestCase
         $tokenStorage = self::getContainer()->get(TokenStorageInterface::class);
         $tokenStorage->setToken(new UsernamePasswordToken($user, 'main'));
 
-        $changePasswordFromAuthUserAction = new ChangePasswordFromAuthUserAction($changeUserPasswordTask, $tokenStorage);
+        $security = self::getContainer()->get(Security::class);
+
+        $changePasswordFromAuthUserAction = new ChangePasswordFromAuthUserAction($changeUserPasswordTask, $security);
         $updatedUser = $changePasswordFromAuthUserAction->run($dto);
 
-        $this->assertInstanceOf(User::class, $updatedUser);
-        $this->assertNotSame($dto->oldPlainPassword, $updatedUser->getPassword());
-        $this->assertNotSame($dto->oldPlainPassword, $tokenStorage->getToken()->getUser()->getPassword());
+        self::assertInstanceOf(User::class, $updatedUser);
+        self::assertNotSame($dto->oldPlainPassword, $updatedUser->getPassword());
+
+        /** @phpstan-ignore-next-line */
+        self::assertNotSame($dto->oldPlainPassword, $security->getUser()->getPassword());
     }
 
     public function testRunExpectException(): void
     {
         $changeUserPasswordTask = self::getContainer()->get(ChangeUserPasswordTask::class);
-        $tokenStorage = self::getContainer()->get(TokenStorageInterface::class);
+
+        $security = self::getContainer()->get(Security::class);
         $dto = ChangePasswordFromAuthUserDTO::create([
             'oldPlainPassword' => 'old password',
             'newPlainPassword' => 'new password',
             'newPlainPasswordConfirmation' => 'new password',
         ]);
 
-        $changePasswordFromAuthUserAction = new ChangePasswordFromAuthUserAction($changeUserPasswordTask, $tokenStorage);
+        $changePasswordFromAuthUserAction = new ChangePasswordFromAuthUserAction($changeUserPasswordTask, $security);
 
         $this->expectExceptionMessage('authenticated');
 

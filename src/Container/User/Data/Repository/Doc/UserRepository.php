@@ -10,6 +10,9 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+/**
+ * @extends Repository<User>
+ */
 class UserRepository extends Repository implements UserLoaderInterface
 {
     public function __construct(ManagerRegistry $registry)
@@ -22,11 +25,17 @@ class UserRepository extends Repository implements UserLoaderInterface
         return $this->findActiveOneBy(['login' => $identifier]);
     }
 
+    /**
+     * @param array<string, mixed> $criteria
+     */
     public function findActiveOneBy(array $criteria): ?User
     {
         return $this->findOneBy(array_merge($criteria, ['active' => true]));
     }
 
+    /**
+     * @param array<string, mixed> $criteria
+     */
     public function existsBy(array $criteria): bool
     {
         return null !== $this->findOneBy($criteria);

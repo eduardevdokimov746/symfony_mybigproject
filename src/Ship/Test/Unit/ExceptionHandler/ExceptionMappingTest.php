@@ -20,36 +20,36 @@ class ExceptionMappingTest extends TestCase
 
     public function testFromCode(): void
     {
-        $this->assertInstanceOf(ExceptionMapping::class, ExceptionMapping::fromCode(404));
+        self::assertInstanceOf(ExceptionMapping::class, ExceptionMapping::fromCode(404));
     }
 
     public function testIsHidden(): void
     {
-        $this->assertTrue($this->exceptionMapping->isHidden());
+        self::assertTrue($this->exceptionMapping->isHidden());
     }
 
     public function testIsLoggable(): void
     {
-        $this->assertTrue($this->exceptionMapping->isLoggable());
+        self::assertTrue($this->exceptionMapping->isLoggable());
     }
 
     public function testGetCode(): void
     {
-        $this->assertIsInt($this->exceptionMapping->getCode());
+        self::assertIsInt($this->exceptionMapping->getCode());
     }
 
     public function testSetThrowable(): void
     {
-        $this->assertInstanceOf(ExceptionMapping::class, $this->exceptionMapping->setThrowable(new Exception()));
+        self::assertInstanceOf(ExceptionMapping::class, $this->exceptionMapping->setThrowable(new Exception()));
     }
 
     public function testGetThrowable(): void
     {
-        $this->assertInstanceOf(Throwable::class, $this->exceptionMapping->getThrowable());
+        self::assertInstanceOf(Throwable::class, $this->exceptionMapping->getThrowable());
     }
 
     public function testGetMessage(): void
     {
-        $this->assertIsString($this->exceptionMapping->getMessage());
+        self::assertIsString($this->exceptionMapping->getMessage());
     }
 }

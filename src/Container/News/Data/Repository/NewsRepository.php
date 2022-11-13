@@ -5,10 +5,13 @@ declare(strict_types=1);
 namespace App\Container\News\Data\Repository;
 
 use App\Container\News\Entity\Doc\News;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Ship\Parent\Repository;
 use Doctrine\Persistence\ManagerRegistry;
 
-class NewsRepository extends ServiceEntityRepository
+/**
+ * @extends Repository<News>
+ */
+class NewsRepository extends Repository
 {
     public function __construct(ManagerRegistry $registry)
     {

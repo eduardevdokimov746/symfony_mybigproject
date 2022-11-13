@@ -18,10 +18,10 @@ class RemoveResetTokenAndChangeUserPasswordActionTest extends KernelTestCase
         $user = $this->findUserFromDB();
         $oldPassword = $user->getPassword();
 
-        $resetPasswordHelper = $this->createStub(ResetPasswordHelperInterface::class);
+        $resetPasswordHelper = self::createStub(ResetPasswordHelperInterface::class);
         $resetPasswordHelper->method('validateTokenAndFetchUser')->willReturn($user);
         $changeUserPasswordTask = self::getContainer()->get(ChangeUserPasswordTask::class);
-        $logger = $this->createStub(LoggerInterface::class);
+        $logger = self::createStub(LoggerInterface::class);
 
         $removeResetTokenAndChangeUserPasswordAction = new RemoveResetTokenAndChangeUserPasswordAction(
             $resetPasswordHelper,
@@ -33,19 +33,19 @@ class RemoveResetTokenAndChangeUserPasswordActionTest extends KernelTestCase
 
         $userWithNewPassword = $this->findUserFromDB();
 
-        $this->assertNull($result);
-        $this->assertNotSame($oldPassword, $userWithNewPassword->getPassword());
+        self::assertNull($result);
+        self::assertNotSame($oldPassword, $userWithNewPassword->getPassword());
     }
 
     public function testRunExpectString(): void
     {
-        $resetPasswordHelper = $this->createStub(ResetPasswordHelperInterface::class);
+        $resetPasswordHelper = self::createStub(ResetPasswordHelperInterface::class);
         $resetPasswordHelper
             ->method('validateTokenAndFetchUser')
             ->willThrowException(new InvalidResetPasswordTokenException())
         ;
         $changeUserPasswordTask = self::getContainer()->get(ChangeUserPasswordTask::class);
-        $logger = $this->createStub(LoggerInterface::class);
+        $logger = self::createStub(LoggerInterface::class);
 
         $removeResetTokenAndChangeUserPasswordAction = new RemoveResetTokenAndChangeUserPasswordAction(
             $resetPasswordHelper,
@@ -55,6 +55,6 @@ class RemoveResetTokenAndChangeUserPasswordActionTest extends KernelTestCase
 
         $result = $removeResetTokenAndChangeUserPasswordAction->run('token', 'new password');
 
-        $this->assertIsString($result);
+        self::assertIsString($result);
     }
 }

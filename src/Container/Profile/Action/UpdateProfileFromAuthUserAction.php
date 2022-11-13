@@ -8,10 +8,9 @@ use App\Container\Profile\Data\DTO\UpdateProfileFromAuthUserDTO;
 use App\Container\Profile\Task\ChangeAvatarTask;
 use App\Container\Profile\Task\DeleteAvatarTask;
 use App\Container\Profile\Task\UpdateProfileFullNameAndAboutTask;
-use App\Container\User\Entity\Doc\User;
+use App\Ship\Helper\Security;
 use App\Ship\Parent\Action;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\Security\Core\Security;
 
 class UpdateProfileFromAuthUserAction extends Action
 {
@@ -25,7 +24,8 @@ class UpdateProfileFromAuthUserAction extends Action
 
     public function run(UpdateProfileFromAuthUserDTO $updateProfileDTO): void
     {
-        /** @var User $user */
+        $this->userAuthenticator->checkAuth();
+
         $user = $this->userAuthenticator->getUser();
 
         $profileId = $user->getProfile()->getId();

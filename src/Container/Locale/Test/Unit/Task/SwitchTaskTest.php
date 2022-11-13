@@ -14,27 +14,27 @@ class SwitchTaskTest extends TestCase
 {
     public function testRun(): void
     {
-        $requestContext = $this->createStub(RequestContext::class);
+        $requestContext = self::createStub(RequestContext::class);
         $requestContext->method('getParameter')->willReturn('ru');
-        $router = $this->createStub(RouterInterface::class);
+        $router = self::createStub(RouterInterface::class);
         $router->method('getContext')->willReturn($requestContext);
-        $localeSwitcher = $this->createStub(LocaleSwitcher::class);
+        $localeSwitcher = self::createStub(LocaleSwitcher::class);
         $enabledLocales = ['ru', 'en'];
 
         $switchTask = new SwitchTask($router, $localeSwitcher, $enabledLocales);
 
         $newLocale = $switchTask->run();
 
-        $this->assertSame('en', $newLocale);
+        self::assertSame('en', $newLocale);
     }
 
     public function testRunExpectException(): void
     {
-        $requestContext = $this->createStub(RequestContext::class);
+        $requestContext = self::createStub(RequestContext::class);
         $requestContext->method('getParameter')->willReturn('ru');
-        $router = $this->createStub(RouterInterface::class);
+        $router = self::createStub(RouterInterface::class);
         $router->method('getContext')->willReturn($requestContext);
-        $localeSwitcher = $this->createStub(LocaleSwitcher::class);
+        $localeSwitcher = self::createStub(LocaleSwitcher::class);
         $enabledLocales = [];
 
         $this->expectExceptionMessage('empty');

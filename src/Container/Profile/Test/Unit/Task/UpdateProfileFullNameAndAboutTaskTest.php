@@ -21,8 +21,8 @@ class UpdateProfileFullNameAndAboutTaskTest extends TestCase
             ->setAbout('about')
         ;
 
-        $entityManager = $this->createStub(EntityManagerInterface::class);
-        $findProfileByIdTask = $this->createStub(FindProfileByIdTask::class);
+        $entityManager = self::createStub(EntityManagerInterface::class);
+        $findProfileByIdTask = self::createStub(FindProfileByIdTask::class);
         $findProfileByIdTask->method('run')->willReturn($profile);
 
         $updateProfileFullNameAndAboutTask = new UpdateProfileFullNameAndAboutTask($findProfileByIdTask, $entityManager);
@@ -35,9 +35,9 @@ class UpdateProfileFullNameAndAboutTaskTest extends TestCase
             'update about'
         );
 
-        $this->assertSame('update firstName', $updatedProfile->getFirstName());
-        $this->assertSame('update lastName', $updatedProfile->getLastName());
-        $this->assertSame('update patronymic', $updatedProfile->getPatronymic());
-        $this->assertSame('update about', $updatedProfile->getAbout());
+        self::assertSame('update firstName', $updatedProfile->getFirstName());
+        self::assertSame('update lastName', $updatedProfile->getLastName());
+        self::assertSame('update patronymic', $updatedProfile->getPatronymic());
+        self::assertSame('update about', $updatedProfile->getAbout());
     }
 }

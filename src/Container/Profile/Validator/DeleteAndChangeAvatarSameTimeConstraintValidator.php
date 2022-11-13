@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Container\Profile\Validator;
 
+use RuntimeException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
@@ -12,7 +13,7 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class DeleteAndChangeAvatarSameTimeConstraintValidator extends ConstraintValidator
 {
-    public function validate(mixed $value, Constraint $constraint)
+    public function validate(mixed $value, Constraint $constraint): void
     {
         if (!$constraint instanceof DeleteAndChangeAvatarSameTimeConstraint) {
             throw new UnexpectedTypeException($constraint, DeleteAndChangeAvatarSameTimeConstraint::class);
@@ -22,12 +23,16 @@ class DeleteAndChangeAvatarSameTimeConstraintValidator extends ConstraintValidat
             throw new UnexpectedTypeException($value, 'bool');
         }
 
-        if (!property_exists($this->context->getObject(), $constraint->avatarProperty)) {
+        if (null === $object = $this->context->getObject()) {
+            throw new RuntimeException('Object of context is null');
+        }
+
+        if (!property_exists($object, $constraint->avatarProperty)) {
             throw new InvalidOptionsException('Property {'.$constraint->avatarProperty.'} does not exists', ['avatarProperty']);
         }
 
         if (
-            $this->context->getObject()->{$constraint->avatarProperty} instanceof UploadedFile
+            $object->{$constraint->avatarProperty} instanceof UploadedFile
             && true === $value
         ) {
             $this->context->buildViolation($constraint->message)

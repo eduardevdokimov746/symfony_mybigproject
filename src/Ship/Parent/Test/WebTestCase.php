@@ -12,6 +12,12 @@ abstract class WebTestCase extends SymfonyWebTestCase
 {
     use FindTestUserFromDBTrait;
 
+    /**
+     * @param array{environment?: string, debug?: bool} $options
+     * @param array<string, string>                     $server
+     *
+     * @phpstan-ignore-next-line
+     */
     protected static function createClient(array $options = [], array $server = []): KernelBrowser
     {
         $additionalHeaders = [

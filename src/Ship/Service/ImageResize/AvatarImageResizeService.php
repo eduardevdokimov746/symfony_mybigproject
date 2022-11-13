@@ -17,9 +17,9 @@ class AvatarImageResizeService extends AbstractImageResizeService
         $cropSize = min($originWidth, $originHeight);
 
         if ($originHeight === $cropSize) {
-            $x = round(($originWidth - $cropSize) / 2);
+            $x = (int) round(($originWidth - $cropSize) / 2);
         } else {
-            $y = round(($originHeight - $cropSize) / 2);
+            $y = (int) round(($originHeight - $cropSize) / 2);
         }
 
         return [

@@ -15,12 +15,14 @@ class ExceptionMappingResolver
     private array $mappings = [];
 
     /**
+     * @param array<string, array{code?: int, hidden?: bool, loggable?: bool}> $mappings
+     *
      * @throws InvalidArgumentException When the mapping does not contain key code
      */
     public function __construct(array $mappings)
     {
         foreach ($mappings as $class => $mapping) {
-            if (empty($mapping['code'])) {
+            if (!isset($mapping['code'])) {
                 throw new InvalidArgumentException("Code is mandatory for class {$class}");
             }
 
@@ -36,7 +38,7 @@ class ExceptionMappingResolver
     public function resolve(Throwable $throwable): ExceptionMapping
     {
         foreach ($this->mappings as $class => $exceptionMapping) {
-            if ($throwable::class === $class || is_subclass_of($throwable::class, $class)) {
+            if (is_a($throwable, $class)) {
                 $exceptionMapping->setThrowable($throwable);
 
                 return $exceptionMapping;

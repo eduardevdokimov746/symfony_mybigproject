@@ -35,7 +35,6 @@ class RequestController extends Controller
             $request->isMethod('POST')
             && $this->isValid($dto = $this->createDTO(GenerateAndSendResetPasswordTokenDTO::class))
         ) {
-            /** @var GenerateAndSendResetPasswordTokenDTO $dto */
             $resetPasswordToken = $this->generateAndSendResetPasswordToken->run($dto);
 
             if ($resetPasswordToken instanceof ResetPasswordToken) {

@@ -15,21 +15,17 @@ class UpdateProfileFromAuthUserDTO extends DTO
 {
     #[Assert\Length(max: 255)]
     #[Assert\Regex('#[\d\s]+#', match: false, message: 'only_alpha')]
-    #[DefaultValue(null)]
     public readonly ?string $firstName;
 
     #[Assert\Length(max: 255)]
     #[Assert\Regex('#[\d\s]+#', match: false, message: 'only_alpha')]
-    #[DefaultValue(null)]
     public readonly ?string $lastName;
 
     #[Assert\Length(max: 255)]
     #[Assert\Regex('#[\d\s]+#', match: false, message: 'only_alpha')]
-    #[DefaultValue(null)]
     public readonly ?string $patronymic;
 
     #[Assert\Type('string')]
-    #[DefaultValue(null)]
     public readonly ?string $about;
 
     #[Assert\Image(
@@ -39,7 +35,6 @@ class UpdateProfileFromAuthUserDTO extends DTO
         mimeTypes: ['image/png', 'image/jpeg', 'image/gif'],
         mimeTypesMessage: 'This file is not a valid image.'
     )]
-    #[DefaultValue(value: null)]
     public readonly ?UploadedFile $avatar;
 
     #[Assert\Type('bool')]

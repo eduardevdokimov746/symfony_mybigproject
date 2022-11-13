@@ -17,12 +17,14 @@ use Symfony\Component\Routing\Annotation\Route;
 )]
 class SwitchController extends Controller
 {
-    public function __construct(private SwitchAction $switchAction)
-    {
+    public function __construct(
+        private SwitchAction $switchAction
+    ) {
     }
 
     public function __invoke(Request $request): Response
     {
+        /** @phpstan-ignore-next-line */
         return $this->switchAction->run($request->server->get('HTTP_REFERER'));
     }
 }

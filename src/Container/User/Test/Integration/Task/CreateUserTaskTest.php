@@ -21,8 +21,8 @@ class CreateUserTaskTest extends KernelTestCase
 
         $user = $createUserTask->run('user', 'user@mail.com', 'password');
 
-        $this->assertInstanceOf(User::class, $user);
-        $this->assertSame('user', $user->getLogin());
-        $this->assertSame('user@mail.com', $user->getEmail());
+        self::assertInstanceOf(User::class, $user);
+        self::assertSame('user', $user->getLogin());
+        self::assertSame('user@mail.com', $user->getEmail());
     }
 }

@@ -22,6 +22,6 @@ class MarkUserEmailVerifiedTaskTest extends KernelTestCase
 
         $markUserEmailVerifiedTask->run(1);
 
-        $this->assertTrue($user->isEmailVerified());
+        self::assertTrue($user->isEmailVerified());
     }
 }

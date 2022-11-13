@@ -16,7 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class CategoryFormType extends FormType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('ru_name', TextType::class, [
@@ -46,12 +46,13 @@ class CategoryFormType extends FormType
         ;
 
         $builder->get('active')->addModelTransformer(new CallbackTransformer(
+            /** @phpstan-ignore-next-line */
             fn (bool $value) => $builder->getData() ? $value : Category::ACTIVE_DEFAULT,
             fn (bool $value) => $value
         ));
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         parent::configureOptions($resolver);
 
@@ -62,6 +63,7 @@ class CategoryFormType extends FormType
                 $enName = $form->get('en_name')->getData() ?? '';
                 $active = $form->get('active')->getData();
 
+                /** @phpstan-ignore-next-line */
                 return (new Category($ruName, $enName))->setActive($active);
             },
             'required' => false,

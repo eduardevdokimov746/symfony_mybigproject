@@ -16,10 +16,10 @@ class ChangeUserPasswordTaskTest extends TestCase
 {
     public function testRun(): void
     {
-        $passwordHasher = $this->createStub(UserPasswordHasherInterface::class);
-        $entityManager = $this->createStub(EntityManagerInterface::class);
-        $findUserById = $this->createStub(FindUserByIdTask::class);
-        $logger = $this->createStub(LoggerInterface::class);
+        $passwordHasher = self::createStub(UserPasswordHasherInterface::class);
+        $entityManager = self::createStub(EntityManagerInterface::class);
+        $findUserById = self::createStub(FindUserByIdTask::class);
+        $logger = self::createStub(LoggerInterface::class);
 
         $passwordHasher->method('hashPassword')->willReturn('new-hash');
 
@@ -31,7 +31,7 @@ class ChangeUserPasswordTaskTest extends TestCase
 
         $userWithNewPassword = $changeUserPasswordTask->run(1, 'new-password');
 
-        $this->assertInstanceOf(User::class, $userWithNewPassword);
-        $this->assertSame('new-hash', $userWithNewPassword->getPassword());
+        self::assertInstanceOf(User::class, $userWithNewPassword);
+        self::assertSame('new-hash', $userWithNewPassword->getPassword());
     }
 }

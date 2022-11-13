@@ -34,13 +34,16 @@ class GetRefererRouteByUrlTask extends Task
             throw new RuntimeException(sprintf($this->exceptionMessage, ...[...$this->getAvailableKeys(), $key]));
         }
 
-        if ($refererRoute = $this->run($refererUrl)) {
+        if (null !== $refererRoute = $this->run($refererUrl)) {
             return $refererRoute['route'][$key];
         }
 
         return null;
     }
 
+    /**
+     * @return array<self::*>
+     */
     public function getAvailableKeys(): array
     {
         return [self::ROURE, self::CONTROLLER];
@@ -49,17 +52,20 @@ class GetRefererRouteByUrlTask extends Task
     /**
      * @param string $refererUrl For example from $_SERVER['HTTP_REFERER']
      *
-     * @return null|array Null is returned if the route is not found
+     * @return null|array{
+     *     route: array<string, string>,
+     *     parameters: array<int|string, list<mixed>|mixed>
+     * } Null is returned if the route is not found
      */
     public function run(string $refererUrl): ?array
     {
         $parseUrl = parse_url($refererUrl);
 
-        if (empty($parseUrl['path'])) {
+        if (!isset($parseUrl['path'])) {
             return null;
         }
 
-        if (!empty($parseUrl['query'])) {
+        if (isset($parseUrl['query']) && '' !== $parseUrl['query']) {
             parse_str($parseUrl['query'], $queryString);
         }
 
@@ -74,9 +80,20 @@ class GetRefererRouteByUrlTask extends Task
         }
     }
 
+    /**
+     * @param array<string, mixed> $match
+     *
+     * @return array{
+     *     route: array<string, string>,
+     *     parameters: array<int|string, list<mixed>|mixed>
+     * }
+     */
     private function mapRoute(array $match): array
     {
-        $route = array_filter($match, fn ($key) => 1 === preg_match('#^_.*#', $key), ARRAY_FILTER_USE_KEY);
+        $callback = fn (string $key): bool => 1 === preg_match('#^_.*#', $key);
+
+        /** @var array<string, string> $route */
+        $route = array_filter($match, $callback, ARRAY_FILTER_USE_KEY);
 
         $parameters = array_diff_key($match, $route);
 
@@ -86,6 +103,9 @@ class GetRefererRouteByUrlTask extends Task
         ];
     }
 
+    /**
+     * @return array<array<int|string>|string>
+     */
     private function mapQueryString(string $refererUrl): array
     {
         $queryString = [];

@@ -21,19 +21,17 @@ class FilterDataListener implements EventSubscriberInterface
             $request = $event->getRequest()->request;
 
             foreach ($request->all() as $name => $value) {
-                $request->set($name, $this->filter($value));
+                if (is_string($value)) {
+                    $request->set($name, $this->filter($value));
+                }
             }
         }
     }
 
-    private function filter(mixed $value): mixed
+    private function filter(string $value): ?string
     {
-        if (is_string($value)) {
-            $value = trim(htmlspecialchars($value));
+        $value = trim(htmlspecialchars($value));
 
-            return '' === $value ? null : $value;
-        }
-
-        return $value;
+        return '' === $value ? null : $value;
     }
 }

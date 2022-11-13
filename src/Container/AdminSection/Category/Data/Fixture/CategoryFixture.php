@@ -15,7 +15,7 @@ class CategoryFixture extends Fixture
     ) {
     }
 
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $this->createCategoryTask->run('Спорт', 'Sport');
         $this->createCategoryTask->run('Экшен', 'Action');

@@ -12,14 +12,14 @@ class CreateProfileTaskTest extends TestCase
 {
     public function testRun(): void
     {
-        $entityManager = $this->createStub(EntityManagerInterface::class);
+        $entityManager = self::createStub(EntityManagerInterface::class);
 
         $createProfileTask = new CreateProfileTask($entityManager);
 
         $profile = $createProfileTask->run($this->createUser(), 'firstName', 'lastName', 'patronymic');
 
-        $this->assertSame('firstName', $profile->getFirstName());
-        $this->assertSame('lastName', $profile->getLastName());
-        $this->assertSame('patronymic', $profile->getPatronymic());
+        self::assertSame('firstName', $profile->getFirstName());
+        self::assertSame('lastName', $profile->getLastName());
+        self::assertSame('patronymic', $profile->getPatronymic());
     }
 }

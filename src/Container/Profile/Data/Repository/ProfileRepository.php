@@ -8,6 +8,9 @@ use App\Container\Profile\Entity\Doc\Profile;
 use App\Ship\Parent\Repository;
 use Doctrine\Persistence\ManagerRegistry;
 
+/**
+ * @extends Repository<Profile>
+ */
 class ProfileRepository extends Repository
 {
     public function __construct(ManagerRegistry $registry)

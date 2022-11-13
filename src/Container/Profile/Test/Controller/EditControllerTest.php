@@ -18,7 +18,7 @@ class EditControllerTest extends WebTestCase
 
         $client->request('GET', '/profile/edit');
 
-        $this->assertResponseIsSuccessful();
+        self::assertResponseIsSuccessful();
     }
 
     public function testRequestPOST(): void
@@ -36,7 +36,7 @@ class EditControllerTest extends WebTestCase
             'about' => 'about',
         ]);
 
-        $this->assertTrue($client->getRequest()->getSession()->getFlashBag()->has('success'));
+        self::assertTrue($client->getRequest()->getSession()->getFlashBag()->has('success'));
     }
 
     public function testRequestNotAuthenticated(): void
@@ -45,6 +45,6 @@ class EditControllerTest extends WebTestCase
 
         $client->request('GET', '/profile/edit');
 
-        $this->assertResponseRedirects();
+        self::assertResponseRedirects();
     }
 }

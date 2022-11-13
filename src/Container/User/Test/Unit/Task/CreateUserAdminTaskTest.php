@@ -15,15 +15,15 @@ class CreateUserAdminTaskTest extends TestCase
 {
     public function testRun(): void
     {
-        $entityManager = $this->createStub(EntityManagerInterface::class);
-        $createUserTask = $this->createStub(CreateUserTask::class);
+        $entityManager = self::createStub(EntityManagerInterface::class);
+        $createUserTask = self::createStub(CreateUserTask::class);
         $createUserTask->method('run')->willReturn($this->createUser()->setRole(RoleEnum::Admin));
 
         $createUserAdminTask = new CreateUserAdminTask($createUserTask, $entityManager);
 
         $user = $createUserAdminTask->run('user', 'user@mail.com', 'password');
 
-        $this->assertInstanceOf(User::class, $user);
-        $this->assertSame(RoleEnum::Admin, $user->getRole());
+        self::assertInstanceOf(User::class, $user);
+        self::assertSame(RoleEnum::Admin, $user->getRole());
     }
 }

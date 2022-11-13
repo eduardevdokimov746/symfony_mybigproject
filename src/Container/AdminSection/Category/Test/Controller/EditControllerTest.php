@@ -14,7 +14,7 @@ class EditControllerTest extends WebTestCase
 
         $client->request('GET', '/admin/categories/1');
 
-        $this->assertResponseIsSuccessful();
+        self::assertResponseIsSuccessful();
     }
 
     public function testInvokeGETCategoryNotFound(): void
@@ -23,6 +23,6 @@ class EditControllerTest extends WebTestCase
 
         $client->request('GET', '/admin/categories/999');
 
-        $this->assertResponseStatusCodeSame(404);
+        self::assertResponseStatusCodeSame(404);
     }
 }

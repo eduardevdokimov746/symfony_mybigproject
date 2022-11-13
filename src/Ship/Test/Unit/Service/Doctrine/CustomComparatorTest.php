@@ -17,9 +17,12 @@ class CustomComparatorTest extends TestCase
     {
         $comparator = new CustomComparator();
 
-        $this->assertSame($expected, $comparator->compare(new Version($version1), new Version($version2)));
+        self::assertSame($expected, $comparator->compare(new Version($version1), new Version($version2)));
     }
 
+    /**
+     * @return non-empty-list<non-empty-list<int|string>>
+     */
     public function compareData(): array
     {
         return [

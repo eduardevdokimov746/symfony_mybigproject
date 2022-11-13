@@ -14,6 +14,7 @@ return (new PhpCsFixer\Config())
         'lambda_not_used_import' => false,
         'php_unit_test_class_requires_covers' => false,
         'php_unit_internal_class' => false,
+        'phpdoc_to_comment' => false,
         'blank_line_before_statement' => ['statements' => [
             'continue',
             'declare',
@@ -29,8 +30,8 @@ return (new PhpCsFixer\Config())
             'throw',
             'try',
             'yield',
-            'yield_from'
-        ]]
+            'yield_from',
+        ]],
     ])
     ->setFinder($finder)
 ;

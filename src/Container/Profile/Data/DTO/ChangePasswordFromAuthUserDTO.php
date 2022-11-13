@@ -12,14 +12,14 @@ class ChangePasswordFromAuthUserDTO extends DTO
 {
     #[Assert\NotBlank]
     #[SecurityAssert\UserPassword]
-    public readonly ?string $oldPlainPassword;
+    public readonly string $oldPlainPassword;
 
     #[Assert\NotBlank]
     #[Assert\NotEqualTo(propertyPath: 'oldPlainPassword', message: 'new_password_is_same')]
     #[Assert\Length(min: 3)]
-    public readonly ?string $newPlainPassword;
+    public readonly string $newPlainPassword;
 
     #[Assert\NotBlank]
     #[Assert\EqualTo(propertyPath: 'newPlainPassword', message: 'password_does_match')]
-    public readonly ?string $newPlainPasswordConfirmation;
+    public readonly string $newPlainPasswordConfirmation;
 }

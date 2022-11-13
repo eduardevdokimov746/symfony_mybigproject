@@ -1,0 +1,34 @@
+includes:
+    - vendor/phpstan/phpstan-doctrine/extension.neon
+    - vendor/phpstan/phpstan-phpunit/extension.neon
+    - vendor/phpstan/phpstan-symfony/extension.neon
+    - vendor/phpstan/phpstan-strict-rules/rules.neon
+
+parameters:
+    ignoreErrors:
+        -
+            message: '#has an uninitialized readonly property#'
+            path: *DTO.php
+
+        -
+            message: '#App\\Container\\User\\Entity\\Doc\\User\|null#'
+            path: *Test.php
+
+        -
+            message: '#will always evaluate to true#'
+            path: *Test.php
+
+    excludePaths:
+        - src/Container/Profile/UI/WEB/Controller/OfferNewsController.php
+        - src/Container/Profile/UI/WEB/Controller/PreviewOfferNewsController.php
+        - src/Container/News/UI/WEB/Controller/ShowController.php
+
+    level: 9
+    paths:
+        - src
+
+    symfony:
+        containerXmlPath: var/cache/dev/App_KernelDevDebugContainer.xml
+
+    strictRules:
+        noVariableVariables: false

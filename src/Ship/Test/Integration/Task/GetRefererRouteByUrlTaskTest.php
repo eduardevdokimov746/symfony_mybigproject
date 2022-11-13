@@ -24,7 +24,7 @@ class GetRefererRouteByUrlTaskTest extends KernelTestCase
      */
     public function testRunExpectNull(string $refererUrl): void
     {
-        $this->assertNull($this->refererRouteByUrlTask->run($refererUrl));
+        self::assertNull($this->refererRouteByUrlTask->run($refererUrl));
     }
 
     /**
@@ -32,9 +32,12 @@ class GetRefererRouteByUrlTaskTest extends KernelTestCase
      */
     public function testGetOnlyExpectNull(string $refererUrl): void
     {
-        $this->assertNull($this->refererRouteByUrlTask->getOnly($refererUrl, $this->refererRouteByUrlTask::ROURE));
+        self::assertNull($this->refererRouteByUrlTask->getOnly($refererUrl, $this->refererRouteByUrlTask::ROURE));
     }
 
+    /**
+     * @return list<list<string>>
+     */
     public function badRefererUrlProvider(): array
     {
         return [

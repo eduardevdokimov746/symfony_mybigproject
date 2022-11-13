@@ -34,7 +34,7 @@ class ResetController extends Controller
 
     public function __invoke(Request $request, ?string $token = null): Response
     {
-        if ($token && $this->isTokenValid($token)) {
+        if (null !== $token && $this->isTokenValid($token)) {
             $this->storeTokenInSession($token);
 
             return $this->redirectToRoute('reset_password.reset');
@@ -48,7 +48,6 @@ class ResetController extends Controller
             $request->isMethod('POST')
             && $this->isValid($dto = $this->createDTO(RemoveResetTokenAndChangeUserPasswordDTO::class))
         ) {
-            /** @var RemoveResetTokenAndChangeUserPasswordDTO $dto */
             $this->removeResetTokenAndChangeUserPasswordAction->run($token, $dto->plainPassword);
 
             $this->cleanSessionAfterReset();

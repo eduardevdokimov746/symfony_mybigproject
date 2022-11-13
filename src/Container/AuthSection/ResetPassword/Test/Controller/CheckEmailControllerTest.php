@@ -14,7 +14,7 @@ class CheckEmailControllerTest extends WebTestCase
 
         $client->request('GET', '/reset-password/check-email');
 
-        $this->assertResponseIsSuccessful();
+        self::assertResponseIsSuccessful();
     }
 
     public function testRequestNotGuest(): void
@@ -27,6 +27,6 @@ class CheckEmailControllerTest extends WebTestCase
 
         $client->request('GET', '/reset-password/check-email');
 
-        $this->assertResponseRedirects();
+        self::assertResponseRedirects();
     }
 }

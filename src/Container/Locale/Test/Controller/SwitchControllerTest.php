@@ -14,6 +14,6 @@ class SwitchControllerTest extends WebTestCase
 
         $client->request('GET', '/locale/switch');
 
-        $this->assertResponseRedirects();
+        self::assertResponseRedirects();
     }
 }

@@ -22,7 +22,7 @@ class GenerateAndSendResetPasswordTokenActionTest extends KernelTestCase
         $findUserByVerifiedEmailTask = self::getContainer()->get(FindUserByVerifiedEmailTask::class);
         $resetPasswordHelper = self::getContainer()->get(ResetPasswordHelperInterface::class);
         $sendEmailResetPasswordTask = self::getContainer()->get(SendEmailResetPasswordTask::class);
-        $logger = $this->createStub(LoggerInterface::class);
+        $logger = self::createStub(LoggerInterface::class);
 
         $this->generateAndSendResetPasswordTokenAction = new GenerateAndSendResetPasswordTokenAction(
             $findUserByVerifiedEmailTask,
@@ -38,8 +38,8 @@ class GenerateAndSendResetPasswordTokenActionTest extends KernelTestCase
             GenerateAndSendResetPasswordTokenDTO::create(['email' => 'admin@mail.com'])
         );
 
-        $this->assertInstanceOf(ResetPasswordToken::class, $result);
-        $this->assertEmailCount(1);
+        self::assertInstanceOf(ResetPasswordToken::class, $result);
+        self::assertEmailCount(1);
     }
 
     public function testRunExpectString(): void
@@ -48,6 +48,6 @@ class GenerateAndSendResetPasswordTokenActionTest extends KernelTestCase
             GenerateAndSendResetPasswordTokenDTO::create(['email' => 'ens@mail.com'])
         );
 
-        $this->assertIsString($result);
+        self::assertIsString($result);
     }
 }

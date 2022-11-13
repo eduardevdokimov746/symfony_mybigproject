@@ -24,7 +24,7 @@ class FindProfileByIdTaskTest extends KernelTestCase
     {
         $profile = $this->findProfileByIdTask->run(1);
 
-        $this->assertInstanceOf(Profile::class, $profile);
+        self::assertInstanceOf(Profile::class, $profile);
     }
 
     public function testRunExceptException(): void

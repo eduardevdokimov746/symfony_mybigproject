@@ -14,6 +14,10 @@ class ExceptionNormalizer implements NormalizerInterface
 {
     /**
      * @param FlattenException $object
+     *
+     * @return array{code: int, message: string}
+     *
+     * @phpstan-ignore-next-line
      */
     public function normalize(mixed $object, string $format = null, array $context = []): array
     {
@@ -23,6 +27,9 @@ class ExceptionNormalizer implements NormalizerInterface
         ];
     }
 
+    /**
+     * @param array<string, mixed> $context
+     */
     public function supportsNormalization(mixed $data, string $format = null, array $context = []): bool
     {
         return $data instanceof FlattenException;

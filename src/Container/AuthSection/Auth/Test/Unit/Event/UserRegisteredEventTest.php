@@ -15,6 +15,6 @@ class UserRegisteredEventTest extends TestCase
 
         $userRegisteredEvent = new UserRegisteredEvent($user);
 
-        $this->assertEquals($user, $userRegisteredEvent->getUser());
+        self::assertEquals($user, $userRegisteredEvent->getUser());
     }
 }

@@ -38,8 +38,10 @@ class ImageStorage
 
     private function makeFileName(SplFileInfo $file): string
     {
-        $extension = $file instanceof UploadedFile ? $file->guessExtension() : $file->getExtension();
+        $extension = $file instanceof UploadedFile ? (string) $file->guessExtension() : $file->getExtension();
 
-        return uniqid().(!$extension ?: ".{$extension}");
+        $extension = '' !== $extension ? '.'.$extension : '';
+
+        return uniqid().$extension;
     }
 }

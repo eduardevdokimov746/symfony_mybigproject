@@ -31,7 +31,6 @@ class EditController extends Controller
             $request->isMethod('PATCH')
             && $this->isValid($dto = $this->createDTO(UpdateProfileFromAuthUserDTO::class))
         ) {
-            /** @var UpdateProfileFromAuthUserDTO $dto */
             $this->updateProfileFromAuthUserAction->run($dto);
 
             $this->addFlash('success', '');

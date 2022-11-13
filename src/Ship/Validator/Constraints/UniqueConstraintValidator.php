@@ -24,7 +24,7 @@ class UniqueConstraintValidator extends ConstraintValidator
         }
 
         $entity = $constraint->entity;
-        $property = $constraint->property ?? $this->context->getPropertyName();
+        $property = $constraint->property ?? $this->context->getPropertyName() ?? '';
 
         if (!class_exists($entity)) {
             throw new InvalidOptionsException('Entity {'.$entity.'} does not exists', [$entity]);

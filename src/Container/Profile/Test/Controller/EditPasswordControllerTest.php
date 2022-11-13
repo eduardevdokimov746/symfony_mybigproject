@@ -18,7 +18,7 @@ class EditPasswordControllerTest extends WebTestCase
 
         $client->request('GET', '/profile/edit-password');
 
-        $this->assertResponseIsSuccessful();
+        self::assertResponseIsSuccessful();
     }
 
     public function testRequestPOST(): void
@@ -35,7 +35,7 @@ class EditPasswordControllerTest extends WebTestCase
             'newPlainPasswordConfirmation' => 'new-password',
         ]);
 
-        $this->assertTrue($client->getRequest()->getSession()->getFlashBag()->has('success'));
+        self::assertTrue($client->getRequest()->getSession()->getFlashBag()->has('success'));
     }
 
     public function testRequestNotAuthenticated(): void
@@ -44,6 +44,6 @@ class EditPasswordControllerTest extends WebTestCase
 
         $client->request('GET', '/profile/edit-password');
 
-        $this->assertResponseRedirects();
+        self::assertResponseRedirects();
     }
 }

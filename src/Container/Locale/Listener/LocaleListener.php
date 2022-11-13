@@ -15,6 +15,9 @@ use Symfony\Component\Translation\LocaleSwitcher;
 
 class LocaleListener implements EventSubscriberInterface
 {
+    /**
+     * @param list<string> $enabledLocales
+     */
     public function __construct(
         private LocaleSwitcher $localeSwitcher,
         private UrlGeneratorInterface $urlGenerator,
@@ -38,14 +41,14 @@ class LocaleListener implements EventSubscriberInterface
             $request = $event->getRequest();
 
             if (null === ($locale = $request->cookies->get($this->localeCookieName))) {
-                $locale = $this->getFromAcceptLanguageHeader($request) ?: $this->defaultLocale;
+                $locale = $this->getFromAcceptLanguageHeaderOrDefault($request);
             }
 
             $this->localeSwitcher->setLocale($locale);
 
             try {
                 if (
-                    $request->attributes->get('_locale', $locale) !== $locale
+                    $request->attributes->get('_locale', $locale) !== $locale /** @phpstan-ignore-line */
                     && $request->attributes->get('_route')
                 ) {
                     $event->setResponse(new RedirectResponse($this->makeRedirectUrl($request)));
@@ -55,17 +58,18 @@ class LocaleListener implements EventSubscriberInterface
         }
     }
 
-    private function getFromAcceptLanguageHeader(Request $request): string|false
+    private function getFromAcceptLanguageHeaderOrDefault(Request $request): string
     {
-        if (!$this->useAcceptLanguageHeader || empty($this->enabledLocales)) {
-            return false;
+        if (!$this->useAcceptLanguageHeader || 0 === count($this->enabledLocales)) {
+            return $this->defaultLocale;
         }
 
-        return $request->getPreferredLanguage($this->enabledLocales);
+        return $request->getPreferredLanguage($this->enabledLocales) ?? $this->defaultLocale;
     }
 
     private function makeRedirectUrl(Request $request): string
     {
+        /** @phpstan-ignore-next-line */
         return $this->urlGenerator->generate($request->attributes->get('_route'));
     }
 }

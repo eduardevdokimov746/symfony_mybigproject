@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Ship\Service\ImageResize;
 
 use App\Ship\Contract\ImageResize;
+use App\Ship\Helper\File;
 use DomainException;
 use GdImage;
 use RuntimeException;
@@ -13,13 +14,17 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 abstract class AbstractImageResizeService implements ImageResize
 {
-    private function __construct(
-        private SplFileInfo $origin,
-        private string $extension
-    ) {
-        if ($this->origin->isDir()) {
+    private SplFileInfo $origin;
+    private string $extension;
+
+    final private function __construct(SplFileInfo $origin, string $extension)
+    {
+        if ($origin->isDir()) {
             throw new RuntimeException('The file cannot be a directory');
         }
+
+        $this->origin = $origin;
+        $this->extension = trim($extension, '.');
     }
 
     final public static function shouldResize(SplFileInfo $file): bool
@@ -30,7 +35,7 @@ abstract class AbstractImageResizeService implements ImageResize
 
     final public static function createFromUploadedFile(UploadedFile $file): static
     {
-        return static::create($file, $file->guessExtension());
+        return static::create($file, (string) $file->guessExtension());
     }
 
     final public static function create(SplFileInfo $file, string $extension): static
@@ -40,16 +45,13 @@ abstract class AbstractImageResizeService implements ImageResize
 
     final public function run(): SplFileInfo
     {
-        $originGd = imagecreatefromstring(file_get_contents($this->getOrigin()->getPathname()));
+        $data = File::getContent($this->getOrigin()->getPathname());
 
-        $cropGd = $this->crop($originGd);
+        $originGd = File::createImageFromString($data);
 
-        $resizeGd = imagescale(
-            $cropGd,
-            static::width(),
-            static::height(),
-            IMG_BICUBIC
-        );
+        $cropGd = File::imageCrop($originGd, $this->getRectangleForCrop());
+
+        $resizeGd = File::imageScale($cropGd, static::width(), static::height());
 
         $tmpFile = $this->createTemporaryFile();
 
@@ -73,27 +75,27 @@ abstract class AbstractImageResizeService implements ImageResize
         throw new RuntimeException('The method "'.__METHOD__.'" must be defined in the child class');
     }
 
+    /**
+     * @return array{x: int, y: int, width: int, height: int}
+     */
     abstract protected function getRectangleForCrop(): array;
 
     final protected static function getSize(SplFileInfo $file, string $key): int
     {
+        $imageSize = File::getImageSize($file->getPathname());
+
         return match ($key) {
-            'width' => getimagesize($file->getPathname())[0],
-            'height' => getimagesize($file->getPathname())[1],
+            'width' => (int) $imageSize[0],
+            'height' => (int) $imageSize[1],
             default => throw new DomainException(
                 sprintf('Key %s is not supported. Available options %s.', $key, implode(',', ['width', 'height']))
             )
         };
     }
 
-    private function crop(GdImage $originGd): GdImage
-    {
-        return imagecrop($originGd, $this->getRectangleForCrop());
-    }
-
     private function createTemporaryFile(): string
     {
-        return tempnam(sys_get_temp_dir(), self::TMP_PREFIX).'.'.ltrim($this->extension, '.');
+        return File::createTmpFile(self::TMP_PREFIX).'.'.$this->extension;
     }
 
     private function write(string $tmpFile, GdImage $resize): void

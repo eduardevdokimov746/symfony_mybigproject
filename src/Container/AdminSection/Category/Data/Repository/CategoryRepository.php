@@ -5,12 +5,15 @@ declare(strict_types=1);
 namespace App\Container\AdminSection\Category\Data\Repository;
 
 use App\Container\AdminSection\Category\Entity\Book\Category;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Ship\Parent\Repository;
 use Doctrine\Persistence\ManagerRegistry;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
 
-class CategoryRepository extends ServiceEntityRepository
+/**
+ * @extends Repository<Category>
+ */
+class CategoryRepository extends Repository
 {
     private PaginatorInterface $paginator;
 
@@ -21,6 +24,9 @@ class CategoryRepository extends ServiceEntityRepository
         $this->paginator = $paginator;
     }
 
+    /**
+     * @return PaginationInterface<int, Category>
+     */
     public function getAllWithPagination(int $page, int $limit): PaginationInterface
     {
         $dql = 'SELECT c FROM '.Category::class.' as c ORDER BY c.id';

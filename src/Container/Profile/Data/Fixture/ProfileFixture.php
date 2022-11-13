@@ -13,18 +13,14 @@ use Doctrine\Persistence\ObjectManager;
 
 class ProfileFixture extends Fixture implements DependentFixtureInterface
 {
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
-        /** @var User $user */
-        $user = $this->getReference(UserFixture::REFERENCE);
-
-        /** @var User $user */
+        $defaultUser = $this->getReference(UserFixture::REFERENCE);
         $admin = $this->getReference(UserFixture::REFERENCE_ADMIN);
-
-        /** @var User $inactiveUser $inactiveUser */
         $inactiveUser = $this->getReference(UserFixture::INACTIVE);
 
-        foreach ([$user, $admin, $inactiveUser] as $user) {
+        /** @var User */
+        foreach ([$defaultUser, $admin, $inactiveUser] as $user) {
             $profile = new Profile($user);
             $profile
                 ->setFirstName('FirstName')

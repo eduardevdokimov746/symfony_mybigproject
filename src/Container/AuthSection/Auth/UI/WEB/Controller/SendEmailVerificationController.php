@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Container\AuthSection\Auth\UI\WEB\Controller;
 
 use App\Container\AuthSection\Auth\Action\SendEmailVerificationAction;
+use App\Container\User\Entity\Doc\User;
 use App\Ship\Parent\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,14 +29,17 @@ class SendEmailVerificationController extends Controller
 
     public function __invoke(Request $request): Response
     {
-        if ($this->getUser()->isEmailVerified()) {
+        /** @var User $user */
+        $user = $this->getUser();
+
+        if ($user->isEmailVerified()) {
             return $this->redirectToRoute($this->getParameter('app_default_route'));
         }
 
         if ($this->sendEmailLimiter->create($request->getClientIp())->consume()->isAccepted()) {
-            $signatureComponents = $this->sendEmailVerificationAction->run($this->getUser());
+            $signatureComponents = $this->sendEmailVerificationAction->run($user);
         } else {
-            $signatureComponents = $this->sendEmailVerificationAction->getFakeSignatureComponents($this->getUser());
+            $signatureComponents = $this->sendEmailVerificationAction->getFakeSignatureComponents($user);
         }
 
         return $this->render('@auth/email_sent.html.twig', ['signature_components' => $signatureComponents]);

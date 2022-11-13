@@ -16,19 +16,19 @@ class FindUserByVerifiedEmailTaskTest extends TestCase
     {
         $user = $this->createUser()->setEmailVerified(true);
 
-        $userRepository = $this->createStub(UserRepository::class);
+        $userRepository = self::createStub(UserRepository::class);
         $userRepository->method('findOneBy')->willReturn($user);
 
         $findUserByVerifiedEmailTask = new FindUserByVerifiedEmailTask($userRepository);
 
         $findUser = $findUserByVerifiedEmailTask->run('user@mail.com');
 
-        $this->assertInstanceOf(User::class, $findUser);
+        self::assertInstanceOf(User::class, $findUser);
     }
 
     public function testRunExpectException(): void
     {
-        $userRepository = $this->createStub(UserRepository::class);
+        $userRepository = self::createStub(UserRepository::class);
 
         $findUserByVerifiedEmailTask = new FindUserByVerifiedEmailTask($userRepository);
 

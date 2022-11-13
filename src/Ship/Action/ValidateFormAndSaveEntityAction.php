@@ -22,7 +22,7 @@ class ValidateFormAndSaveEntityAction extends Action
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
 
-            if (!is_object($data) || empty((new ReflectionClass($data::class))->getAttributes(Entity::class))) {
+            if (!is_object($data) || 0 === count((new ReflectionClass($data::class))->getAttributes(Entity::class))) {
                 return false;
             }
 

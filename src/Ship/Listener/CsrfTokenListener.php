@@ -55,8 +55,8 @@ class CsrfTokenListener implements EventSubscriberInterface
 
             if (
                 'test' !== $this->env
-                && in_array($request->getMethod(), self::CHECK_METHODS)
-                && !$this->csrfTokenManager->isTokenValid(new CsrfToken($this->csrfId, $checkValue ?? ''))
+                && in_array($request->getMethod(), self::CHECK_METHODS, true)
+                && !$this->csrfTokenManager->isTokenValid(new CsrfToken($this->csrfId, $checkValue ?? '')) /** @phpstan-ignore-line */
             ) {
                 throw new InvalidCsrfTokenException('Csrf token is not valid');
             }

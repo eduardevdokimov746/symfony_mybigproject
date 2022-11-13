@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Ship\Listener;
 
-use App\Ship\Helper\RemoveFilesFromTmpDir;
+use App\Ship\Helper\File;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 
@@ -17,6 +17,6 @@ class ClearTmpDirListener implements EventSubscriberInterface
 
     public function onKernelTerminate(): void
     {
-        RemoveFilesFromTmpDir::run();
+        File::removeTmpFiles();
     }
 }

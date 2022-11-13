@@ -12,7 +12,7 @@ trait UserPasswordHasherTrait
     private function userPasswordHasher(UserPasswordHasherInterface $userPasswordHasher): callable
     {
         return function (User $user, string $plainPassword) use ($userPasswordHasher): string {
-            return $this->passwordHasher->hashPassword($user, $plainPassword);
+            return $userPasswordHasher->hashPassword($user, $plainPassword);
         };
     }
 }

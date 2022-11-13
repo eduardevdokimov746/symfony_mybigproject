@@ -10,10 +10,10 @@ use App\Container\Profile\Task\ChangeAvatarTask;
 use App\Container\Profile\Task\DeleteAvatarTask;
 use App\Container\Profile\Task\UpdateProfileFullNameAndAboutTask;
 use App\Container\User\Entity\Doc\User;
+use App\Ship\Helper\Security;
 use App\Ship\Parent\Test\KernelTestCase;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
-use Symfony\Component\Security\Core\Security;
 
 class UpdateProfileFromAuthUserActionTest extends KernelTestCase
 {
@@ -53,9 +53,9 @@ class UpdateProfileFromAuthUserActionTest extends KernelTestCase
         /** @var User $authUser */
         $authUser = $security->getUser();
 
-        $this->assertNotSame($oldFirstName, $authUser->getProfile()->getFirstName());
-        $this->assertNotSame($oldLastName, $authUser->getProfile()->getLastName());
-        $this->assertNotSame($oldPatronymic, $authUser->getProfile()->getPatronymic());
-        $this->assertNotSame($oldAbout, $authUser->getProfile()->getAbout());
+        self::assertNotSame($oldFirstName, $authUser->getProfile()->getFirstName());
+        self::assertNotSame($oldLastName, $authUser->getProfile()->getLastName());
+        self::assertNotSame($oldPatronymic, $authUser->getProfile()->getPatronymic());
+        self::assertNotSame($oldAbout, $authUser->getProfile()->getAbout());
     }
 }

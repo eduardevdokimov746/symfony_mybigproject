@@ -18,6 +18,9 @@ class FormatDateTimeFactory
 
     private string $message = "The current locale '%s' is not support. Available locales [%s].";
 
+    /**
+     * @param list<string> $enabledLocales
+     */
     public function __construct(
         private array $enabledLocales,
         private LocaleSwitcher $localeSwitcher
@@ -26,6 +29,7 @@ class FormatDateTimeFactory
 
     public function __invoke(): IntlDateFormatter
     {
+        /** @phpstan-ignore-next-line */
         return new IntlDateFormatter($this->getCurrentLocale(), pattern: $this->getPattern());
     }
 

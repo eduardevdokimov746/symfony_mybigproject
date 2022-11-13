@@ -16,6 +16,7 @@ class SessionFlashBagStorageErrorAdapter implements StorageErrorAdapter
 
     public function __construct(RequestStack $requestStack)
     {
+        /** @phpstan-ignore-next-line */
         $this->flashBag = $requestStack->getCurrentRequest()->getSession()->getFlashBag();
     }
 
@@ -24,14 +25,14 @@ class SessionFlashBagStorageErrorAdapter implements StorageErrorAdapter
         $messagesGroupedByPropertyPath = [];
 
         foreach ($list as $constraintViolation) {
-            $messagesGroupedByPropertyPath[$constraintViolation->getPropertyPath()][] = $constraintViolation->getMessage();
+            $messagesGroupedByPropertyPath[$constraintViolation->getPropertyPath()][] = (string) $constraintViolation->getMessage();
         }
 
         foreach ($messagesGroupedByPropertyPath as $propertyPath => $messages) {
             $this->flashBag->get(FlashBagNameEnum::ERROR->getNameFor($propertyPath));
 
             array_map(
-                fn (string $message) => $this->flashBag->add(FlashBagNameEnum::ERROR->getNameFor($propertyPath), $message),
+                fn (string $message): mixed => $this->flashBag->add(FlashBagNameEnum::ERROR->getNameFor($propertyPath), $message),
                 $messages
             );
         }

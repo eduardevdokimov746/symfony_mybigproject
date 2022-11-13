@@ -24,8 +24,8 @@ class FindUserByVerifiedEmailTaskTest extends KernelTestCase
     {
         $user = $this->findUserByVerifiedEmailTask->run('admin@mail.com');
 
-        $this->assertInstanceOf(User::class, $user);
-        $this->assertTrue($user->isEmailVerified());
+        self::assertInstanceOf(User::class, $user);
+        self::assertTrue($user->isEmailVerified());
     }
 
     public function testRunExpectException(): void

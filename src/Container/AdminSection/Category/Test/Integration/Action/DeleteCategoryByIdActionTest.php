@@ -27,12 +27,12 @@ class DeleteCategoryByIdActionTest extends KernelTestCase
 
     public function testRunDeleteExistsCategory(): void
     {
-        $this->assertTrue($this->deleteCategoryByIdAction->run(1));
-        $this->assertNull($this->entityManager->find(Category::class, 1));
+        self::assertTrue($this->deleteCategoryByIdAction->run(1));
+        self::assertNull($this->entityManager->find(Category::class, 1));
     }
 
     public function testRunDeleteNotExistsCategory(): void
     {
-        $this->assertFalse($this->deleteCategoryByIdAction->run(999));
+        self::assertFalse($this->deleteCategoryByIdAction->run(999));
     }
 }
