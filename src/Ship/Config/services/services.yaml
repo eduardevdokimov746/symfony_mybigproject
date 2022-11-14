@@ -1,6 +1,7 @@
 parameters:
     app_name: '%env(APP_NAME)%'
     app_default_route: home.main
+    app_public_dir: '%kernel.project_dir%/public'
 
 services:
     _defaults:

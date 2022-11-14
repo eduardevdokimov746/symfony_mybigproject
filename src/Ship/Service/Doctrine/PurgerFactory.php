@@ -8,6 +8,9 @@ use Doctrine\Bundle\FixturesBundle\Purger\PurgerFactory as PurgerFactoryInterfac
 use Doctrine\Common\DataFixtures\Purger\PurgerInterface;
 use Doctrine\ORM\EntityManagerInterface;
 
+/**
+ * @codeCoverageIgnore
+ */
 class PurgerFactory implements PurgerFactoryInterface
 {
     public function createForEntityManager(?string $emName, EntityManagerInterface $em, array $excluded = [], bool $purgeWithTruncate = false): PurgerInterface

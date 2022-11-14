@@ -6,11 +6,11 @@ namespace App\Container\AdminSection\Category\Action;
 
 use App\Container\AdminSection\Category\Data\Repository\CategoryRepository;
 use App\Container\AdminSection\Category\Entity\Book\Category;
-use App\Ship\Parent\Task;
+use App\Ship\Parent\Action;
 use App\Ship\Trait\GetPageForPaginatorTrait;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 
-class GetAllCategoriesWithPaginationAction extends Task
+class GetAllCategoriesWithPaginationAction extends Action
 {
     use GetPageForPaginatorTrait;
 

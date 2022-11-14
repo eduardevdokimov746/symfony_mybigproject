@@ -12,12 +12,17 @@ abstract class FormType extends AbstractType
 {
     public function __construct(
         #[Autowire('%csrf_token_id%')]
-        protected string $csrfTokenId
+        protected string $csrfTokenId,
+        #[Autowire('%kernel.environment%')]
+        protected string $env
     ) {
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefault('csrf_token_id', $this->csrfTokenId);
+        $resolver->setDefaults([
+            'csrf_protection' => 'test' !== $this->env,
+            'csrf_token_id' => $this->csrfTokenId,
+        ]);
     }
 }

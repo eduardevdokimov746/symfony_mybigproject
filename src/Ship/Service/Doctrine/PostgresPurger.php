@@ -8,6 +8,9 @@ use Doctrine\Common\DataFixtures\Purger\ORMPurgerInterface;
 use Doctrine\DBAL\Schema\Table;
 use Doctrine\ORM\EntityManagerInterface;
 
+/**
+ * @codeCoverageIgnore
+ */
 class PostgresPurger implements ORMPurgerInterface
 {
     private EntityManagerInterface $entityManager;
