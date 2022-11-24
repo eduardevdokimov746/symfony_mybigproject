@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Container\Profile\Data\Fixture;
 
 use App\Container\Profile\Entity\Doc\Profile;
+use App\Container\Profile\Task\CreateProfileTask;
 use App\Container\User\Data\Fixture\UserFixture;
 use App\Container\User\Entity\Doc\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -13,6 +14,11 @@ use Doctrine\Persistence\ObjectManager;
 
 class ProfileFixture extends Fixture implements DependentFixtureInterface
 {
+    public function __construct(
+        private CreateProfileTask $createProfileTask
+    ) {
+    }
+
     public function load(ObjectManager $manager): void
     {
         $defaultUser = $this->getReference(UserFixture::REFERENCE);
@@ -21,20 +27,22 @@ class ProfileFixture extends Fixture implements DependentFixtureInterface
 
         /** @var User */
         foreach ([$defaultUser, $admin, $inactiveUser] as $user) {
-            $profile = new Profile($user);
-            $profile
-                ->setFirstName('FirstName')
-                ->setLastName('LastName')
-                ->setPatronymic('Patronymic')
-                ->setAbout('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt'.
-                    'ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation '.
-                    'ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in'.
-                    'reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur'.
-                    'sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id'.
-                    'est laborum.')
-            ;
-
-            $manager->persist($profile);
+            $this->createProfileTask->lazy()->run(
+                $user,
+                static function (Profile $profile): void {
+                    $profile
+                        ->setFirstName('FirstName')
+                        ->setLastName('LastName')
+                        ->setPatronymic('Patronymic')
+                        ->setAbout('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt'.
+                            'ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation '.
+                            'ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in'.
+                            'reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur'.
+                            'sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id'.
+                            'est laborum.')
+                    ;
+                }
+            );
         }
 
         $manager->flush();

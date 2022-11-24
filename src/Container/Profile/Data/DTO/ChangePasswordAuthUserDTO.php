@@ -8,7 +8,7 @@ use App\Ship\Parent\DTO;
 use Symfony\Component\Security\Core\Validator\Constraints as SecurityAssert;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class ChangePasswordFromAuthUserDTO extends DTO
+class ChangePasswordAuthUserDTO extends DTO
 {
     #[Assert\NotBlank]
     #[SecurityAssert\UserPassword]

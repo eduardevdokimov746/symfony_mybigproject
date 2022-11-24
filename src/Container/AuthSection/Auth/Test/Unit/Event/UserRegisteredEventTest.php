@@ -11,7 +11,7 @@ class UserRegisteredEventTest extends TestCase
 {
     public function testGetUser(): void
     {
-        $user = $this->createUser();
+        $user = self::createUser();
 
         $userRegisteredEvent = new UserRegisteredEvent($user);
 

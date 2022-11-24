@@ -12,7 +12,7 @@ class EditControllerTest extends WebTestCase
     {
         $client = self::createClient();
 
-        $user = $this->findUserFromDB();
+        $user = self::findUserFromDB();
 
         $client->loginUser($user);
 
@@ -25,7 +25,7 @@ class EditControllerTest extends WebTestCase
     {
         $client = self::createClient();
 
-        $user = $this->findUserFromDB();
+        $user = self::findUserFromDB();
 
         $client->loginUser($user);
 

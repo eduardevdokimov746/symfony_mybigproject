@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\Ship\Parent;
 
+use App\Ship\Trait\CallbackTrait;
+use App\Ship\Trait\SetEntityManagerTrait;
+
 /**
  * The Tasks are the classes that hold the shared business logic between multiple Actions accross different Containers.
  * Every Task is responsible for a small part of the logic.
@@ -15,4 +18,6 @@ namespace App\Ship\Parent;
  */
 abstract class Task
 {
+    use SetEntityManagerTrait;
+    use CallbackTrait;
 }

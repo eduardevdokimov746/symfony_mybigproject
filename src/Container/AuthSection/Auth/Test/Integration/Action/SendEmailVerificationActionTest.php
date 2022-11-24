@@ -39,7 +39,7 @@ class SendEmailVerificationActionTest extends KernelTestCase
             $logger
         );
 
-        $this->user = $this->findUserFromDB();
+        $this->user = self::findUserFromDB();
     }
 
     public function testRun(): void

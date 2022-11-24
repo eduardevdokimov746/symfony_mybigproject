@@ -8,15 +8,15 @@ use App\Container\Profile\Entity\Doc\Profile;
 use App\Container\User\Entity\Doc\User;
 use App\Ship\Parent\Task;
 
-class CreateProfileTask extends Task
+class UpdateProfileTask extends Task
 {
-    public function run(User $user, callable $callback = null): Profile
+    public function run(User|Profile $profile, callable $callback): Profile
     {
-        $profile = new Profile($user);
+        $profile = $profile instanceof User ? $profile->getProfile() : $profile;
 
         $this->call($callback, $profile);
 
-        $this->persistAndFlush($profile);
+        $this->flush();
 
         return $profile;
     }

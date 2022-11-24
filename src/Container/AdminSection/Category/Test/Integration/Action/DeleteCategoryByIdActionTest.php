@@ -22,7 +22,8 @@ class DeleteCategoryByIdActionTest extends KernelTestCase
         $logger = self::getContainer()->get(LoggerInterface::class);
         $this->entityManager = self::getContainer()->get(EntityManagerInterface::class);
 
-        $this->deleteCategoryByIdAction = new DeleteCategoryByIdAction($findCategoryByIdTask, $logger, $this->entityManager);
+        $this->deleteCategoryByIdAction = new DeleteCategoryByIdAction($findCategoryByIdTask, $logger);
+        $this->deleteCategoryByIdAction->setEntityManager($this->entityManager);
     }
 
     public function testRunDeleteExistsCategory(): void

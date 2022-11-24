@@ -28,7 +28,7 @@ class RemoveResetTokenAndChangeUserPasswordAction extends Action
 
         $this->resetPasswordHelper->removeResetRequest($token);
 
-        $this->changeUserPasswordTask->run($user->getId(), $password);
+        $this->changeUserPasswordTask->run($user, $password);
 
         $this->resetPasswordLogger->debug('Password reset completed successfully');
 

@@ -16,8 +16,8 @@ class FindUserByIdTaskTest extends TestCase
 
     protected function setUp(): void
     {
-        $activeUser = $this->createUser()->activate();
-        $disabledUser = $this->createUser()->disable();
+        $activeUser = self::createUser()->activate();
+        $disabledUser = self::createUser()->disable();
         $userRepository = self::createStub(UserRepository::class);
         $userRepository->method('findOneBy')->willReturn($disabledUser);
         $userRepository->method('findActiveOneBy')->willReturn($activeUser);

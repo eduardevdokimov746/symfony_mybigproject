@@ -23,7 +23,8 @@ class ValidateFormAndSaveEntityActionTest extends KernelTestCase
         $this->form->method('isValid')->willReturn(true);
 
         $entityManager = self::getContainer()->get(EntityManagerInterface::class);
-        $this->validateFormAndSaveEntityAction = new ValidateFormAndSaveEntityAction($entityManager);
+        $this->validateFormAndSaveEntityAction = new ValidateFormAndSaveEntityAction();
+        $this->validateFormAndSaveEntityAction->setEntityManager($entityManager);
     }
 
     public function testRunFormWithNotEntity(): void
@@ -37,7 +38,7 @@ class ValidateFormAndSaveEntityActionTest extends KernelTestCase
 
     public function testRunFormWithEntity(): void
     {
-        $this->form->method('getData')->willReturn($this->createUser());
+        $this->form->method('getData')->willReturn(self::createUser());
 
         self::assertTrue($this->validateFormAndSaveEntityAction->run($this->form));
     }

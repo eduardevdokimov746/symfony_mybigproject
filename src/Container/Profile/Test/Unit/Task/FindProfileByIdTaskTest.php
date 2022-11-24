@@ -15,7 +15,7 @@ class FindProfileByIdTaskTest extends TestCase
     public function testRun(): void
     {
         $profileRepository = self::createStub(ProfileRepository::class);
-        $profileRepository->method('find')->willReturn(new Profile($this->createUser()));
+        $profileRepository->method('find')->willReturn(new Profile(self::createUser()));
 
         $findProfileByIdTask = new FindProfileByIdTask($profileRepository);
 

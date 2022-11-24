@@ -23,6 +23,7 @@ services:
         arguments:
             $cookieName: '%locale_cookie_name%'
             $cookieExpire: '%locale_cookie_expire%'
+            $fallbackRoute: '%app_default_route%'
 
     App\Container\Locale\Task\SwitchTask:
         arguments:

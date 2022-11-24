@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Container\Profile\UI\WEB\Controller;
 
-use App\Container\Profile\Action\UpdateProfileFromAuthUserAction;
-use App\Container\Profile\Data\DTO\UpdateProfileFromAuthUserDTO;
+use App\Container\Profile\Action\UpdateProfileAuthUserAction;
+use App\Container\Profile\Data\DTO\UpdateProfileAuthUserDTO;
 use App\Ship\Parent\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,7 +21,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class EditController extends Controller
 {
     public function __construct(
-        private UpdateProfileFromAuthUserAction $updateProfileFromAuthUserAction
+        private UpdateProfileAuthUserAction $updateProfileFromAuthUserAction
     ) {
     }
 
@@ -29,7 +29,7 @@ class EditController extends Controller
     {
         if (
             $request->isMethod('PATCH')
-            && $this->isValid($dto = $this->createDTO(UpdateProfileFromAuthUserDTO::class))
+            && $this->isValid($dto = $this->createDTO(UpdateProfileAuthUserDTO::class))
         ) {
             $this->updateProfileFromAuthUserAction->run($dto);
 

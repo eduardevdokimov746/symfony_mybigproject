@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace App\Container\Profile\Test\Integration\Task;
 
 use App\Container\Profile\Task\ChangeAvatarTask;
-use App\Container\Profile\Task\DeleteAvatarTask;
-use App\Container\Profile\Task\FindProfileByIdTask;
 use App\Ship\Contract\ImageResize;
 use App\Ship\Helper\File;
 use App\Ship\Parent\Test\KernelTestCase;
@@ -22,18 +20,17 @@ class ChangeAvatarTaskTest extends KernelTestCase
         $file = File::createTmpImage(ImageResize::TMP_PREFIX, AvatarImageResizeService::WIDTH, AvatarImageResizeService::HEIGHT);
 
         $entityManager = self::getContainer()->get(EntityManagerInterface::class);
-        $deleteAvatarTask = self::getContainer()->get(DeleteAvatarTask::class);
-        $findProfileByIdTask = self::getContainer()->get(FindProfileByIdTask::class);
         $imageStorageService = self::createStub(ImageStorage::class);
         $uploadedFile = self::createStub(UploadedFile::class);
         $uploadedFile->method('getPathname')->willReturn($file);
 
-        $changeAvatarTask = new ChangeAvatarTask($entityManager, $deleteAvatarTask, $findProfileByIdTask, $imageStorageService);
+        $changeAvatarTask = new ChangeAvatarTask($imageStorageService);
+        $changeAvatarTask->setEntityManager($entityManager);
 
-        $profile = $findProfileByIdTask->run(1);
+        $profile = self::findUserFromDB()->getProfile();
         $oldAvatar = $profile->getAvatar();
 
-        $avatar = $changeAvatarTask->run(1, $uploadedFile);
+        $avatar = $changeAvatarTask->run($profile, $uploadedFile);
 
         self::assertNotSame($oldAvatar, $avatar);
     }

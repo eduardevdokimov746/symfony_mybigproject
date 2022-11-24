@@ -14,14 +14,13 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class SwitchAction extends Action
 {
-    public const FALLBACK_ROUTE = 'home.main';
-
     public function __construct(
         private GetRefererRouteByUrlTask $routeByUrlTask,
         private SwitchTask $switchTask,
         private string $cookieName,
         private string $cookieExpire,
-        private UrlGeneratorInterface $urlGenerator
+        private UrlGeneratorInterface $urlGenerator,
+        private string $fallbackRoute
     ) {
     }
 
@@ -39,7 +38,7 @@ class SwitchAction extends Action
         }
 
         $redirectUrl = $this->urlGenerator->generate(
-            !is_null($refererRoute) ? $refererRoute['route']['_route'] : self::FALLBACK_ROUTE,
+            !is_null($refererRoute) ? $refererRoute['route']['_route'] : $this->fallbackRoute,
             !is_null($refererRoute) ? $refererRoute['parameters'] : [],
             UrlGeneratorInterface::ABSOLUTE_URL
         );

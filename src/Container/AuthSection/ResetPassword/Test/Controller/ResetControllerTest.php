@@ -21,7 +21,7 @@ class ResetControllerTest extends WebTestCase
     {
         $client = self::createClient();
 
-        $user = $this->findUserFromDB();
+        $user = self::findUserFromDB();
 
         $client->loginUser($user);
 

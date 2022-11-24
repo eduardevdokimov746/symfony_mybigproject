@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Container\Profile\UI\WEB\Controller;
 
-use App\Container\Profile\Action\ChangePasswordFromAuthUserAction;
-use App\Container\Profile\Data\DTO\ChangePasswordFromAuthUserDTO;
+use App\Container\Profile\Action\ChangePasswordAuthUserAction;
+use App\Container\Profile\Data\DTO\ChangePasswordAuthUserDTO;
 use App\Ship\Parent\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,7 +21,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class EditPasswordController extends Controller
 {
     public function __construct(
-        private ChangePasswordFromAuthUserAction $changePasswordFromAuthUserAction
+        private ChangePasswordAuthUserAction $changePasswordFromAuthUserAction
     ) {
     }
 
@@ -29,7 +29,7 @@ class EditPasswordController extends Controller
     {
         if (
             $request->isMethod('POST')
-            && $this->isValid($dto = $this->createDTO(ChangePasswordFromAuthUserDTO::class))
+            && $this->isValid($dto = $this->createDTO(ChangePasswordAuthUserDTO::class))
         ) {
             $this->changePasswordFromAuthUserAction->run($dto);
 

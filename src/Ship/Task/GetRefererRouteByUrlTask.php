@@ -90,7 +90,7 @@ class GetRefererRouteByUrlTask extends Task
      */
     private function mapRoute(array $match): array
     {
-        $callback = fn (string $key): bool => 1 === preg_match('#^_.*#', $key);
+        $callback = static fn (string $key): bool => 1 === preg_match('#^_.*#', $key);
 
         /** @var array<string, string> $route */
         $route = array_filter($match, $callback, ARRAY_FILTER_USE_KEY);

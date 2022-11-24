@@ -14,7 +14,7 @@ class FindUserByVerifiedEmailTaskTest extends TestCase
 {
     public function testRun(): void
     {
-        $user = $this->createUser()->setEmailVerified(true);
+        $user = self::createUser()->setEmailVerified(true);
 
         $userRepository = self::createStub(UserRepository::class);
         $userRepository->method('findOneBy')->willReturn($user);

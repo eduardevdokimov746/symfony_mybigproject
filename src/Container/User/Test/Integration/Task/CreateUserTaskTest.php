@@ -12,17 +12,41 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class CreateUserTaskTest extends KernelTestCase
 {
-    public function testRun(): void
+    private CreateUserTask $createUserTask;
+
+    protected function setUp(): void
     {
         $entityManager = self::getContainer()->get(EntityManagerInterface::class);
         $userPasswordHasher = self::getContainer()->get(UserPasswordHasherInterface::class);
 
-        $createUserTask = new CreateUserTask($userPasswordHasher, $entityManager);
+        $this->createUserTask = new CreateUserTask($userPasswordHasher);
+        $this->createUserTask->setEntityManager($entityManager);
+    }
 
-        $user = $createUserTask->run('user', 'user@mail.com', 'password');
+    public function testRun(): void
+    {
+        $user = $this->createUserTask->run('user', 'user@mail.com', 'password');
 
         self::assertInstanceOf(User::class, $user);
         self::assertSame('user', $user->getLogin());
         self::assertSame('user@mail.com', $user->getEmail());
+    }
+
+    public function testRunWithCallback(): void
+    {
+        $callback = static function (User $user): void {
+            $user
+                ->disable()
+                ->setEmailVerified(true)
+            ;
+        };
+
+        $user = $this->createUserTask->run('user', 'user@mail.com', 'password', $callback);
+
+        self::assertInstanceOf(User::class, $user);
+        self::assertSame('user', $user->getLogin());
+        self::assertSame('user@mail.com', $user->getEmail());
+        self::assertFalse($user->isActive());
+        self::assertTrue($user->isEmailVerified());
     }
 }

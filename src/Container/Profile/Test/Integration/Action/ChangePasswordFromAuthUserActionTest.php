@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Container\Profile\Test\Integration\Action;
 
-use App\Container\Profile\Action\ChangePasswordFromAuthUserAction;
-use App\Container\Profile\Data\DTO\ChangePasswordFromAuthUserDTO;
+use App\Container\Profile\Action\ChangePasswordAuthUserAction;
+use App\Container\Profile\Data\DTO\ChangePasswordAuthUserDTO;
 use App\Container\User\Entity\Doc\User;
 use App\Container\User\Task\ChangeUserPasswordTask;
 use App\Ship\Helper\Security;
@@ -17,8 +17,8 @@ class ChangePasswordFromAuthUserActionTest extends KernelTestCase
 {
     public function testRun(): void
     {
-        $user = $this->findUserFromDB();
-        $dto = ChangePasswordFromAuthUserDTO::create([
+        $user = self::findUserFromDB();
+        $dto = ChangePasswordAuthUserDTO::create([
             'oldPlainPassword' => $user->getPassword(),
             'newPlainPassword' => 'new password',
             'newPlainPasswordConfirmation' => 'new password',
@@ -30,7 +30,7 @@ class ChangePasswordFromAuthUserActionTest extends KernelTestCase
 
         $security = self::getContainer()->get(Security::class);
 
-        $changePasswordFromAuthUserAction = new ChangePasswordFromAuthUserAction($changeUserPasswordTask, $security);
+        $changePasswordFromAuthUserAction = new ChangePasswordAuthUserAction($changeUserPasswordTask, $security);
         $updatedUser = $changePasswordFromAuthUserAction->run($dto);
 
         self::assertInstanceOf(User::class, $updatedUser);
@@ -45,13 +45,13 @@ class ChangePasswordFromAuthUserActionTest extends KernelTestCase
         $changeUserPasswordTask = self::getContainer()->get(ChangeUserPasswordTask::class);
 
         $security = self::getContainer()->get(Security::class);
-        $dto = ChangePasswordFromAuthUserDTO::create([
+        $dto = ChangePasswordAuthUserDTO::create([
             'oldPlainPassword' => 'old password',
             'newPlainPassword' => 'new password',
             'newPlainPasswordConfirmation' => 'new password',
         ]);
 
-        $changePasswordFromAuthUserAction = new ChangePasswordFromAuthUserAction($changeUserPasswordTask, $security);
+        $changePasswordFromAuthUserAction = new ChangePasswordAuthUserAction($changeUserPasswordTask, $security);
 
         $this->expectExceptionMessage('authenticated');
 

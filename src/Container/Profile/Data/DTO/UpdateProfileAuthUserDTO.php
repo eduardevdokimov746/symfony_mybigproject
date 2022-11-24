@@ -11,7 +11,7 @@ use App\Ship\Service\ImageResize\AvatarImageResizeService;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class UpdateProfileFromAuthUserDTO extends DTO
+class UpdateProfileAuthUserDTO extends DTO
 {
     #[Assert\Length(max: 255)]
     #[Assert\Regex('#[\d\s]+#', match: false, message: 'only_alpha')]

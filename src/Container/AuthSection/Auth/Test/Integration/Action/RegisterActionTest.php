@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Container\AuthSection\Auth\Test\Integration\Action;
 
-use App\Container\AuthSection\Auth\Action\CreateUserProfileByRegistrationAction;
-use App\Container\AuthSection\Auth\Data\DTO\CreateUserProfileByRegistrationDTO;
+use App\Container\AuthSection\Auth\Action\RegisterAction;
+use App\Container\AuthSection\Auth\Data\DTO\RegisterDTO;
 use App\Container\AuthSection\Auth\Exception\SaveByRegistrationException;
 use App\Container\Profile\Entity\Doc\Profile;
 use App\Container\Profile\Task\CreateProfileTask;
@@ -15,9 +15,9 @@ use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
-class CreateUserProfileByRegistrationActionTest extends KernelTestCase
+class RegisterActionTest extends KernelTestCase
 {
-    private CreateUserProfileByRegistrationAction $createUserProfileByRegistrationAction;
+    private RegisterAction $registerAction;
 
     protected function setUp(): void
     {
@@ -27,24 +27,25 @@ class CreateUserProfileByRegistrationActionTest extends KernelTestCase
         $logger = self::createStub(LoggerInterface::class);
         $eventDispatcher = self::createStub(EventDispatcherInterface::class);
 
-        $this->createUserProfileByRegistrationAction = new CreateUserProfileByRegistrationAction(
+        $this->registerAction = new RegisterAction(
             $createUserTask,
             $createProfileTask,
-            $entityManager,
             $eventDispatcher,
             $logger
         );
+
+        $this->registerAction->setEntityManager($entityManager);
     }
 
     public function testRun(): void
     {
-        $createUserProfileByRegistrationDTO = CreateUserProfileByRegistrationDTO::create([
+        $dto = RegisterDTO::create([
             'login' => 'user',
             'email' => 'user@mail.com',
             'plainPassword' => 'password',
         ]);
 
-        $user = $this->createUserProfileByRegistrationAction->run($createUserProfileByRegistrationDTO);
+        $user = $this->registerAction->run($dto);
 
         self::assertSame('user', $user->getLogin());
         self::assertSame('user@mail.com', $user->getEmail());
@@ -53,7 +54,7 @@ class CreateUserProfileByRegistrationActionTest extends KernelTestCase
 
     public function testRunExpectException(): void
     {
-        $createUserProfileByRegistrationDTO = CreateUserProfileByRegistrationDTO::create([
+        $dto = RegisterDTO::create([
             'login' => 'ens',
             'email' => 'ens@mail.com',
             'plainPassword' => 'password',
@@ -61,6 +62,6 @@ class CreateUserProfileByRegistrationActionTest extends KernelTestCase
 
         $this->expectException(SaveByRegistrationException::class);
 
-        $this->createUserProfileByRegistrationAction->run($createUserProfileByRegistrationDTO);
+        $this->registerAction->run($dto);
     }
 }

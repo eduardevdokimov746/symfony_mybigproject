@@ -24,7 +24,8 @@ class SwitchActionTest extends KernelTestCase
             $switchTask,
             'cookieName',
             '+1 minutes',
-            $urlGenerator
+            $urlGenerator,
+            'home.main'
         );
 
         $result = $switchAction->run('http://localhost/login');

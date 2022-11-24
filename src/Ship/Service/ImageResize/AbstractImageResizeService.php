@@ -45,6 +45,10 @@ abstract class AbstractImageResizeService implements ImageResize
 
     final public function run(): SplFileInfo
     {
+        if (!AvatarImageResizeService::shouldResize($this->getOrigin())) {
+            return $this->getOrigin();
+        }
+
         $data = File::getContent($this->getOrigin()->getPathname());
 
         $originGd = File::createImageFromString($data);

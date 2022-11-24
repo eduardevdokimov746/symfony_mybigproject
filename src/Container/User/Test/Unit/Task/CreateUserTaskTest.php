@@ -19,7 +19,8 @@ class CreateUserTaskTest extends TestCase
 
         $passwordHasher->method('hashPassword')->willReturn('hash');
 
-        $createUserTask = new CreateUserTask($passwordHasher, $entityManager);
+        $createUserTask = new CreateUserTask($passwordHasher);
+        $createUserTask->setEntityManager($entityManager);
 
         $user = $createUserTask->run('user', 'user@mail.com', 'password');
 

@@ -6,15 +6,15 @@ namespace App\Container\Profile\Test\Unit\Task;
 
 use App\Container\Profile\Entity\Doc\Profile;
 use App\Container\Profile\Task\FindProfileByIdTask;
-use App\Container\Profile\Task\UpdateProfileFullNameAndAboutTask;
+use App\Container\Profile\Task\UpdateProfileTask;
 use App\Ship\Parent\Test\TestCase;
 use Doctrine\ORM\EntityManagerInterface;
 
-class UpdateProfileFullNameAndAboutTaskTest extends TestCase
+class UpdateProfileTaskTest extends TestCase
 {
     public function testRun(): void
     {
-        $profile = (new Profile($this->createUser()))
+        $profile = (new Profile(self::createUser()))
             ->setFirstName('firstName')
             ->setLastName('lastName')
             ->setPatronymic('patronymic')
@@ -25,14 +25,19 @@ class UpdateProfileFullNameAndAboutTaskTest extends TestCase
         $findProfileByIdTask = self::createStub(FindProfileByIdTask::class);
         $findProfileByIdTask->method('run')->willReturn($profile);
 
-        $updateProfileFullNameAndAboutTask = new UpdateProfileFullNameAndAboutTask($findProfileByIdTask, $entityManager);
+        $updateProfileFullNameAndAboutTask = new UpdateProfileTask();
+        $updateProfileFullNameAndAboutTask->setEntityManager($entityManager);
 
         $updatedProfile = $updateProfileFullNameAndAboutTask->run(
-            1,
-            'update firstName',
-            'update lastName',
-            'update patronymic',
-            'update about'
+            $profile,
+            static function (Profile $profile): void {
+                $profile
+                    ->setFirstName('update firstName')
+                    ->setLastName('update lastName')
+                    ->setPatronymic('update patronymic')
+                    ->setAbout('update about')
+                ;
+            }
         );
 
         self::assertSame('update firstName', $updatedProfile->getFirstName());

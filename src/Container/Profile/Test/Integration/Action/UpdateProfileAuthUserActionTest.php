@@ -4,22 +4,22 @@ declare(strict_types=1);
 
 namespace App\Container\Profile\Test\Integration\Action;
 
-use App\Container\Profile\Action\UpdateProfileFromAuthUserAction;
-use App\Container\Profile\Data\DTO\UpdateProfileFromAuthUserDTO;
+use App\Container\Profile\Action\UpdateProfileAuthUserAction;
+use App\Container\Profile\Data\DTO\UpdateProfileAuthUserDTO;
 use App\Container\Profile\Task\ChangeAvatarTask;
-use App\Container\Profile\Task\DeleteAvatarTask;
-use App\Container\Profile\Task\UpdateProfileFullNameAndAboutTask;
+use App\Container\Profile\Task\UpdateProfileTask;
 use App\Container\User\Entity\Doc\User;
 use App\Ship\Helper\Security;
 use App\Ship\Parent\Test\KernelTestCase;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
-class UpdateProfileFromAuthUserActionTest extends KernelTestCase
+class UpdateProfileAuthUserActionTest extends KernelTestCase
 {
     public function testRun(): void
     {
-        $user = $this->findUserFromDB();
+        $user = self::findUserFromDB();
 
         $oldFirstName = $user->getProfile()->getFirstName();
         $oldLastName = $user->getProfile()->getLastName();
@@ -30,25 +30,25 @@ class UpdateProfileFromAuthUserActionTest extends KernelTestCase
         $tokenStorage->setToken(new UsernamePasswordToken($user, 'main'));
 
         $security = self::getContainer()->get(Security::class);
-        $updateProfileFullNameAndAboutTask = self::getContainer()->get(UpdateProfileFullNameAndAboutTask::class);
+        $updateProfileFullNameAndAboutTask = self::getContainer()->get(UpdateProfileTask::class);
         $changeAvatarTask = self::getContainer()->get(ChangeAvatarTask::class);
-        $deleteAvatarTask = self::getContainer()->get(DeleteAvatarTask::class);
+        $entityManager = self::getContainer()->get(EntityManagerInterface::class);
 
-        $updateProfileFromAuthUserAction = new UpdateProfileFromAuthUserAction(
+        $updateProfileAuthUserAction = new UpdateProfileAuthUserAction(
             $security,
             $updateProfileFullNameAndAboutTask,
-            $changeAvatarTask,
-            $deleteAvatarTask
+            $changeAvatarTask
         );
+        $updateProfileAuthUserAction->setEntityManager($entityManager);
 
-        $updateProfileFromAuthUserDTO = UpdateProfileFromAuthUserDTO::create([
+        $updateProfileAuthUserDTO = UpdateProfileAuthUserDTO::create([
             'firstName' => 'new firstName',
             'lastName' => 'new lastName',
             'patronymic' => 'new patronymic',
             'about' => 'new about',
         ]);
 
-        $updateProfileFromAuthUserAction->run($updateProfileFromAuthUserDTO);
+        $updateProfileAuthUserAction->run($updateProfileAuthUserDTO);
 
         /** @var User $authUser */
         $authUser = $security->getUser();

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Container\AuthSection\Auth\UI\WEB\Controller;
 
-use App\Container\AuthSection\Auth\Action\CreateUserProfileByRegistrationAction;
-use App\Container\AuthSection\Auth\Data\DTO\CreateUserProfileByRegistrationDTO;
+use App\Container\AuthSection\Auth\Action\RegisterAction;
+use App\Container\AuthSection\Auth\Data\DTO\RegisterDTO;
 use App\Ship\Attribute\OnlyGuest;
 use App\Ship\Parent\Controller;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
@@ -24,7 +24,7 @@ use Symfony\Component\Security\Http\Authenticator\FormLoginAuthenticator;
 class RegistrationController extends Controller
 {
     public function __construct(
-        private CreateUserProfileByRegistrationAction $createUserProfileByRegistrationAction,
+        private RegisterAction $registerAction,
         #[Autowire(service: 'security.authenticator.form_login.main')]
         private FormLoginAuthenticator $authenticator,
         private UserAuthenticatorInterface $userAuthenticator,
@@ -35,9 +35,9 @@ class RegistrationController extends Controller
     {
         if (
             $request->isMethod('POST')
-            && $this->isValid($dto = $this->createDTO(CreateUserProfileByRegistrationDTO::class))
+            && $this->isValid($dto = $this->createDTO(RegisterDTO::class))
         ) {
-            $user = $this->createUserProfileByRegistrationAction->run($dto);
+            $user = $this->registerAction->run($dto);
 
             $request->headers->set('referer', $this->generateUrl('profile.index'));
 

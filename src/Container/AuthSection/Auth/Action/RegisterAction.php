@@ -4,45 +4,39 @@ declare(strict_types=1);
 
 namespace App\Container\AuthSection\Auth\Action;
 
-use App\Container\AuthSection\Auth\Data\DTO\CreateUserProfileByRegistrationDTO;
+use App\Container\AuthSection\Auth\Data\DTO\RegisterDTO;
 use App\Container\AuthSection\Auth\Event\UserRegisteredEvent;
 use App\Container\AuthSection\Auth\Exception\SaveByRegistrationException;
 use App\Container\Profile\Task\CreateProfileTask;
 use App\Container\User\Entity\Doc\User;
 use App\Container\User\Task\CreateUserTask;
 use App\Ship\Parent\Action;
-use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Throwable;
 
-class CreateUserProfileByRegistrationAction extends Action
+class RegisterAction extends Action
 {
     public function __construct(
         private CreateUserTask $createUserTask,
         private CreateProfileTask $createProfileTask,
-        private EntityManagerInterface $entityManager,
         private EventDispatcherInterface $eventDispatcher,
-        private LoggerInterface $authLogger,
+        private LoggerInterface $authLogger
     ) {
     }
 
-    public function run(CreateUserProfileByRegistrationDTO $userProfileByRegistrationDTO): User
+    public function run(RegisterDTO $dto): User
     {
-        $this->entityManager->beginTransaction();
+        $this->beginTransaction();
 
         try {
-            $user = $this->createUserTask->run(
-                $userProfileByRegistrationDTO->login,
-                $userProfileByRegistrationDTO->email,
-                $userProfileByRegistrationDTO->plainPassword
-            );
+            $user = $this->createUserTask->run($dto->login, $dto->email, $dto->plainPassword);
 
             $this->createProfileTask->run($user);
 
-            $this->entityManager->commit();
+            $this->commit();
         } catch (Throwable) {
-            $this->entityManager->rollback();
+            $this->rollback();
 
             throw new SaveByRegistrationException();
         }

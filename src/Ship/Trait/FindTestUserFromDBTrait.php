@@ -15,7 +15,7 @@ trait FindTestUserFromDBTrait
      *
      * @throws Exception
      */
-    protected function findUserFromDB(array $credentials = ['id' => 1]): ?User
+    protected static function findUserFromDB(array $credentials = ['id' => 1]): ?User
     {
         return self::getContainer()->get(UserRepository::class)->findOneBy($credentials);
     }

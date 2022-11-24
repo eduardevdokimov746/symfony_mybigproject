@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\Ship\Parent;
 
+use App\Ship\Trait\CallbackTrait;
+use App\Ship\Trait\SetEntityManagerTrait;
+
 /**
  * Actions represent the Use Cases of the Application (the actions that can be taken by a User or a Software in the
  * Application).
@@ -25,4 +28,6 @@ namespace App\Ship\Parent;
  */
 abstract class Action
 {
+    use SetEntityManagerTrait;
+    use CallbackTrait;
 }

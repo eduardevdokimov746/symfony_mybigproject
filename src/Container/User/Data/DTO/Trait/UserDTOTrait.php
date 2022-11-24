@@ -2,14 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Container\AuthSection\Auth\Data\DTO;
+namespace App\Container\User\Data\DTO\Trait;
 
 use App\Container\User\Entity\Doc\User;
-use App\Ship\Parent\DTO;
 use App\Ship\Validator\Constraints\UniqueConstraint;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class CreateUserProfileByRegistrationDTO extends DTO
+trait UserDTOTrait
 {
     #[Assert\NotBlank]
     #[Assert\Length(min: 3, max: 255)]

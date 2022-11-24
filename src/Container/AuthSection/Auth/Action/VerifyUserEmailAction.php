@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Container\AuthSection\Auth\Action;
 
-use App\Container\User\Task\MarkUserEmailVerifiedTask;
+use App\Container\User\Task\FindUserByIdTask;
 use App\Ship\Parent\Action;
 use Psr\Log\LoggerInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
@@ -14,8 +14,8 @@ class VerifyUserEmailAction extends Action
 {
     public function __construct(
         private VerifyEmailHelperInterface $verifyEmailHelper,
-        private MarkUserEmailVerifiedTask $markUserEmailVerifiedTask,
-        private LoggerInterface $authLogger
+        private LoggerInterface $authLogger,
+        private FindUserByIdTask $findUserByIdTask
     ) {
     }
 
@@ -29,7 +29,11 @@ class VerifyUserEmailAction extends Action
             return $e->getReason();
         }
 
-        $this->markUserEmailVerifiedTask->run($userId);
+        $user = $this->findUserByIdTask->run($userId);
+
+        $user->setEmailVerified(true);
+
+        $this->flush();
 
         return null;
     }

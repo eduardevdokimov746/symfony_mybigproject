@@ -15,7 +15,7 @@ class RemoveResetTokenAndChangeUserPasswordActionTest extends KernelTestCase
 {
     public function testRunExpectNull(): void
     {
-        $user = $this->findUserFromDB();
+        $user = self::findUserFromDB();
         $oldPassword = $user->getPassword();
 
         $resetPasswordHelper = self::createStub(ResetPasswordHelperInterface::class);
@@ -31,7 +31,7 @@ class RemoveResetTokenAndChangeUserPasswordActionTest extends KernelTestCase
 
         $result = $removeResetTokenAndChangeUserPasswordAction->run('token', 'new password');
 
-        $userWithNewPassword = $this->findUserFromDB();
+        $userWithNewPassword = self::findUserFromDB();
 
         self::assertNull($result);
         self::assertNotSame($oldPassword, $userWithNewPassword->getPassword());

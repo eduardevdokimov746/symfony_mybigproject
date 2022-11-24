@@ -8,8 +8,8 @@ use App\Container\User\Entity\Doc\User;
 
 trait CreateTestUserInstanceTrait
 {
-    protected function createUser(): User
+    protected static function createUser(): User
     {
-        return new User('user', 'user@mail.com', 'password', fn () => 'hash');
+        return new User('user', 'user@mail.com', 'password', static fn (): string => 'hash');
     }
 }

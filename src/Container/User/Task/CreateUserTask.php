@@ -7,7 +7,6 @@ namespace App\Container\User\Task;
 use App\Container\User\Entity\Doc\User;
 use App\Container\User\Trait\UserPasswordHasherTrait;
 use App\Ship\Parent\Task;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class CreateUserTask extends Task
@@ -15,12 +14,11 @@ class CreateUserTask extends Task
     use UserPasswordHasherTrait;
 
     public function __construct(
-        private UserPasswordHasherInterface $passwordHasher,
-        private EntityManagerInterface $entityManager
+        private UserPasswordHasherInterface $passwordHasher
     ) {
     }
 
-    public function run(string $login, string $email, string $plainPassword): User
+    public function run(string $login, string $email, string $plainPassword, callable $callback = null): User
     {
         $user = new User(
             $login,
@@ -29,8 +27,9 @@ class CreateUserTask extends Task
             $this->userPasswordHasher($this->passwordHasher)
         );
 
-        $this->entityManager->persist($user);
-        $this->entityManager->flush();
+        $this->call($callback, $user);
+
+        $this->persistAndFlush($user);
 
         return $user;
     }
