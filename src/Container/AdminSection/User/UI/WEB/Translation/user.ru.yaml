@@ -1,0 +1,39 @@
+main_block_title:
+    index: Список пользователей
+    edit: Редактирование пользователя № %id%
+    create: Создание пользователя
+
+success_message:
+    create: Пользователь успешно создан
+    edit: Пользователь успешно изменен
+    delete: Пользователь успешно удален
+
+index:
+    table:
+        login: Логин
+        role: Роль
+        email: Почта
+        active: Активен
+        edit: Редактировать
+        btn: Добавить
+
+role_choice:
+    admin: Администратор
+    user: Пользователь
+
+form:
+    role: Роль
+    login: Логин
+    email: Почта
+    plain_password: Пароль
+    active: Аккаунт активен
+    email_verified: Почта подтверждена
+    first_name: Имя
+    last_name: Фамилия
+    patronymic: Отчество
+    about: О себе
+    avatar: Аватар
+    delete_avatar: Удалить аватар
+    save_btn: Сохранить
+    delete_btn: Удалить
+    create_btn: Создать

@@ -4,14 +4,15 @@
 
 {% block page_title %}{{ 'main_block_title.index'|trans }}{% endblock %}
 
-{% block success_message %}{{ 'success_message.delete'|trans }}{% endblock %}
+{% block alert %}{% do app.flashes('success') ? alert_success('success_message.delete'|trans) %}{% endblock %}
 
 {% block content %}
     <div class="card">
 
         <div class="card-header">
             <div class="d-flex justify-content-between align-items-center">
-                <a href="{{ url('admin.categories.create') }}" class=" btn btn-sm btn-primary">{{ 'index.table.btn'|trans }}</a>
+                <a href="{{ url('admin.categories.create') }}"
+                   class=" btn btn-sm btn-primary">{{ 'index.table.btn'|trans }}</a>
                 {{ knp_pagination_render(categories) }}
             </div>
         </div>
@@ -41,7 +42,8 @@
                             <td><i class="fa-solid fa-eye-slash"></i></td>
                         {% endif %}
 
-                        <td><a href="{{ url('admin.categories.edit', {'id': category.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a></td>
+                        <td><a href="{{ url('admin.categories.edit', {'id': category.id}) }}"><i
+                                        class="fa-solid fa-pen-to-square"></i></a></td>
                     </tr>
                 {% endfor %}
                 </tbody>

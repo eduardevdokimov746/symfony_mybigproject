@@ -25,7 +25,7 @@ class ChangeAvatarTask extends Task
         $avatar = $profile->getAvatar();
 
         try {
-            if (Profile::DEFAULT_AVATAR !== $profile->getAvatar()) {
+            if (!$profile->isDefaultAvatar()) {
                 $this->imageStorage->remove($profile->getAvatar(), ImageStorageEnum::Avatar);
 
                 $avatar = null;

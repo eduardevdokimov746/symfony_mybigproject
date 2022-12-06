@@ -4,7 +4,7 @@
 
 {% block page_title %}{{ 'main_block_title.edit'|trans({'%id%': category.id}) }}{% endblock %}
 
-{% block success_message %}{{ 'success_message.edit'|trans }}{% endblock %}
+{% block alert %}{% do app.flashes('success') ? alert_success('success_message.edit'|trans) %}{% endblock %}
 
 {% block content %}
     <div class="card">

@@ -15,6 +15,10 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[ORM\Table(name: 'doc_users')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
+    public const DEFAULT_ACTIVE = true;
+    public const DEFAULT_EMAIL_VERIFIED = false;
+    public const DEFAULT_ROLE = RoleEnum::User;
+
     #[ORM\Id]
     #[ORM\GeneratedValue('IDENTITY')]
     #[ORM\Column(name: 'id', type: 'integer')]
@@ -29,16 +33,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(name: 'email', type: 'string', unique: true)]
     private string $email;
 
-    #[ORM\Column(name: 'active', type: 'boolean', options: ['default' => true])]
-    private bool $active = true;
+    #[ORM\Column(name: 'active', type: 'boolean', options: ['default' => self::DEFAULT_ACTIVE])]
+    private bool $active = self::DEFAULT_ACTIVE;
 
-    #[ORM\Column(name: 'email_verified', type: 'boolean', options: ['default' => false])]
-    private bool $emailVerified = false;
+    #[ORM\Column(name: 'email_verified', type: 'boolean', options: ['default' => self::DEFAULT_EMAIL_VERIFIED])]
+    private bool $emailVerified = self::DEFAULT_EMAIL_VERIFIED;
 
-    #[ORM\Column(name: 'role', type: 'string', enumType: RoleEnum::class, length: 20, options: ['default' => RoleEnum::User])]
-    private RoleEnum $role = RoleEnum::User;
+    #[ORM\Column(name: 'role', type: 'string', enumType: RoleEnum::class, length: 20, options: ['default' => self::DEFAULT_ROLE])]
+    private RoleEnum $role = self::DEFAULT_ROLE;
 
-    #[ORM\OneToOne(targetEntity: Profile::class, mappedBy: 'user')]
+    #[ORM\OneToOne(targetEntity: Profile::class, mappedBy: 'user', cascade: ['persist', 'remove'])]
     private Profile $profile;
 
     public function __construct(
@@ -47,10 +51,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         string $plainPassword,
         callable $passwordHash
     ) {
-        $this->login = $login;
-        $this->email = $email;
-
-        $this->setPassword($passwordHash, $plainPassword);
+        $this
+            ->setLogin($login)
+            ->setEmail($email)
+            ->setPassword($passwordHash, $plainPassword)
+        ;
     }
 
     public function getId(): int
@@ -76,6 +81,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setRole(RoleEnum $role): self
     {
         $this->role = $role;
+
+        return $this;
+    }
+
+    public function setLogin(string $login): self
+    {
+        $this->login = $login;
 
         return $this;
     }

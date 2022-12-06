@@ -6,7 +6,9 @@ namespace App\Container\User\Data\Repository\Doc;
 
 use App\Container\User\Entity\Doc\User;
 use App\Ship\Parent\Repository;
+use App\Ship\Trait\GetAllWithPaginationTrait;
 use Doctrine\Persistence\ManagerRegistry;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -15,9 +17,14 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class UserRepository extends Repository implements UserLoaderInterface
 {
-    public function __construct(ManagerRegistry $registry)
+    /** @use GetAllWithPaginationTrait<User> */
+    use GetAllWithPaginationTrait;
+
+    public function __construct(ManagerRegistry $registry, PaginatorInterface $paginator)
     {
         parent::__construct($registry, User::class);
+
+        $this->setPaginator($paginator);
     }
 
     public function loadUserByIdentifier(string $identifier): ?UserInterface

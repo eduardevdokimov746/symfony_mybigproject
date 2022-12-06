@@ -13,3 +13,4 @@ sidebar:
 go_to_main: Основной сайт
 
 success_message_default: Успешно выполнено
+error_message_default: Произошла ошибка

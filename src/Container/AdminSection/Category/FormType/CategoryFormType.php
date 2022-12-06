@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Container\AdminSection\Category\FormType;
 
 use App\Container\AdminSection\Category\Entity\Book\Category;
+use App\Ship\Form\DataTransformer\DefaultValueDataTransformer;
+use App\Ship\Form\FormType\CheckboxFormType;
 use App\Ship\Parent\FormType;
-use Symfony\Component\Form\CallbackTransformer;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
@@ -18,38 +18,33 @@ class CategoryFormType extends FormType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $constraints = [
+            new Assert\NotBlank(),
+            new Assert\Length(max: 45),
+            new Assert\Regex('#[\d]+#', match: false, message: 'only_alpha_with_spaces'),
+        ];
+
         $builder
             ->add('ru_name', TextType::class, [
                 'label_format' => 'form.title',
                 'label_translation_parameters' => ['%lang%' => 'рус'],
                 'empty_data' => '',
-                'constraints' => [
-                    new Assert\NotBlank(),
-                    new Assert\Length(max: 45),
-                    new Assert\Regex('#[\d]+#', match: false, message: 'only_alpha_with_spaces'),
-                ],
+                'constraints' => $constraints,
             ])
             ->add('en_name', TextType::class, [
                 'label_format' => 'form.title',
                 'label_translation_parameters' => ['%lang%' => 'eng'],
                 'empty_data' => '',
-                'constraints' => [
-                    new Assert\NotBlank(),
-                    new Assert\Length(max: 45),
-                    new Assert\Regex('#[\d]+#', match: false, message: 'only_alpha_with_spaces'),
-                ],
+                'constraints' => $constraints,
             ])
-            ->add('active', CheckboxType::class, [
+            ->add('active', CheckboxFormType::class, [
                 'label_format' => 'form.active',
-                'label_attr' => ['class' => 'checkbox-inline'],
             ])
         ;
 
-        $builder->get('active')->addModelTransformer(new CallbackTransformer(
-            /** @phpstan-ignore-next-line */
-            fn (bool $value) => $builder->getData() ? $value : Category::ACTIVE_DEFAULT,
-            fn (bool $value) => $value
-        ));
+        $builder->get('active')->addModelTransformer(
+            new DefaultValueDataTransformer($builder, Category::DEFAULT_ACTIVE)
+        );
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -58,16 +53,25 @@ class CategoryFormType extends FormType
 
         $resolver->setDefaults([
             'data_class' => Category::class,
-            'empty_data' => function (FormInterface $form) {
-                $ruName = $form->get('ru_name')->getData() ?? '';
-                $enName = $form->get('en_name')->getData() ?? '';
-                $active = $form->get('active')->getData();
-
-                /** @phpstan-ignore-next-line */
-                return (new Category($ruName, $enName))->setActive($active);
-            },
+            'empty_data' => $this->getEmptyDataCallback(),
             'required' => false,
             'translation_domain' => 'category',
         ]);
+    }
+
+    private function getEmptyDataCallback(): callable
+    {
+        return static function (FormInterface $form): Category {
+            /** @var string $ruName */
+            $ruName = $form->get('ru_name')->getData() ?? '';
+
+            /** @var string $enName */
+            $enName = $form->get('en_name')->getData() ?? '';
+
+            /** @var bool $active */
+            $active = $form->get('active')->getData();
+
+            return (new Category($ruName, $enName))->setActive($active);
+        };
     }
 }

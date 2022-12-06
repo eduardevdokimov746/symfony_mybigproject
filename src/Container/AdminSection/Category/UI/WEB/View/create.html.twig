@@ -4,7 +4,7 @@
 
 {% block page_title %}{{ 'main_block_title.create'|trans }}{% endblock %}
 
-{% block success_message %}{{ 'success_message.create'|trans }}{% endblock %}
+{% block alert %}{% do app.flashes('success') ? alert_success('success_message.create'|trans) %}{% endblock %}
 
 {% block content %}
     <div class="card">

@@ -21,7 +21,6 @@ class OfferNewsController extends Controller
     public function __invoke(OfferNewsValidator $validator): Response
     {
         if ($validator->isValid()) {
-
         }
 
         return $this->render('@profile/offer_news.html.twig');

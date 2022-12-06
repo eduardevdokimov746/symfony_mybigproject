@@ -6,7 +6,6 @@ namespace App\Container\AdminSection\Category\UI\WEB\Controller;
 
 use App\Container\AdminSection\Category\FormType\CategoryFormType;
 use App\Ship\Parent\Controller;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -18,7 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 )]
 class CreateController extends Controller
 {
-    public function __invoke(Request $request, EntityManagerInterface $entityManager): Response
+    public function __invoke(Request $request): Response
     {
         $form = $this->createForm(CategoryFormType::class, options: ['method' => 'POST']);
 
@@ -28,8 +27,8 @@ class CreateController extends Controller
             return $this->redirectToRoute('admin.categories.create');
         }
 
-        return $this->renderForm('@admin_category/create.html.twig', [
-            'form' => $form,
+        return $this->render('@admin_category/create.html.twig', [
+            'form' => $form->createView(),
         ]);
     }
 }

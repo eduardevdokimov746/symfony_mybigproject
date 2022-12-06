@@ -5,4 +5,6 @@ services:
 
     App\Container\User\:
         resource: '%kernel.project_dir%/src/Container/User'
-        exclude: '%kernel.project_dir%/src/Container/User/Data/Migration'
+        exclude:
+            - '%kernel.project_dir%/src/Container/User/Data/Migration'
+            - '%kernel.project_dir%/src/Container/User/Exception'

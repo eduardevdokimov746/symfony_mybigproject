@@ -154,12 +154,25 @@
         <!-- AdminSection -->
         <!-- Category -->
         <testsuite name="admin-category-controller">
-            <directory>src/Container/AdminSection/Category/Test</directory>
+            <directory>src/Container/AdminSection/Category/Test/Controller</directory>
         </testsuite>
         <testsuite name="admin-category-integration">
-            <directory>src/Container/AdminSection/Category/Test</directory>
+            <directory>src/Container/AdminSection/Category/Test/Integration</directory>
         </testsuite>
         <!-- Category -->
+        <!-- Home -->
+        <testsuite name="admin-home-controller">
+            <directory>src/Container/AdminSection/Home/Test/Controller</directory>
+        </testsuite>
+        <!-- Home -->
+        <!-- User -->
+        <testsuite name="admin-user-controller">
+            <directory>src/Container/AdminSection/User/Test/Controller</directory>
+        </testsuite>
+        <testsuite name="admin-user-integration">
+            <directory>src/Container/AdminSection/User/Test/Integration</directory>
+        </testsuite>
+        <!-- User -->
         <!-- AdminSection -->
 
     </testsuites>

@@ -1,0 +1,52 @@
+{% extends '@ship/layout/admin_base.html.twig' %}
+
+{% trans_default_domain 'user' %}
+
+{% block page_title %}{{ 'main_block_title.index'|trans }}{% endblock %}
+
+{% block alert %}{% do app.flashes('success') ? alert_success('success_message.delete'|trans) %}{% endblock %}
+
+{% block content %}
+    <div class="card">
+
+        <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center">
+                <a href="{{ url('admin.users.create') }}"
+                   class=" btn btn-sm btn-primary">{{ 'index.table.btn'|trans }}</a>
+                {{ knp_pagination_render(users) }}
+            </div>
+        </div>
+
+        <div class="card-body table-responsive p-0 pb-3">
+            <table class="table table-hover text-nowrap text-center">
+                <thead>
+                <tr>
+                    <th>№</th>
+                    <th>{{ 'index.table.login'|trans }}</th>
+                    <th>{{ 'index.table.role'|trans }}</th>
+                    <th>{{ 'index.table.email'|trans }}</th>
+                    <th>{{ 'index.table.active'|trans }}</th>
+                    <th>{{ 'index.table.edit'|trans }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.login }}</td>
+                        <td>{{ user.role.translationKey|trans }}</td>
+                        <td>{{ user.email }}</td>
+                        {% if (user.active) %}
+                            <td><i class="fa-solid fa-check"></i></td>
+                        {% else %}
+                            <td><i class="fa-solid fa-eye-slash"></i></td>
+                        {% endif %}
+                        <td><a href="{{ url('admin.users.edit', {'id': user.id}) }}"><i
+                                        class="fa-solid fa-pen-to-square"></i></a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

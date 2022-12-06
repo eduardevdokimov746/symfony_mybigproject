@@ -7,8 +7,8 @@ namespace App\Container\News\Entity\Doc;
 use App\Container\News\Data\Repository\NewsRepository;
 use App\Container\User\Entity\Doc\User;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 #[ORM\Entity(repositoryClass: NewsRepository::class)]
 #[ORM\Table(name: 'doc_news')]

@@ -1,0 +1,15 @@
+{% use "bootstrap_5_layout.html.twig" %}
+
+{% block form_errors %}
+    {{ errors.valid ? parent() }}
+{% endblock %}
+
+{% block file_widget %}
+    {% if attr.with_preview and attr.image_name %}
+        <div class="mb-1">
+            <img src="{{ absolute_url(asset(attr.image_name, attr.package)) }}">
+        </div>
+    {% endif %}
+
+    {{ block('form_widget') }}
+{% endblock %}

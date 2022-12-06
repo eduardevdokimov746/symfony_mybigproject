@@ -3,6 +3,7 @@ twig:
 
     form_theme:
         - 'bootstrap_5_layout.html.twig'
+        - '@ship/layout/form.html.twig'
 
     paths:
         '%kernel.project_dir%/src/Ship/View': ship

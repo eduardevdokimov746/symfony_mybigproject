@@ -1,0 +1,4 @@
+services:
+    App\Container\User\Exception\UserNotFoundException:
+        tags:
+            - { name: app.exception, code: 404, hidden: false }

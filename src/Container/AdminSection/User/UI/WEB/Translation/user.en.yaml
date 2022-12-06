@@ -1,0 +1,39 @@
+main_block_title:
+    index: User list
+    edit: User editing № %id%
+    create: Creating a user
+
+success_message:
+    create: User created successfully
+    edit: User changed successfully
+    delete: User deleted successfully
+
+index:
+    table:
+        login: Login
+        role: Role
+        email: Email
+        active: Active
+        edit: Edit
+        btn: Add
+
+role_choice:
+    admin: Admin
+    user: User
+
+form:
+    role: Role
+    login: Login
+    email: Email
+    plain_password: Password
+    active: Account is active
+    email_verified: Email confirmed
+    first_name: First name
+    last_name: Last name
+    patronymic: Patronymic
+    about: About
+    avatar: Avatar
+    delete_avatar: Delete avatar
+    save_btn: Save
+    delete_btn: Delete
+    create_btn: Create

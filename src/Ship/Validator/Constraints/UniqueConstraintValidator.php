@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Ship\Validator\Constraints;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\InvalidOptionsException;
@@ -24,13 +25,14 @@ class UniqueConstraintValidator extends ConstraintValidator
         }
 
         $entity = $constraint->entity;
-        $property = $constraint->property ?? $this->context->getPropertyName() ?? '';
 
         if (!class_exists($entity)) {
             throw new InvalidOptionsException('Entity {'.$entity.'} does not exists', [$entity]);
         }
 
-        if (!property_exists($entity, $property)) {
+        $property = $this->findProperty($constraint);
+
+        if (null === $property || !property_exists($entity, $property)) {
             throw new InvalidOptionsException(
                 'Property {'.$property.'} does not exists in entity {'.$entity.'}',
                 [$entity, $property]
@@ -39,10 +41,36 @@ class UniqueConstraintValidator extends ConstraintValidator
 
         $repository = $this->entityManager->getRepository($entity);
 
-        if (null !== $repository->findOneBy([$property => $value])) {
+        $qb = $repository->createQueryBuilder('q');
+
+        foreach ($constraint->exceptCriteria as $propEntity => $exceptValue) {
+            $qb
+                ->orWhere("q.{$propEntity} != :{$propEntity}")
+                ->setParameter($propEntity, $exceptValue)
+            ;
+        }
+
+        $qb
+            ->andWhere("q.{$property} = :{$property}")
+            ->setParameter($property, $value)
+            ->setMaxResults(1)
+        ;
+
+        if (null !== $qb->getQuery()->getOneOrNullResult()) {
             $this->context->buildViolation($constraint->message)
                 ->addViolation()
             ;
         }
+    }
+
+    private function findProperty(Constraint $constraint): ?string
+    {
+        $property = $constraint->property ?? $this->context->getPropertyName();
+
+        if (null === $property && $this->context->getObject() instanceof FormInterface) {
+            $property = $this->context->getObject()->getName();
+        }
+
+        return $property;
     }
 }

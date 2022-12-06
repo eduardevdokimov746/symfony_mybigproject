@@ -15,6 +15,7 @@ return (new PhpCsFixer\Config())
         'php_unit_test_class_requires_covers' => false,
         'php_unit_internal_class' => false,
         'phpdoc_to_comment' => false,
+        'global_namespace_import' => ['import_classes' => true, 'import_constants' => true, 'import_functions' => true],
         'blank_line_before_statement' => ['statements' => [
             'continue',
             'declare',

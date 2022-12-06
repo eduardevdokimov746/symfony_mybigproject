@@ -12,7 +12,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 #[ORM\Table(name: 'book_categories')]
 class Category
 {
-    public const ACTIVE_DEFAULT = true;
+    public const DEFAULT_ACTIVE = true;
 
     #[ORM\Id]
     #[ORM\GeneratedValue('IDENTITY')]
@@ -29,8 +29,8 @@ class Category
     #[Gedmo\Slug(fields: ['enName'])]
     private string $slug;
 
-    #[ORM\Column(name: 'active', type: 'boolean', options: ['default' => self::ACTIVE_DEFAULT])]
-    private bool $active = self::ACTIVE_DEFAULT;
+    #[ORM\Column(name: 'active', type: 'boolean', options: ['default' => self::DEFAULT_ACTIVE])]
+    private bool $active = self::DEFAULT_ACTIVE;
 
     public function __construct(string $ruName, string $enName)
     {

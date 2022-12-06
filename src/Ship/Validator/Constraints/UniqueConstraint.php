@@ -17,10 +17,19 @@ class UniqueConstraint extends Constraint
 
     public ?string $property;
 
+    /**
+     * @var array<string, mixed>
+     */
+    public array $exceptCriteria;
+
+    /**
+     * @param array<string, mixed> $exceptCriteria
+     */
     #[HasNamedArguments]
     public function __construct(
         string $entity,
         string $property = null,
+        array $exceptCriteria = [],
         string $message = null,
         array $groups = null,
         mixed $payload = null
@@ -29,6 +38,7 @@ class UniqueConstraint extends Constraint
 
         $this->entity = $entity;
         $this->property = $property;
+        $this->exceptCriteria = $exceptCriteria;
         $this->message = $message ?? $this->message;
     }
 }

@@ -13,3 +13,4 @@ sidebar:
 go_to_main: Main site
 
 success_message_default: Completed successfully
+error_message_default: An error has occurred

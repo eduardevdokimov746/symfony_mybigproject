@@ -1,0 +1,30 @@
+{% extends '@ship/layout/admin_base.html.twig' %}
+
+{% trans_default_domain 'user' %}
+
+{% block page_title %}{{ 'main_block_title.create'|trans }}{% endblock %}
+
+{% block alert %}
+    {% if app.flashes('success') %}
+        {{ alert_success('success_message.create'|trans) }}
+    {% elseif form.vars.errors is not empty %}
+        {{ alert_danger(form.vars.errors|map(e => e.message)|join) }}
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <div class="card">
+
+        <div class="card-body p-3">
+            {{ form_start(form) }}
+
+            {{ form_widget(form) }}
+
+            <div class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary">{{ 'form.create_btn'|trans }}</button>
+            </div>
+
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

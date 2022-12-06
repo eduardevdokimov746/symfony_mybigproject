@@ -67,6 +67,11 @@ class Profile
         return $this;
     }
 
+    public function isDefaultAvatar(): bool
+    {
+        return self::DEFAULT_AVATAR === $this->getAvatar();
+    }
+
     public function getLastName(): ?string
     {
         return $this->lastName;

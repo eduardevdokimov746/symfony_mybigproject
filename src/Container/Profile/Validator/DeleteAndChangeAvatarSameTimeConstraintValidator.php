@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Container\Profile\Validator;
 
 use RuntimeException;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
@@ -27,14 +28,18 @@ class DeleteAndChangeAvatarSameTimeConstraintValidator extends ConstraintValidat
             throw new RuntimeException('Object of context is null');
         }
 
-        if (!property_exists($object, $constraint->avatarProperty)) {
+        if (!$object instanceof FormInterface && !property_exists($object, $constraint->avatarProperty)) {
             throw new InvalidOptionsException('Property {'.$constraint->avatarProperty.'} does not exists', ['avatarProperty']);
         }
 
-        if (
-            $object->{$constraint->avatarProperty} instanceof UploadedFile
-            && true === $value
-        ) {
+        if ($object instanceof FormInterface) {
+            /** @phpstan-ignore-next-line */
+            $avatarPropertyValue = $object->getParent()->get($constraint->avatarProperty)->getData();
+        } else {
+            $avatarPropertyValue = $object->{$constraint->avatarProperty};
+        }
+
+        if ($avatarPropertyValue instanceof UploadedFile && true === $value) {
             $this->context->buildViolation($constraint->message)
                 ->addViolation()
             ;
