@@ -65,28 +65,28 @@
                     data-accordion="false">
 
                     <li class="nav-item">
-                        <a href="{{ url('admin.users.index') }}" class="nav-link {{ 'users' in app.request.uri ? 'active' }}">
+                        <a href="{{ url('admin.users.index') }}" class="nav-link {{ 'users' in app.current_route ? 'active' }}">
                             <i class="fa-solid fa-users"></i>
                             <p>{{ 'sidebar.users'|trans }}</p>
                         </a>
                     </li>
 
                     <li class="nav-item">
-                        <a href="#" class="nav-link {{ 'news' in app.request.uri ? 'active' }}">
+                        <a href="#" class="nav-link {{ 'news' in app.current_route ? 'active' }}">
                             <i class="fa-solid fa-newspaper"></i>
                             <p>{{ 'sidebar.news'|trans }}</p>
                         </a>
                     </li>
 
                     <li class="nav-item">
-                        <a href="#" class="nav-link {{ 'comments' in app.request.uri ? 'active' }}">
+                        <a href="#" class="nav-link {{ 'comments' in app.current_route ? 'active' }}">
                             <i class="fa-solid fa-comments"></i>
                             <p>{{ 'sidebar.comments'|trans }}</p>
                         </a>
                     </li>
 
                     <li class="nav-item">
-                        <a href="{{ url('admin.categories.index') }}" class="nav-link {{ 'categories' in app.request.uri ? 'active' }}">
+                        <a href="{{ url('admin.categories.index') }}" class="nav-link {{ 'categories' in app.current_route ? 'active' }}">
                             <i class="fa-solid fa-object-group"></i>
                             <p>{{ 'sidebar.categories'|trans }}</p>
                         </a>

@@ -38,7 +38,7 @@ class EditController extends Controller
 
         return $this->render('@admin_category/edit.html.twig', [
             'category' => $category,
-            'form' => $form->createView(),
+            'form' => $form,
         ]);
     }
 }

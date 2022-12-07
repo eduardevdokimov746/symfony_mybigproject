@@ -28,7 +28,7 @@ class CreateController extends Controller
         }
 
         return $this->render('@admin_category/create.html.twig', [
-            'form' => $form->createView(),
+            'form' => $form,
         ]);
     }
 }

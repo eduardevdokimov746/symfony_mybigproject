@@ -42,7 +42,7 @@ class EditController extends Controller
 
         return $this->render('@admin_user/edit.html.twig', [
             'user' => $user,
-            'form' => $form->createView(),
+            'form' => $form,
         ]);
     }
 }
