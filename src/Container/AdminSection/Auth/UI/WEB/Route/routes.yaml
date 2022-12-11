@@ -1,0 +1,4 @@
+group:
+    resource: ../Controller
+    type: annotation
+    name_prefix: auth.

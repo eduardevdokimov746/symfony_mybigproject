@@ -1,0 +1,6 @@
+form:
+    login: Логин
+    password: Пароль
+    submit: Войти
+    message: Войдите, чтобы начать сеанс
+    language: Переключить язык

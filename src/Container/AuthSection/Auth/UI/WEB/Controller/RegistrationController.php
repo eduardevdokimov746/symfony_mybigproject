@@ -25,8 +25,8 @@ class RegistrationController extends Controller
 {
     public function __construct(
         private RegisterAction $registerAction,
-        #[Autowire(service: 'security.authenticator.form_login.main')]
-        private FormLoginAuthenticator $authenticator,
+//        #[Autowire(service: 'security.authenticator.form_login.main')]
+//        private FormLoginAuthenticator $authenticator,
         private UserAuthenticatorInterface $userAuthenticator,
     ) {
     }

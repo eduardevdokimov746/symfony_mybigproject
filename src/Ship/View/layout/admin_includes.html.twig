@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="{{ app.request.locale }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>{{ app_name }}</title>
+
+    {% block style %}
+        <link rel="stylesheet" href="{{ absolute_url(asset('bootstrap.min.css', 'css')) }}">
+        <link rel="stylesheet" href="{{ absolute_url(asset('fontawesome.min.css', 'css')) }}">
+        <link rel="stylesheet" href="{{ absolute_url(asset('adminlte.min.css', 'css')) }}">
+        <link rel="stylesheet" href="{{ absolute_url(asset('admin_main.css', 'css')) }}">
+    {% endblock %}
+</head>
+<body class="dark-mode">
+
+{% block body %}{% endblock %}
+
+{% block script %}
+    <script src="{{ absolute_url(asset('jquery.min.js', 'js')) }}"></script>
+    <script src="{{ absolute_url(asset('bootstrap.min.js', 'js')) }}"></script>
+    <script src="{{ absolute_url(asset('fontawesome.min.js', 'js')) }}"></script>
+    <script src="{{ absolute_url(asset('adminlte.min.js', 'js')) }}"></script>
+{% endblock %}
+</body>
+</html>

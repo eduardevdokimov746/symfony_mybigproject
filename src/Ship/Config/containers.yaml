@@ -11,3 +11,4 @@ imports:
     - { resource: ../../../src/Container/AdminSection/Home/Config/ }
     - { resource: ../../../src/Container/AdminSection/Category/Config/ }
     - { resource: ../../../src/Container/AdminSection/User/Config/ }
+    - { resource: ../../../src/Container/AdminSection/Auth/Config/ }

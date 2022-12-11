@@ -1,0 +1,6 @@
+form:
+    login: Login
+    password: Password
+    submit: Sign In
+    message: Sign in to start your session
+    language: Switch language

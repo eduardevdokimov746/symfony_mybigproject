@@ -9,3 +9,7 @@ category:
 user:
     resource: ../../../Container/AdminSection/User/UI/WEB/Route
     type: directory
+
+auth:
+    resource: ../../../Container/AdminSection/Auth/UI/WEB/Route
+    type: directory

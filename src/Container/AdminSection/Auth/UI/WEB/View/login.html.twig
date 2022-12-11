@@ -1,0 +1,54 @@
+{% extends '@ship/layout/admin_includes.html.twig' %}
+
+{% trans_default_domain 'auth' %}
+
+{% block body %}
+    <div class="hold-transition login-page dark-mode">
+        <div class="login-box">
+            <div class="login-logo">
+                {{ app_name }}
+            </div>
+
+            <div class="card">
+                <div class="card-body login-card-body">
+                    {% if error is not null %}
+                        <p class="text-danger login-box-msg">{{ error.messageKey|trans }}</p>
+                    {% else %}
+                        <p class="login-box-msg">{{ 'form.message'|trans }}</p>
+                    {% endif %}
+
+                    <form method="POST">
+                        <input type="hidden" value="{{ csrf_token(auth_csrf_token_id) }}" name="{{ csrf_parameter }}">
+
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="{{ 'form.login'|trans }}"
+                                   value="{{ last_username }}" name="login" autofocus>
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-envelope"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <input type="password" class="form-control" placeholder="{{ 'form.password'|trans }}" name="password">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-lock"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <button type="submit" class="btn btn-primary btn-block">{{ 'form.submit'|trans }}</button>
+                        </div>
+
+                        <p class="mt-2 mb-0">
+                            <a href="{{ url('locale.switch') }}">{{ 'form.language'|trans }}</a>
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

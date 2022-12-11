@@ -36,3 +36,44 @@ services:
     App\Ship\Validator\ControllerValidator:
         arguments:
             $storageErrorAdapter: '@App\Ship\Validator\SessionFlashBagStorageErrorAdapter'
+
+    app.success_handler.main:
+        class: Symfony\Component\Security\Http\Authentication\DefaultAuthenticationSuccessHandler
+        arguments:
+            $options:
+                use_referer: true
+                login_path: auth.login
+                default_target_path: home.main
+
+    app.success_handler.admin:
+        class: Symfony\Component\Security\Http\Authentication\DefaultAuthenticationSuccessHandler
+        arguments:
+            $options:
+                use_referer: true
+                login_path: admin.auth.login
+                default_target_path: admin.home.main
+
+
+    app.authentication.main:
+        class: App\Ship\CustomAuthenticator
+        arguments:
+            $userLoader: '@App\Ship\MainUserLoader'
+            $successHandler: '@app.success_handler.main'
+            $options:
+                username_parameter: login
+                password_parameter: password
+                check_path: auth.login
+                csrf_parameter: '%form.type_extension.csrf.field_name%'
+                csrf_token_id: '%auth_csrf_token_id%'
+
+    app.authentication.admin:
+        class: App\Ship\CustomAuthenticator
+        arguments:
+            $userLoader: '@App\Ship\AdminUserLoader'
+            $successHandler: '@app.success_handler.admin'
+            $options:
+                username_parameter: login
+                password_parameter: password
+                check_path: admin.auth.login
+                csrf_parameter: '%form.type_extension.csrf.field_name%'
+                csrf_token_id: '%auth_csrf_token_id%'
