@@ -1,5 +1,5 @@
 group:
-    type: annotation
+    type: attribute
     resource: ../Controller
     name_prefix: categories.
     prefix: /categories

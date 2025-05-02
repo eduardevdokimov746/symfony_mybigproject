@@ -6,7 +6,7 @@ namespace App\Ship\Helper;
 
 use App\Container\User\Entity\Doc\User;
 use App\Ship\Exception\UserNotAuthException;
-use Symfony\Component\Security\Core\Security as SymfonySecurity;
+use Symfony\Bundle\SecurityBundle\Security as SymfonySecurity;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 class Security

@@ -1,6 +1,6 @@
 group:
     resource: ../Controller
-    type: annotation
+    type: attribute
     prefix: /profile
     name_prefix: profile.
     trailing_slash_on_root: false

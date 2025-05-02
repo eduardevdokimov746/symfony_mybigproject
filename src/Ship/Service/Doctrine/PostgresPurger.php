@@ -22,7 +22,7 @@ class PostgresPurger implements ORMPurgerInterface
         'doctrine_migration_versions',
     ];
 
-    public function setEntityManager(EntityManagerInterface $em)
+    public function setEntityManager(EntityManagerInterface $em): void
     {
         $this->entityManager = $em;
     }

@@ -21,9 +21,9 @@ class ProfileFixture extends Fixture implements DependentFixtureInterface
 
     public function load(ObjectManager $manager): void
     {
-        $defaultUser = $this->getReference(UserFixture::REFERENCE);
-        $admin = $this->getReference(UserFixture::REFERENCE_ADMIN);
-        $inactiveUser = $this->getReference(UserFixture::INACTIVE);
+        $defaultUser = $this->getReference(UserFixture::REFERENCE, User::class);
+        $admin = $this->getReference(UserFixture::REFERENCE_ADMIN, User::class);
+        $inactiveUser = $this->getReference(UserFixture::INACTIVE, User::class);
 
         /** @var User */
         foreach ([$defaultUser, $admin, $inactiveUser] as $user) {
@@ -48,7 +48,7 @@ class ProfileFixture extends Fixture implements DependentFixtureInterface
         $manager->flush();
     }
 
-    public function getDependencies()
+    public function getDependencies(): array
     {
         return [UserFixture::class];
     }

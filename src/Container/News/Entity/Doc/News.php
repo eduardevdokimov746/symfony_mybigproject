@@ -6,6 +6,7 @@ namespace App\Container\News\Entity\Doc;
 
 use App\Container\News\Data\Repository\NewsRepository;
 use App\Container\User\Entity\Doc\User;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
@@ -40,6 +41,14 @@ class News
 
     #[ORM\Column(name: 'published_at', type: 'datetime_immutable', nullable: true, options: ['default' => null])]
     private ?string $publishedAt;
+
+    #[Gedmo\Timestampable(on: 'create')]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    protected $createdAt;
+
+    #[Gedmo\Timestampable(on: 'update')]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    protected $updatedAt;
 
     public function __construct(string $title, string $content, string $image, User $author)
     {

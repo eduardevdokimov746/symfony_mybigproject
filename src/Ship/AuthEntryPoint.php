@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Http\EntryPoint\AuthenticationEntryPointInterface;
+use Symfony\Component\HttpFoundation\Response;
 
 class AuthEntryPoint implements AuthenticationEntryPointInterface
 {
@@ -17,7 +18,7 @@ class AuthEntryPoint implements AuthenticationEntryPointInterface
     ) {
     }
 
-    public function start(Request $request, AuthenticationException $authException = null)
+    public function start(Request $request, ?AuthenticationException $authException = null): Response
     {
         $route = str_contains($request->getPathInfo(), 'admin') ? 'admin.auth.login' : 'auth.login';
 

@@ -19,19 +19,24 @@ class ExceptionNormalizer implements NormalizerInterface
      *
      * @phpstan-ignore-next-line
      */
-    public function normalize(mixed $object, string $format = null, array $context = []): array
+    public function normalize(mixed $data, ?string $format = null, array $context = []): array
     {
         return [
-            'code' => $object->getStatusCode(),
-            'message' => $object->getMessage(),
+            'code' => $data->getStatusCode(),
+            'message' => $data->getMessage(),
         ];
     }
 
     /**
      * @param array<string, mixed> $context
      */
-    public function supportsNormalization(mixed $data, string $format = null, array $context = []): bool
+    public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
         return $data instanceof FlattenException;
+    }
+
+    public function getSupportedTypes(?string $format): array
+    {
+        return ['*'];
     }
 }
